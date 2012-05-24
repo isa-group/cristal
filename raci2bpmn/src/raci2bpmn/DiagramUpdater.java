@@ -8,8 +8,10 @@ import bpmn.BPMNDiagram;
 import bpmn.BPMNPlane;
 import bpmn.BPMNShape;
 import bpmn.DiagramElement;
+import bpmn.ObjectFactory;
 import bpmn.TDefinitions;
 import bpmn.TFlowNode;
+import bpmn.TStartEvent;
 
 public class DiagramUpdater {
 
@@ -28,6 +30,13 @@ public class DiagramUpdater {
 	public void updateShape(TFlowNode bpmnFlowNode, ShapeUpdater updater) {
 		for (BPMNDiagram diagram : diagrams) {
 			updatePlane(diagram.getBPMNPlane(), bpmnFlowNode, updater);
+		}
+		
+	}
+	
+	public void addShape(BPMNShape newElem) {
+		for (BPMNDiagram diagram : diagrams) {
+			addShape(diagram.getBPMNPlane(), newElem);
 		}
 		
 	}
@@ -50,6 +59,11 @@ public class DiagramUpdater {
 			updater.update(shape);
 		}
 
+	}
+	
+	private void addShape(BPMNPlane plane, BPMNShape newElem) {
+		List<JAXBElement<? extends DiagramElement>> diagramElements = plane.getDiagramElement();
+		diagramElements.add(new ObjectFactory().createBPMNShape(newElem));
 	}
 
 }

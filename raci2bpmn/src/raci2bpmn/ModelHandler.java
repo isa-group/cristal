@@ -45,6 +45,10 @@ public class ModelHandler {
 
 		for (TTask task : tasks) {
 			TSubProcess subprocess = conversor.createSubProcess(task);
+			
+			//new code
+			subprocess = conversor.insertRASCI(diagramUpdater);
+			
 			handler.removeTask(task);
 			handler.addSubprocess(subprocess);
 			

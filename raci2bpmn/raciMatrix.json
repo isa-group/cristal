@@ -1,0 +1,25 @@
+{ 
+"bp" : "ejemplo",
+"activities" : [ 
+	{
+	"activityName" : "A",
+	"responsible" : "ProjectsPhDStudent",
+	"accountable" : "ProjectManager",
+	"support" : [ 
+	{
+		"participant" : "PhDThesisSupervisor"
+	}
+	],
+	"consulted" : [ 
+	{
+		"participant" : "ProjectTechnician"
+	}
+	],
+	"informed" : [ 
+	{
+		"participant" : "ProjectCoordinator"
+	}
+	]
+	}
+]
+}
