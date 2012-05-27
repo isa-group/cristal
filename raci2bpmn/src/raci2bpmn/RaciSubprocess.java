@@ -9,6 +9,7 @@ import javax.xml.namespace.QName;
 import raci.BoundedRole;
 import raci.RaciActivity;
 import bpmn.ObjectFactory;
+import bpmn.TActivity;
 import bpmn.TEndEvent;
 import bpmn.TExclusiveGateway;
 import bpmn.TExtensionElements;
@@ -69,6 +70,8 @@ public class RaciSubprocess {
 	}
 	
 	public void buildSubprocess(RaciActivity raci) {
+		addAssignmentExpression(subprocess,  raci.getResponsible());
+		
 		lastElement = addStartEvent();
 		TExclusiveGateway accountableGateway = null;
 		TTask responsible = null;
@@ -144,7 +147,7 @@ public class RaciSubprocess {
 		TUserTask decideSupport = new TUserTask();
 		decideSupport.setId(IdGenerator.createId());
 		decideSupport.setName("Decide if "+helpType +" from "+role.getRole()+" is required for task " + subprocess.getName());
-		addAssignmentExpression(decideSupport, "IS PERSON WHO DID "+responsibleTask.getName());
+		addAssignmentExpression(decideSupport, "IS PERSON WHO DID "+subprocess.getName());
 		subprocess.getFlowElement().add(objectFactory.createUserTask(decideSupport));
 		
 		TExclusiveGateway decisionGateway = new TExclusiveGateway();
@@ -162,7 +165,7 @@ public class RaciSubprocess {
 		TUserTask assessSupport = new TUserTask();
 		assessSupport.setId(IdGenerator.createId());
 		assessSupport.setName("Assess "+helpType+" for task " + subprocess.getName() + " by " + role.getRole());
-		addAssignmentExpression(assessSupport, "IS PERSON WHO DID "+responsibleTask.getName());
+		addAssignmentExpression(assessSupport, "IS PERSON WHO DID "+subprocess.getName());
 		subprocess.getFlowElement().add(objectFactory.createUserTask(assessSupport));
 		
 		addSequenceFlow(lastElement, backGateway);
@@ -215,7 +218,7 @@ public class RaciSubprocess {
 		TSendTask inform = new TSendTask();
 		inform.setId(IdGenerator.createId());
 		inform.setName("Inform role "+ informedRole.getRole() +" about task " + subprocess.getName());
-		addAssignmentExpression(inform, "IS PERSON WHO DID "+responsibleTask.getName());
+		addAssignmentExpression(inform, "IS PERSON WHO DID "+subprocess.getName());
 		subprocess.getFlowElement().add(objectFactory.createSendTask(inform));
 		
 		TParticipant participant = new TParticipant();
@@ -225,8 +228,8 @@ public class RaciSubprocess {
 		
 		TMessageFlow flow = new TMessageFlow();
 		
-		flow.setSourceRef(new QName("http://www.signavio.com/bpmn20",inform.getId()));
-		flow.setTargetRef(new QName("http://www.signavio.com/bpmn20",participant.getId()));
+		flow.setSourceRef(new QName(inform.getId()));
+		flow.setTargetRef(new QName(participant.getId()));
 		messageFlows.add(flow);		
 		
 		return inform;
@@ -257,7 +260,7 @@ public class RaciSubprocess {
 		task.setId(IdGenerator.createId());		
 		task.setName("Perform task "+subprocess.getName());
 		
-		addAssignmentExpression(task, responsible);
+		addAssignmentExpression(task, "IS PERSON WHO DID "+subprocess.getName());
 		
 		subprocess.getFlowElement().add(objectFactory.createTask(task));
 		addSequenceFlow(lastElement, task);
@@ -276,12 +279,12 @@ public class RaciSubprocess {
 		return resourceRole;
 	}
 	
-	private void addAssignmentExpression(TTask task, BoundedRole role) {
+	private void addAssignmentExpression(TActivity task, BoundedRole role) {
 		TResourceRole resourceRole = buildAssignmentExpression(role.getAssignmentExpression());		
 		task.getResourceRole().add(objectFactory.createPotentialOwner((TPotentialOwner)resourceRole));
 	}
 	
-	private void addAssignmentExpression(TTask task, String ralExpression) {
+	private void addAssignmentExpression(TActivity task, String ralExpression) {
 		TResourceRole resourceRole = buildAssignmentExpression(ralExpression);		
 		task.getResourceRole().add(objectFactory.createResourceRole(resourceRole));		
 	}
