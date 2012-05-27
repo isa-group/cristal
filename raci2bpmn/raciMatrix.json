@@ -1,25 +1,18 @@
 { 
 "bp" : "ejemplo",
 "activities" : [ 
-	{
-	"activityName" : "A",
-	"responsible" : "ProjectsPhDStudent",
-	"accountable" : "ProjectManager",
-	"support" : [ 
-	{
-		"participant" : "PhDThesisSupervisor"
-	}
-	],
-	"consulted" : [ 
-	{
-		"participant" : "ProjectTechnician"
-	}
-	],
-	"informed" : [ 
-	{
-		"participant" : "ProjectCoordinator"
-	}
-	]
+	{	"activityName" : "A",
+		"responsible" : { "role": "ProjectsPhDStudent", "bindingExpression": ""},
+		"accountable" : { "role": "ProjectManager", "bindingExpression": "HAS UNIT IN DATA FIELD TravelAuthorization.Project" },
+		"support" : [ 
+			{ "role" : "PhDThesisSupervisor" }
+		],
+		"consulted" : [ 
+			{ "role" : "ProjectTechnician" }
+		],
+		"informed" : [ 
+			{ "role" : "ProjectCoordinator"	}
+		]
 	}
 ]
 }

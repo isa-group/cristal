@@ -9,24 +9,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MatrixHandler {
 	
-	public void loadMatrix (String matrixFile)
+	public RaciMatrix loadMatrix (String matrixFile)
 	{
+		RaciMatrix matrix = null;
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			RaciMatrix matrix = mapper.readValue(new File(matrixFile), RaciMatrix.class);
+			matrix = mapper.readValue(new File(matrixFile), RaciMatrix.class);
 			
 			System.out.println("BP: "+matrix.getBp());
-			for (ActivityEntry a : matrix.getActivities()) {
+			for (RaciActivity a : matrix.getActivities()) {
 				System.out.println("Responsible: "+a.getResponsible());
 				System.out.println("Accountable: "+a.getAccountable());
-				for (Participant s : a.getSupport()) {
-					System.out.println("Support: "+ s.getParticipant());
+				for (BoundedRole s : a.getSupport()) {
+					System.out.println("Support: "+ s.getRole());
 				}
-				for (Participant c : a.getConsulted()) {
-					System.out.println("Consulted: "+ c.getParticipant());
+				for (BoundedRole c : a.getConsulted()) {
+					System.out.println("Consulted: "+ c.getRole());
 				}
-				for (Participant i : a.getInformed()) {
-					System.out.println("Informed: "+ i.getParticipant());
+				for (BoundedRole i : a.getInformed()) {
+					System.out.println("Informed: "+ i.getRole());
 				}
 			}			
 		} catch (JsonParseException e) {
@@ -39,6 +40,8 @@ public class MatrixHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return matrix;
 		
 	}
 

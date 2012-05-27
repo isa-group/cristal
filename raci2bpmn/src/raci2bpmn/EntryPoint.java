@@ -1,6 +1,7 @@
 package raci2bpmn;
 
 import raci.MatrixHandler;
+import raci.RaciMatrix;
 
 
 public class EntryPoint {
@@ -11,9 +12,9 @@ public class EntryPoint {
 	public static void main(String[] args) {
 		ModelHandler handler = new ModelHandler();
 		MatrixHandler matrixHandler = new MatrixHandler();
-		matrixHandler.loadMatrix("raciMatrix.json");
+		RaciMatrix matrix = matrixHandler.loadMatrix("raciMatrix.json");
 		handler.loadModel("ejemplo.bpmn");
-		handler.handleProcess();
+		handler.transformProcess(matrix);
 		handler.saveModel("result.bpmn");
 
 	}
