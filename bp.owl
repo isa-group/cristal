@@ -26,6 +26,17 @@
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
     // Object Properties
     //
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -39,6 +50,15 @@
     <ObjectProperty rdf:about="&bp;hasActivity">
         <rdfs:range rdf:resource="&bp;Activity"/>
         <rdfs:domain rdf:resource="&bp;BusinessProcess"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#hasBPExecution -->
+
+    <ObjectProperty rdf:about="&bp;hasBPExecution">
+        <rdfs:range rdf:resource="&bp;BusinessProcess"/>
+        <rdfs:domain rdf:resource="&bp;History"/>
     </ObjectProperty>
     
 
@@ -103,12 +123,32 @@
     
 
 
-    <!-- http://www.isa.us.es/cristal/bp.owl#isPotentialOwner -->
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
 
-    <ObjectProperty rdf:about="&bp;isPotentialOwner">
-        <rdfs:range rdf:resource="&bp;Activity"/>
-        <rdfs:domain rdf:resource="&organization;Person"/>
-    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#endsExecutionDate -->
+
+    <DatatypeProperty rdf:about="&bp;endsExecutionDate">
+        <rdfs:domain rdf:resource="&bp;Activity"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </DatatypeProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#startsExecutionDate -->
+
+    <DatatypeProperty rdf:about="&bp;startsExecutionDate">
+        <rdfs:domain rdf:resource="&bp;Activity"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </DatatypeProperty>
     
 
 
@@ -177,6 +217,25 @@
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#hist -->
+
+    <NamedIndividual rdf:about="&bp;hist">
+        <rdf:type rdf:resource="&bp;History"/>
+    </NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
     // General axioms
     //
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -189,6 +248,7 @@
             <rdf:Description rdf:about="&bp;BusinessProcess"/>
             <rdf:Description rdf:about="&bp;DataField"/>
             <rdf:Description rdf:about="&bp;DataObject"/>
+            <rdf:Description rdf:about="&bp;History"/>
             <rdf:Description rdf:about="&organization;Capability"/>
             <rdf:Description rdf:about="&organization;OrganizationalUnit"/>
             <rdf:Description rdf:about="&organization;Person"/>
