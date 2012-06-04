@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY bp "http://www.isa.us.es/cristal/bp.owl#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY organization "http://www.isa.us.es/cristal/organization.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:bp="http://www.isa.us.es/cristal/bp.owl#"
+     xmlns:organization="http://www.isa.us.es/cristal/organization.owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <Ontology rdf:about="http://www.isa.us.es/cristal/bp.owl">
+        <imports rdf:resource="http://www.isa.us.es/cristal/organization.owl"/>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#hasActivity -->
+
+    <ObjectProperty rdf:about="&bp;hasActivity">
+        <rdfs:range rdf:resource="&bp;Activity"/>
+        <rdfs:domain rdf:resource="&bp;BusinessProcess"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#hasDataField -->
+
+    <ObjectProperty rdf:about="&bp;hasDataField">
+        <rdfs:range rdf:resource="&bp;DataField"/>
+        <rdfs:domain rdf:resource="&bp;DataObject"/>
+        <inverseOf rdf:resource="&bp;isDataFieldOf"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#hasInputDataObject -->
+
+    <ObjectProperty rdf:about="&bp;hasInputDataObject">
+        <rdfs:domain rdf:resource="&bp;Activity"/>
+        <rdfs:range rdf:resource="&bp;DataObject"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#hasPerformer -->
+
+    <ObjectProperty rdf:about="&bp;hasPerformer">
+        <rdfs:domain rdf:resource="&bp;Activity"/>
+        <rdfs:range rdf:resource="&organization;Person"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#isActivityOf -->
+
+    <ObjectProperty rdf:about="&bp;isActivityOf">
+        <inverseOf rdf:resource="&bp;hasActivity"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#isDataFieldOf -->
+
+    <ObjectProperty rdf:about="&bp;isDataFieldOf"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#isInputDataObjectOf -->
+
+    <ObjectProperty rdf:about="&bp;isInputDataObjectOf">
+        <inverseOf rdf:resource="&bp;hasInputDataObject"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#isPerformerOf -->
+
+    <ObjectProperty rdf:about="&bp;isPerformerOf">
+        <rdfs:range rdf:resource="&bp;Activity"/>
+        <inverseOf rdf:resource="&bp;hasPerformer"/>
+        <rdfs:domain rdf:resource="&organization;Person"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#isPotentialOwner -->
+
+    <ObjectProperty rdf:about="&bp;isPotentialOwner">
+        <rdfs:range rdf:resource="&bp;Activity"/>
+        <rdfs:domain rdf:resource="&organization;Person"/>
+    </ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#Activity -->
+
+    <Class rdf:about="&bp;Activity">
+        <equivalentClass>
+            <Restriction>
+                <onProperty rdf:resource="&bp;hasPerformer"/>
+                <onClass rdf:resource="&organization;Person"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </equivalentClass>
+        <equivalentClass>
+            <Restriction>
+                <onProperty rdf:resource="&bp;hasInputDataObject"/>
+                <someValuesFrom rdf:resource="&bp;DataObject"/>
+            </Restriction>
+        </equivalentClass>
+    </Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#BusinessProcess -->
+
+    <Class rdf:about="&bp;BusinessProcess"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#DataField -->
+
+    <Class rdf:about="&bp;DataField"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#DataObject -->
+
+    <Class rdf:about="&bp;DataObject">
+        <equivalentClass>
+            <Restriction>
+                <onProperty rdf:resource="&bp;hasDataField"/>
+                <someValuesFrom rdf:resource="&bp;DataField"/>
+            </Restriction>
+        </equivalentClass>
+    </Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#History -->
+
+    <Class rdf:about="&bp;History"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&bp;Activity"/>
+            <rdf:Description rdf:about="&bp;BusinessProcess"/>
+            <rdf:Description rdf:about="&bp;DataField"/>
+            <rdf:Description rdf:about="&bp;DataObject"/>
+            <rdf:Description rdf:about="&organization;Capability"/>
+            <rdf:Description rdf:about="&organization;OrganizationalUnit"/>
+            <rdf:Description rdf:about="&organization;Person"/>
+            <rdf:Description rdf:about="&organization;Position"/>
+            <rdf:Description rdf:about="&organization;Role"/>
+        </members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1785) http://owlapi.sourceforge.net -->
+
