@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:ns2="http://www.omg.org/spec/DD/20100524/DI" xmlns:ns3="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:ns4="http://www.omg.org/spec/BPMN/20100524/DI" id="sid-13791c4b-8da9-4860-a598-44a9c639493b"
+	targetNamespace="http://www.signavio.com/bpmn20" expressionLanguage="http://www.w3.org/1999/XPath"
+	typeLanguage="http://www.w3.org/2001/XMLSchema" exporter="Signavio Proess Editor, http://www.signavio.com"
+	exporterVersion="6.0.0">
+	<process isExecutable="false"
+		id="sid-872fbccf-3771-4a1a-badc-e8be38f0d567">
+		<startEvent name="" id="sid-33332B41-A52A-4218-AB60-C788B5B48FE2">
+			<extensionElements>
+				<signavio:signavioMetaData xmlns:signavio="http://www.signavio.com"
+					xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+					xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" metaKey="bgcolor"
+					metaValue="#ffffff" />
+			</extensionElements>
+			<outgoing>sid-2F875850-9EDF-4FD0-B7E8-C913CE5D4CB1</outgoing>
+		</startEvent>
+		<task isForCompensation="false" startQuantity="1"
+			completionQuantity="1" name="B"
+			id="sid-B139886D-7B5C-4D22-828B-9BC9399C5FE1">
+			<extensionElements>
+				<signavio:signavioMetaData xmlns:signavio="http://www.signavio.com"
+					xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+					xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" metaKey="bgcolor"
+					metaValue="#ffffcc" />
+			</extensionElements>
+			<incoming>sid-642BBC80-E0AB-41AD-A033-475031E3E2C4</incoming>
+			<outgoing>sid-86B70ABA-AB19-4AFC-8DEB-852CA81F94F5</outgoing>
+		</task>
+		<endEvent name="" id="sid-926B71EE-AD2B-4B0D-9E67-74C2BE1CA3FE">
+			<extensionElements>
+				<signavio:signavioMetaData xmlns:signavio="http://www.signavio.com"
+					xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+					xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" metaKey="bgcolor"
+					metaValue="#ffffff" />
+			</extensionElements>
+			<incoming>sid-86B70ABA-AB19-4AFC-8DEB-852CA81F94F5</incoming>
+		</endEvent>
+		<sequenceFlow sourceRef="sid-33332B41-A52A-4218-AB60-C788B5B48FE2"
+			targetRef="sid-B4FF6420-86C6-4DD2-806C-A0B08090183F" name=""
+			id="sid-2F875850-9EDF-4FD0-B7E8-C913CE5D4CB1" />
+		<sequenceFlow sourceRef="sid-B4FF6420-86C6-4DD2-806C-A0B08090183F"
+			targetRef="sid-B139886D-7B5C-4D22-828B-9BC9399C5FE1" name=""
+			id="sid-642BBC80-E0AB-41AD-A033-475031E3E2C4" />
+		<sequenceFlow sourceRef="sid-B139886D-7B5C-4D22-828B-9BC9399C5FE1"
+			targetRef="sid-926B71EE-AD2B-4B0D-9E67-74C2BE1CA3FE" name=""
+			id="sid-86B70ABA-AB19-4AFC-8DEB-852CA81F94F5" />
+		<dataObject name="glossary://f8a0e73982824a9b83bb3c41ba0d1d55/Researcher;;"
+			id="sid-745FC641-91B7-45F6-B8DE-C2CF85BF9B61">
+			<extensionElements>
+				<signavio:signavioType xmlns:signavio="http://www.signavio.com"
+					xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+					xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					dataObjectType="ProcessParticipant" />
+				<signavio:signavioMetaData xmlns:signavio="http://www.signavio.com"
+					xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+					xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" metaKey="bgcolor"
+					metaValue="#ffffff" />
+			</extensionElements>
+		</dataObject>
+		<dataObject isCollection="false" name="Dato"
+			id="sid-0D5600C1-ED41-4C91-A764-17D4E909172E">
+			<extensionElements>
+				<signavio:signavioMetaData xmlns:signavio="http://www.signavio.com"
+					xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+					xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" metaKey="bgcolor"
+					metaValue="#ffffff" />
+			</extensionElements>
+		</dataObject>
+		<subProcess name="A" id="sid-B4FF6420-86C6-4DD2-806C-A0B08090183F">
+			<startEvent name="Sub-prcess Start" id="id-0">
+				<extensionElements />
+			</startEvent>
+			<task name="Perform task A" id="id-1">
+				<resourceRole>
+					<resourceAssignmentExpression>
+						<formalExpression language="RAL">HAS ROLE
+							ProjectsPhDStudent AND </formalExpression>
+					</resourceAssignmentExpression>
+				</resourceRole>
+			</task>
+			<sequenceFlow sourceRef="id-0" targetRef="id-1" />
+			<endEvent id="id-2" />
+			<sequenceFlow sourceRef="id-1" targetRef="id-2" />
+		</subProcess>
+		<association sourceRef="sid-745FC641-91B7-45F6-B8DE-C2CF85BF9B61"
+			targetRef="sid-B4FF6420-86C6-4DD2-806C-A0B08090183F"
+			associationDirection="None" id="sid-02783639-9DA5-4912-9A6B-84EF971D527C" />
+	</process>
+
+</definitions>

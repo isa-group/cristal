@@ -1,0 +1,23 @@
+{ 
+"bp" : "StartBP",
+"activities" : [ 
+	{	"activityName" : "Write Paper",
+		"responsible" : { "role": "PhDStudent"},
+		"accountable" : { "role": "PhDSupervisor", "bindingExpression": "HAS UNIT IN DATA FIELD PhDStudentInfo.Supervisor" },
+		"support" : [ 
+			{ "role" : "PhDSupervisor", "bindingExpression": "HAS UNIT IN DATA FIELD PhDStudentInfo.Supervisor" }
+		],
+		"consulted" : [ ],
+		"informed" : [ 	]
+	},
+    {	"activityName" : "Submit Paper",
+		"responsible" : { "role": "PhDStudent", "bindingExpression": "IS PERSON WHO DID ACTIVITY WritePaper"},
+		"accountable" : { "role": "PhDStudent", "bindingExpression": "IS PERSON WHO DID ACTIVITY WritePaper" },
+		"support" : [ ],
+		"consulted" : [	],
+		"informed" : [ 
+			{ "role" : "PhDStudent", "bindingExpression": "HAS UNIT IN DATA FIELD PhDStudentInfo.Supervisor" }
+		]
+	}
+]
+}
