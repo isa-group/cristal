@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -11,7 +13,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import raci.RaciActivity;
 import raci.RaciMatrix;
@@ -27,7 +28,7 @@ public class ModelHandler {
 	private JAXBContext jc;
 
 	public ModelHandler() {
-		// Obtenemos un contexto para jaxb seleccionando el paquete donde est‡n
+		// Obtenemos un contexto para jaxb seleccionando el paquete donde estï¿½n
 		// las clases generadas por xjc
 		try {
 			jc = JAXBContext.newInstance("bpmn");
@@ -42,49 +43,54 @@ public class ModelHandler {
 
 		ProcessHandler handler = new ProcessHandler(definitions);
 		DiagramUpdater diagramUpdater = new DiagramUpdater(definitions);
-		CollaborationHandler collabHandler = new CollaborationHandler(definitions);
-		//TaskToSubProcess conversor = new TaskToSubProcess();
+		CollaborationHandler collabHandler = new CollaborationHandler(
+				definitions);
+		// TaskToSubProcess conversor = new TaskToSubProcess();
 
 		List<TTask> tasks = handler.getTasks();
 
 		for (TTask task : tasks) {
-			RaciActivity raciActivity = matrix.getActivityByName(task.getName());
+			RaciActivity raciActivity = matrix
+					.getActivityByName(task.getName());
 
 			if (raciActivity != null) {
 				RaciSubprocess conversor = new RaciSubprocess(task);
 				conversor.buildSubprocess(raciActivity);
-				
-				TSubProcess subprocess = conversor.getSubprocess(); 
+
+				TSubProcess subprocess = conversor.getSubprocess();
 
 				handler.removeTask(task);
 				handler.addSubprocess(subprocess);
 
 				// Busca el BPMNShape que corresponde al flownode subprocess y
-				// lo actualiza segœn indique ShapeUpdater.
+				// lo actualiza segï¿½n indique ShapeUpdater.
 				diagramUpdater.updateShape(subprocess, new ShapeUpdater() {
 					@Override
 					public void update(BPMNShape shape) {
 						shape.setIsExpanded(false);
 					}
 				});
-				
+
 				collabHandler.addParticipants(conversor.getParticipants());
 				collabHandler.addMessageFlows(conversor.getMessageFlows());
 			}
 		}
 	}
 
-	public void loadModel(String bpmnFile) {
-
+	public void loadModel(InputStream input) {
 		try {
 			// Creamos un unmarshaller
 			Unmarshaller u = jc.createUnmarshaller();
-
 			// Leemos el XML obteniendo el elemento raiz como un JAXBElement
-			bpmnModel = (JAXBElement<?>) u.unmarshal(new FileInputStream(
-					bpmnFile));
+			bpmnModel = (JAXBElement<?>) u.unmarshal(input);
 		} catch (JAXBException je) {
 			je.printStackTrace();
+		}
+	}
+
+	public void loadModelFile(String bpmnFile) {
+		try {
+			loadModel(new FileInputStream(bpmnFile));
 		} catch (IOException io) {
 			io.printStackTrace();
 		}
@@ -102,6 +108,24 @@ public class ModelHandler {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getModel() {
+		String model = "";
+
+		try {
+			// Creamos un marshaller
+			Marshaller m = jc.createMarshaller();
+			StringWriter sw = new StringWriter();
+			// Guardamos el modelo en un XML
+			m.marshal(bpmnModel, sw);
+
+			model = sw.toString();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+
+		return model;
 	}
 
 }
