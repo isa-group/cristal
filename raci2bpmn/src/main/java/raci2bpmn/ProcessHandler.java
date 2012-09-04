@@ -12,6 +12,7 @@ import bpmn.TProcess;
 import bpmn.TRootElement;
 import bpmn.TSubProcess;
 import bpmn.TTask;
+import bpmn.TUserTask;
 
 public class ProcessHandler {
 	
@@ -25,6 +26,8 @@ public class ProcessHandler {
 				process = (TProcess) elem.getValue();
 		}
 	}
+	
+
 	
 	public void addSubprocess(TSubProcess subprocess) {
 		JAXBElement<TSubProcess> elem = (new ObjectFactory()).createSubProcess(subprocess);
@@ -59,4 +62,16 @@ public class ProcessHandler {
 		return result;
 	}
 
+	public List<TUserTask> getUserTasks() {
+		List<TUserTask> result = new ArrayList<TUserTask>();
+		List<JAXBElement<? extends TFlowElement>> flowElements = process.getFlowElement();
+		for (JAXBElement<? extends TFlowElement> elem: flowElements) {
+			System.out.println(elem.getDeclaredType().getName());
+			TFlowElement flowElement = elem.getValue();
+			if (flowElement instanceof TUserTask) {
+				result.add((TUserTask) flowElement);
+			}
+		}
+		return result;
+	}
 }

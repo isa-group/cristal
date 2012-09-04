@@ -1,12 +1,12 @@
 package raci2bpmn;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -14,13 +14,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import raci.RaciActivity;
-import raci.RaciMatrix;
-import raci2bpmn.DiagramUpdater.ShapeUpdater;
-import bpmn.BPMNShape;
 import bpmn.TDefinitions;
-import bpmn.TSubProcess;
-import bpmn.TTask;
 
 public class ModelHandler {
 
@@ -28,52 +22,12 @@ public class ModelHandler {
 	private JAXBContext jc;
 
 	public ModelHandler() {
-		// Obtenemos un contexto para jaxb seleccionando el paquete donde est�n
+		// Obtenemos un contexto para jaxb seleccionando el paquete donde estan
 		// las clases generadas por xjc
 		try {
 			jc = JAXBContext.newInstance("bpmn");
 		} catch (JAXBException e) {
 			e.printStackTrace();
-		}
-	}
-
-	public void transformProcess(RaciMatrix matrix) {
-		// Obtenemos el elemento raiz a partir del JAXBElement
-		TDefinitions definitions = (TDefinitions) bpmnModel.getValue();
-
-		ProcessHandler handler = new ProcessHandler(definitions);
-		DiagramUpdater diagramUpdater = new DiagramUpdater(definitions);
-		CollaborationHandler collabHandler = new CollaborationHandler(
-				definitions);
-		// TaskToSubProcess conversor = new TaskToSubProcess();
-
-		List<TTask> tasks = handler.getTasks();
-
-		for (TTask task : tasks) {
-			RaciActivity raciActivity = matrix
-					.getActivityByName(task.getName());
-
-			if (raciActivity != null) {
-				RaciSubprocess conversor = new RaciSubprocess(task);
-				conversor.buildSubprocess(raciActivity);
-
-				TSubProcess subprocess = conversor.getSubprocess();
-
-				handler.removeTask(task);
-				handler.addSubprocess(subprocess);
-
-				// Busca el BPMNShape que corresponde al flownode subprocess y
-				// lo actualiza seg�n indique ShapeUpdater.
-				diagramUpdater.updateShape(subprocess, new ShapeUpdater() {
-					@Override
-					public void update(BPMNShape shape) {
-						shape.setIsExpanded(false);
-					}
-				});
-
-				collabHandler.addParticipants(conversor.getParticipants());
-				collabHandler.addMessageFlows(conversor.getMessageFlows());
-			}
 		}
 	}
 
@@ -89,11 +43,19 @@ public class ModelHandler {
 	}
 
 	public void loadModelFile(String bpmnFile) {
+		loadModelFile(new File(bpmnFile));
+	}
+	
+	public void loadModelFile(File bpmnFile) {
 		try {
 			loadModel(new FileInputStream(bpmnFile));
 		} catch (IOException io) {
 			io.printStackTrace();
-		}
+		}		
+	}
+	
+	public TDefinitions getDefinitions() {
+		return (TDefinitions) bpmnModel.getValue();
 	}
 
 	public void saveModel(String filename) {

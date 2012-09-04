@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import raci.MatrixHandler;
 import raci.RaciMatrix;
 import raci2bpmn.ModelHandler;
+import raci2bpmn.Raci2Bpmn;
 
 @Path("/api/raci2bpmn")
 public class Raci2BpmnResource {
@@ -29,7 +30,8 @@ public class Raci2BpmnResource {
 		
 		InputStream is = new ByteArrayInputStream(bpmn.getBytes());
 		handler.loadModel(is);
-		handler.transformProcess(matrix);
+		Raci2Bpmn transformer = new Raci2Bpmn();
+		transformer.transformProcess(handler, matrix);
 		
 		return handler.getModel();
 	}

@@ -14,7 +14,8 @@ public class EntryPoint {
 		MatrixHandler matrixHandler = new MatrixHandler();
 		RaciMatrix matrix = matrixHandler.loadMatrixFile("completeRaciMatrix.json");
 		handler.loadModelFile("initialBP.bpmn");
-		handler.transformProcess(matrix);
+		Raci2Bpmn transformer = new Raci2Bpmn();
+		transformer.transformProcess(handler,matrix);
 		handler.saveModel("resultBP.bpmn");
 
 	}
