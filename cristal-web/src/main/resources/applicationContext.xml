@@ -14,6 +14,13 @@
 	<context:component-scan base-package="es.us.isa" />
 	
 	<bean id="raci2bpmnResource" class="es.us.isa.cristal.web.Raci2BpmnResource"/>
+	<bean id="repositoryResource" class="es.us.isa.cristal.web.RepositoryResource">
+<!-- 		<property name="directory" value="/Users/resinas/Sandbox/signavio"/> -->
+		<property name="directory" value="/var/lib/tomcat6/cristal"/>
+<!-- 		<property name="resourcesDirectory" value="/Users/resinas/Sandbox/signavio-res"/> -->
+		<property name="resourcesDirectory" value="/var/lib/tomcat6/cristal-raci"/>
+		<property name="editorUrl" value="http://labs.isa.us.es:8080/signaviocore"/>
+	</bean>
 
 	<!-- <bean id="customerBo" class="isa.CustomerRepositoryImpl"> -->
 	<!-- </bean> -->
