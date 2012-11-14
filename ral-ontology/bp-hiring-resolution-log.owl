@@ -7,6 +7,7 @@
     <!ENTITY bp "http://www.isa.us.es/cristal/bp.owl#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY AbstractBP "http://www.isa.us.es/ontologies/AbstractBP.owl#" >
     <!ENTITY organization-iaap "http://www.isa.us.es/cristal/organization-iaap.owl#" >
     <!ENTITY bp-hiring-resolution "http://www.isa.us.es/cristal/bp-hiring-resolution.owl#" >
 ]>
@@ -16,6 +17,7 @@
      xml:base="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:bp="http://www.isa.us.es/cristal/bp.owl#"
+     xmlns:AbstractBP="http://www.isa.us.es/ontologies/AbstractBP.owl#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -42,7 +44,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar1">
         <rdf:type rdf:resource="&bp-hiring-resolution;AnalyseReports"/>
-        <bp:hasPerformer rdf:resource="&organization-iaap;Alex"/>
+        <AbstractBP:hasPerformer rdf:resource="&organization-iaap;Alex"/>
     </owl:NamedIndividual>
     
 
@@ -51,7 +53,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar2">
         <rdf:type rdf:resource="&bp-hiring-resolution;AnalyseReports"/>
-        <bp:hasPerformer rdf:resource="&organization-iaap;Anna"/>
+        <AbstractBP:hasPerformer rdf:resource="&organization-iaap;Anna"/>
     </owl:NamedIndividual>
     
 
@@ -60,7 +62,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#crpd1">
         <rdf:type rdf:resource="&bp-hiring-resolution;CreateResolutionProposalDraft"/>
-        <bp:hasPerformer rdf:resource="&organization-iaap;David"/>
+        <AbstractBP:hasPerformer rdf:resource="&organization-iaap;David"/>
     </owl:NamedIndividual>
     
 
@@ -69,8 +71,8 @@
 
     <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#crpd2">
         <rdf:type rdf:resource="&bp-hiring-resolution;CreateResolutionProposalDraft"/>
-        <bp:isActivityOf rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr2"/>
-        <bp:hasPerformer rdf:resource="&organization-iaap;Daniel"/>
+        <AbstractBP:belongsToProcessInstance rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr2"/>
+        <AbstractBP:hasPerformer rdf:resource="&organization-iaap;Daniel"/>
     </owl:NamedIndividual>
     
 
@@ -81,13 +83,13 @@
         <rdf:type rdf:resource="&bp-hiring-resolution;HiringResolution"/>
         <rdf:type>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&bp;hasActivity"/>
+                <owl:onProperty rdf:resource="&AbstractBP;hasActivityInstance"/>
                 <owl:onClass rdf:resource="&bp-hiring-resolution;CreateResolutionProposalDraft"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
             </owl:Restriction>
         </rdf:type>
-        <bp:hasActivity rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar1"/>
-        <bp:hasActivity rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#crpd1"/>
+        <AbstractBP:hasActivityInstance rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar1"/>
+        <AbstractBP:hasActivityInstance rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#crpd1"/>
     </owl:NamedIndividual>
     
 
@@ -98,12 +100,12 @@
         <rdf:type rdf:resource="&bp-hiring-resolution;HiringResolution"/>
         <rdf:type>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&bp;hasActivity"/>
+                <owl:onProperty rdf:resource="&AbstractBP;hasActivityInstance"/>
                 <owl:onClass rdf:resource="&bp-hiring-resolution;CreateResolutionProposalDraft"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
             </owl:Restriction>
         </rdf:type>
-        <bp:hasActivity rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar2"/>
+        <AbstractBP:hasActivityInstance rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar2"/>
     </owl:NamedIndividual>
     
 
@@ -113,14 +115,14 @@
     <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ncrpd1">
         <rdf:type>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&bp;hasPerformer"/>
+                <owl:onProperty rdf:resource="&AbstractBP;hasPerformer"/>
                 <owl:someValuesFrom>
                     <owl:Class>
                         <owl:complementOf>
                             <owl:Restriction>
                                 <owl:onProperty>
                                     <rdf:Description>
-                                        <owl:inverseOf rdf:resource="&bp;hasPerformer"/>
+                                        <owl:inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
                                     </rdf:Description>
                                 </owl:onProperty>
                                 <owl:someValuesFrom>
@@ -130,7 +132,7 @@
                                             <owl:Restriction>
                                                 <owl:onProperty>
                                                     <rdf:Description>
-                                                        <owl:inverseOf rdf:resource="&bp;hasActivity"/>
+                                                        <owl:inverseOf rdf:resource="&AbstractBP;hasActivityInstance"/>
                                                     </rdf:Description>
                                                 </owl:onProperty>
                                                 <owl:hasValue rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
@@ -144,7 +146,7 @@
                 </owl:someValuesFrom>
             </owl:Restriction>
         </rdf:type>
-        <bp:isActivityOf rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
+        <AbstractBP:belongsToProcessInstance rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
     </owl:NamedIndividual>
     
 
@@ -155,12 +157,12 @@
         <rdf:type rdf:resource="&bp-hiring-resolution;ReviewResolutionProposal"/>
         <rdf:type>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&bp;hasPerformer"/>
+                <owl:onProperty rdf:resource="&AbstractBP;hasPerformer"/>
                 <owl:someValuesFrom>
                     <owl:Restriction>
                         <owl:onProperty>
                             <rdf:Description>
-                                <owl:inverseOf rdf:resource="&bp;hasPerformer"/>
+                                <owl:inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
                             </rdf:Description>
                         </owl:onProperty>
                         <owl:someValuesFrom>
@@ -170,7 +172,7 @@
                                     <owl:Restriction>
                                         <owl:onProperty>
                                             <rdf:Description>
-                                                <owl:inverseOf rdf:resource="&bp;hasActivity"/>
+                                                <owl:inverseOf rdf:resource="&AbstractBP;hasActivityInstance"/>
                                             </rdf:Description>
                                         </owl:onProperty>
                                         <owl:hasValue rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
@@ -182,7 +184,7 @@
                 </owl:someValuesFrom>
             </owl:Restriction>
         </rdf:type>
-        <bp:isActivityOf rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
+        <AbstractBP:belongsToProcessInstance rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
     </owl:NamedIndividual>
     
 
@@ -191,7 +193,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#rrp2">
         <rdf:type rdf:resource="&bp-hiring-resolution;ReviewResolutionProposal"/>
-        <bp:isActivityOf rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr2"/>
+        <AbstractBP:belongsToProcessInstance rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr2"/>
     </owl:NamedIndividual>
     
 
@@ -201,13 +203,13 @@
     <rdf:Description rdf:about="&bp;hist">
         <rdf:type>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="&bp;hasBPExecution"/>
+                <owl:onProperty rdf:resource="&AbstractBP;hasBPExecution"/>
                 <owl:onClass rdf:resource="&bp-hiring-resolution;HiringResolution"/>
                 <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:qualifiedCardinality>
             </owl:Restriction>
         </rdf:type>
-        <bp:hasBPExecution rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
-        <bp:hasBPExecution rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr2"/>
+        <AbstractBP:hasBPExecution rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
+        <AbstractBP:hasBPExecution rdf:resource="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr2"/>
     </rdf:Description>
     
 
@@ -223,15 +225,8 @@
     <rdf:Description>
         <rdf:type rdf:resource="&owl;AllDifferent"/>
         <owl:distinctMembers rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#rrp1"/>
-            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#rrp2"/>
-        </owl:distinctMembers>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="&owl;AllDifferent"/>
-        <owl:distinctMembers rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar1"/>
-            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar2"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr2"/>
         </owl:distinctMembers>
     </rdf:Description>
     <rdf:Description>
@@ -244,8 +239,15 @@
     <rdf:Description>
         <rdf:type rdf:resource="&owl;AllDifferent"/>
         <owl:distinctMembers rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr1"/>
-            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#hr2"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar1"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#ar2"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#rrp1"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl#rrp2"/>
         </owl:distinctMembers>
     </rdf:Description>
 </rdf:RDF>

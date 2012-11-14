@@ -1,0 +1,529 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY bp "http://www.isa.us.es/cristal/bp.owl#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY organization "http://www.isa.us.es/cristal/organization.owl#" >
+    <!ENTITY AbstractBP "http://www.isa.us.es/ontologies/AbstractBP.owl#" >
+    <!ENTITY PPIOntology "http://www.isa.us.es/ppiontology/PPIOntology.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.isa.us.es/ontologies/AbstractBP.owl#"
+     xml:base="http://www.isa.us.es/ontologies/AbstractBP.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:bp="http://www.isa.us.es/cristal/bp.owl#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:organization="http://www.isa.us.es/cristal/organization.owl#"
+     xmlns:AbstractBP="http://www.isa.us.es/ontologies/AbstractBP.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:PPIOntology="http://www.isa.us.es/ppiontology/PPIOntology.owl#">
+    <owl:Ontology rdf:about="http://www.isa.us.es/ontologies/AbstractBP.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#belongsToProcessInstance -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;belongsToProcessInstance">
+        <owl:inverseOf rdf:resource="&AbstractBP;hasActivityInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#dataOutput -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;dataOutput">
+        <rdfs:domain rdf:resource="&AbstractBP;Activity"/>
+        <rdfs:range rdf:resource="&AbstractBP;DataObject"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#directlyPrecedes -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;directlyPrecedes">
+        <rdfs:domain rdf:resource="&AbstractBP;BPElement"/>
+        <rdfs:range rdf:resource="&AbstractBP;BPElement"/>
+        <owl:inverseOf rdf:resource="&AbstractBP;directlySucceeds"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#directlySucceeds -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;directlySucceeds">
+        <rdfs:range rdf:resource="&AbstractBP;BPElement"/>
+        <rdfs:domain rdf:resource="&AbstractBP;BPElement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#hasActivityInstance -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;hasActivityInstance">
+        <rdfs:range rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:domain rdf:resource="&AbstractBP;ProcessInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#hasBPExecution -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;hasBPExecution">
+        <rdfs:domain rdf:resource="&AbstractBP;History"/>
+        <rdfs:range rdf:resource="&AbstractBP;ProcessInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#hasDataField -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;hasDataField">
+        <rdfs:domain rdf:resource="&AbstractBP;DataObjectInstance"/>
+        <rdfs:range rdf:resource="&AbstractBP;DataProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#hasInstance -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;hasInstance">
+        <rdfs:domain rdf:resource="&AbstractBP;BPElement"/>
+        <rdfs:range rdf:resource="&AbstractBP;BPElementInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#hasPerformer -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;hasPerformer">
+        <rdfs:range rdf:resource="&organization;Person"/>
+        <rdfs:domain rdf:resource="&AbstractBP;ActivityInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#hasProperty -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;hasProperty">
+        <rdfs:domain rdf:resource="&AbstractBP;DataObject"/>
+        <rdfs:range rdf:resource="&AbstractBP;DataProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#hasState -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;hasState">
+        <rdfs:domain rdf:resource="&AbstractBP;BPElementInstance"/>
+        <rdfs:range rdf:resource="&AbstractBP;RuntimeState"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#includes -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;includes">
+        <rdfs:range rdf:resource="&AbstractBP;BPElement"/>
+        <rdfs:domain rdf:resource="&AbstractBP;Process"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#instanceDirectlyPrecedes -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;instanceDirectlyPrecedes">
+        <rdfs:range rdf:resource="&AbstractBP;BPElementInstance"/>
+        <rdfs:domain rdf:resource="&AbstractBP;BPElementInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#instanceDirectlySucceeds -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;instanceDirectlySucceeds">
+        <rdfs:domain rdf:resource="&AbstractBP;BPElementInstance"/>
+        <rdfs:range rdf:resource="&AbstractBP;BPElementInstance"/>
+        <owl:inverseOf rdf:resource="&AbstractBP;instanceDirectlyPrecedes"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#isPerformerOf -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;isPerformerOf">
+        <rdfs:domain rdf:resource="&organization;Person"/>
+        <rdfs:range rdf:resource="&AbstractBP;ActivityInstance"/>
+        <owl:inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#readsDataObjectInstance -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;readsDataObjectInstance">
+        <rdfs:domain rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:range rdf:resource="&AbstractBP;DataObjectInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#writesDataObjectInstance -->
+
+    <owl:ObjectProperty rdf:about="&AbstractBP;writesDataObjectInstance">
+        <rdfs:domain rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:range rdf:resource="&AbstractBP;DataObjectInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#endsExecutionDate -->
+
+    <owl:DatatypeProperty rdf:about="&AbstractBP;endsExecutionDate">
+        <rdfs:domain rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#startsExecutionDate -->
+
+    <owl:DatatypeProperty rdf:about="&AbstractBP;startsExecutionDate">
+        <rdfs:domain rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Capability -->
+
+    <owl:Class rdf:about="&organization;Capability"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#OrganizationalUnit -->
+
+    <owl:Class rdf:about="&organization;OrganizationalUnit"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Person -->
+
+    <owl:Class rdf:about="&organization;Person"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Position -->
+
+    <owl:Class rdf:about="&organization;Position"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Role -->
+
+    <owl:Class rdf:about="&organization;Role"/>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#Activity -->
+
+    <owl:Class rdf:about="&AbstractBP;Activity">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#ActivityInstance -->
+
+    <owl:Class rdf:about="&AbstractBP;ActivityInstance">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&AbstractBP;hasPerformer"/>
+                <owl:onClass rdf:resource="&organization;Person"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElementInstance"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#ActivityState -->
+
+    <owl:Class rdf:about="&AbstractBP;ActivityState">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;RuntimeState"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#BPElement -->
+
+    <owl:Class rdf:about="&AbstractBP;BPElement"/>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#BPElementInstance -->
+
+    <owl:Class rdf:about="&AbstractBP;BPElementInstance">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#CatchingIntermediateEvent -->
+
+    <owl:Class rdf:about="&AbstractBP;CatchingIntermediateEvent">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#DataObject -->
+
+    <owl:Class rdf:about="&AbstractBP;DataObject">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#DataObjectInstance -->
+
+    <owl:Class rdf:about="&AbstractBP;DataObjectInstance">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&AbstractBP;hasDataField"/>
+                <owl:someValuesFrom rdf:resource="&AbstractBP;DataProperty"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElementInstance"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#DataProperty -->
+
+    <owl:Class rdf:about="&AbstractBP;DataProperty"/>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#DataState -->
+
+    <owl:Class rdf:about="&AbstractBP;DataState">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;RuntimeState"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#EndEvent -->
+
+    <owl:Class rdf:about="&AbstractBP;EndEvent">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#Event -->
+
+    <owl:Class rdf:about="&AbstractBP;Event">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#EventInstance -->
+
+    <owl:Class rdf:about="&AbstractBP;EventInstance">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElementInstance"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#EventState -->
+
+    <owl:Class rdf:about="&AbstractBP;EventState">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;RuntimeState"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#Gateway -->
+
+    <owl:Class rdf:about="&AbstractBP;Gateway">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#GatewayInstance -->
+
+    <owl:Class rdf:about="&AbstractBP;GatewayInstance">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElementInstance"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#History -->
+
+    <owl:Class rdf:about="&AbstractBP;History"/>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#Pool -->
+
+    <owl:Class rdf:about="&AbstractBP;Pool">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;BPElement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#Process -->
+
+    <owl:Class rdf:about="&AbstractBP;Process"/>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#ProcessInstance -->
+
+    <owl:Class rdf:about="&AbstractBP;ProcessInstance"/>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#RuntimeState -->
+
+    <owl:Class rdf:about="&AbstractBP;RuntimeState"/>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#StartEvent -->
+
+    <owl:Class rdf:about="&AbstractBP;StartEvent">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#ThrowingIntermediateEvent -->
+
+    <owl:Class rdf:about="&AbstractBP;ThrowingIntermediateEvent">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#XorGateway -->
+
+    <owl:Class rdf:about="&AbstractBP;XorGateway">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;Gateway"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/ontologies/AbstractBP.owl#XorGatewayInstance -->
+
+    <owl:Class rdf:about="&AbstractBP;XorGatewayInstance">
+        <rdfs:subClassOf rdf:resource="&AbstractBP;GatewayInstance"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp.owl#hist -->
+
+    <owl:NamedIndividual rdf:about="&bp;hist">
+        <rdf:type rdf:resource="&AbstractBP;History"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization;Capability"/>
+            <rdf:Description rdf:about="&organization;OrganizationalUnit"/>
+            <rdf:Description rdf:about="&organization;Person"/>
+            <rdf:Description rdf:about="&organization;Position"/>
+            <rdf:Description rdf:about="&organization;Role"/>
+            <rdf:Description rdf:about="&AbstractBP;ActivityInstance"/>
+            <rdf:Description rdf:about="&AbstractBP;DataObjectInstance"/>
+            <rdf:Description rdf:about="&AbstractBP;DataProperty"/>
+            <rdf:Description rdf:about="&AbstractBP;History"/>
+            <rdf:Description rdf:about="&AbstractBP;ProcessInstance"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1785) http://owlapi.sourceforge.net -->
+
