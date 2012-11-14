@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY organization "http://www.isa.us.es/cristal/organization.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.isa.us.es/cristal/organization.owl#"
+     xml:base="http://www.isa.us.es/cristal/organization.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:organization="http://www.isa.us.es/cristal/organization.owl#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.isa.us.es/cristal/organization.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#canDelegateWorkTo -->
+
+    <owl:ObjectProperty rdf:about="&organization;canDelegateWorkTo">
+        <rdfs:range rdf:resource="&organization;Position"/>
+        <rdfs:domain rdf:resource="&organization;Position"/>
+        <rdfs:subPropertyOf rdf:resource="&organization;extendedCanDelegateWorkTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#canHaveWorkDelegatedBy -->
+
+    <owl:ObjectProperty rdf:about="&organization;canHaveWorkDelegatedBy">
+        <owl:inverseOf rdf:resource="&organization;canDelegateWorkTo"/>
+        <rdfs:subPropertyOf rdf:resource="&organization;extendedCanHaveWorkDelegatedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#developedIn -->
+
+    <owl:ObjectProperty rdf:about="&organization;developedIn">
+        <rdfs:range rdf:resource="&organization;Position"/>
+        <rdfs:domain rdf:resource="&organization;Role"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#extendedCanDelegateWorkTo -->
+
+    <owl:ObjectProperty rdf:about="&organization;extendedCanDelegateWorkTo">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <owl:inverseOf rdf:resource="&organization;extendedCanHaveWorkDelegatedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#extendedCanHaveWorkDelegatedBy -->
+
+    <owl:ObjectProperty rdf:about="&organization;extendedCanHaveWorkDelegatedBy"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#extendedReportsTo -->
+
+    <owl:ObjectProperty rdf:about="&organization;extendedReportsTo">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#formedBy -->
+
+    <owl:ObjectProperty rdf:about="&organization;formedBy">
+        <rdfs:domain rdf:resource="&organization;OrganizationalUnit"/>
+        <rdfs:range rdf:resource="&organization;Position"/>
+        <owl:inverseOf rdf:resource="&organization;isMemberOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#hasCapability -->
+
+    <owl:ObjectProperty rdf:about="&organization;hasCapability">
+        <rdfs:range rdf:resource="&organization;Capability"/>
+        <rdfs:domain rdf:resource="&organization;Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#hasDegree -->
+
+    <owl:ObjectProperty rdf:about="&organization;hasDegree">
+        <rdfs:range rdf:resource="&organization;Degree"/>
+        <rdfs:domain rdf:resource="&organization;Person"/>
+        <rdfs:subPropertyOf rdf:resource="&organization;hasCapability"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#hasExperience -->
+
+    <owl:ObjectProperty rdf:about="&organization;hasExperience">
+        <rdfs:range rdf:resource="&organization;Experience"/>
+        <rdfs:domain rdf:resource="&organization;Person"/>
+        <rdfs:subPropertyOf rdf:resource="&organization;hasCapability"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#isExtendedReportedBy -->
+
+    <owl:ObjectProperty rdf:about="&organization;isExtendedReportedBy">
+        <owl:inverseOf rdf:resource="&organization;extendedReportsTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#isMemberOf -->
+
+    <owl:ObjectProperty rdf:about="&organization;isMemberOf">
+        <rdfs:range rdf:resource="&organization;OrganizationalUnit"/>
+        <rdfs:domain rdf:resource="&organization;Position"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#isOccupiedBy -->
+
+    <owl:ObjectProperty rdf:about="&organization;isOccupiedBy">
+        <rdfs:range rdf:resource="&organization;Person"/>
+        <rdfs:domain rdf:resource="&organization;Position"/>
+        <owl:inverseOf rdf:resource="&organization;occupies"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#isReportedBy -->
+
+    <owl:ObjectProperty rdf:about="&organization;isReportedBy">
+        <rdfs:subPropertyOf rdf:resource="&organization;isExtendedReportedBy"/>
+        <owl:inverseOf rdf:resource="&organization;reportsTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#occupies -->
+
+    <owl:ObjectProperty rdf:about="&organization;occupies">
+        <rdfs:domain rdf:resource="&organization;Person"/>
+        <rdfs:range rdf:resource="&organization;Position"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#participatesIn -->
+
+    <owl:ObjectProperty rdf:about="&organization;participatesIn">
+        <rdfs:domain rdf:resource="&organization;Position"/>
+        <rdfs:range rdf:resource="&organization;Role"/>
+        <owl:inverseOf rdf:resource="&organization;developedIn"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#reportsTo -->
+
+    <owl:ObjectProperty rdf:about="&organization;reportsTo">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&organization;Position"/>
+        <rdfs:domain rdf:resource="&organization;Position"/>
+        <rdfs:subPropertyOf rdf:resource="&organization;extendedReportsTo"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Capability -->
+
+    <owl:Class rdf:about="&organization;Capability"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Degree -->
+
+    <owl:Class rdf:about="&organization;Degree">
+        <rdfs:subClassOf rdf:resource="&organization;Capability"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Experience -->
+
+    <owl:Class rdf:about="&organization;Experience">
+        <rdfs:subClassOf rdf:resource="&organization;Capability"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#OrganizationalTeam -->
+
+    <owl:Class rdf:about="&organization;OrganizationalTeam">
+        <rdfs:subClassOf rdf:resource="&organization;OrganizationalUnit"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#OrganizationalUnit -->
+
+    <owl:Class rdf:about="&organization;OrganizationalUnit">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Person -->
+
+    <owl:Class rdf:about="&organization;Person">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Position -->
+
+    <owl:Class rdf:about="&organization;Position">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;isMemberOf"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization.owl#Role -->
+
+    <owl:Class rdf:about="&organization;Role">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization;Capability"/>
+            <rdf:Description rdf:about="&organization;OrganizationalUnit"/>
+            <rdf:Description rdf:about="&organization;Person"/>
+            <rdf:Description rdf:about="&organization;Position"/>
+            <rdf:Description rdf:about="&organization;Role"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1785) http://owlapi.sourceforge.net -->
+

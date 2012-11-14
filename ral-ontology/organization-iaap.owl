@@ -1,0 +1,714 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY organization "http://www.isa.us.es/cristal/organization.owl#" >
+    <!ENTITY organization-iaap "http://www.isa.us.es/cristal/organization-iaap.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:organization="http://www.isa.us.es/cristal/organization.owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:organization-iaap="http://www.isa.us.es/cristal/organization-iaap.owl#">
+    <Ontology rdf:about="http://www.isa.us.es/cristal/organization-iaap.owl#">
+        <imports rdf:resource="http://www.isa.us.es/cristal/organization.owl"/>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Accountable -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Accountable">
+        <rdf:type rdf:resource="&organization;Role"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Alex -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Alex">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-iaap;ComputerScience"/>
+        <organization:occupies rdf:resource="&organization-iaap;TechnicianOfTheIAAP"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Analyst -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Analyst">
+        <rdf:type rdf:resource="&organization;Role"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Anna -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Anna">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:occupies rdf:resource="&organization-iaap;AssistantOfTheLegalDepartment"/>
+        <organization:hasDegree rdf:resource="&organization-iaap;TechnicalEngineering"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#AssistantOfTheConsultativeBoard -->
+
+    <NamedIndividual rdf:about="&organization-iaap;AssistantOfTheConsultativeBoard">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;reportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:isMemberOf rdf:resource="&organization-iaap;ConsultativeBoard"/>
+        <organization:participatesIn rdf:resource="&organization-iaap;DocumentWriter"/>
+        <organization:participatesIn rdf:resource="&organization-iaap;TechnicalAssistant"/>
+        <organization:reportsTo rdf:resource="&organization-iaap;TechnicianOfTheConsultativeBoard"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#AssistantOfTheIAAP -->
+
+    <NamedIndividual rdf:about="&organization-iaap;AssistantOfTheIAAP">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;reportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-iaap;DocumentWriter"/>
+        <organization:isMemberOf rdf:resource="&organization-iaap;IAAP"/>
+        <organization:participatesIn rdf:resource="&organization-iaap;TechnicalAssistant"/>
+        <organization:reportsTo rdf:resource="&organization-iaap;TechnicianOfTheIAAP"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#AssistantOfTheLegalDepartment -->
+
+    <NamedIndividual rdf:about="&organization-iaap;AssistantOfTheLegalDepartment">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;reportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-iaap;DocumentWriter"/>
+        <organization:isMemberOf rdf:resource="&organization-iaap;LegalDepartment"/>
+        <organization:participatesIn rdf:resource="&organization-iaap;TechnicalAssistant"/>
+        <organization:reportsTo rdf:resource="&organization-iaap;TechnicianOfTheLegalDepartment"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#BusinessManager -->
+
+    <NamedIndividual rdf:about="&organization-iaap;BusinessManager">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-iaap;Accountable"/>
+        <organization:isMemberOf rdf:resource="&organization-iaap;IAAP"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#BusinessStudies -->
+
+    <NamedIndividual rdf:about="&organization-iaap;BusinessStudies">
+        <rdf:type rdf:resource="&organization;Degree"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Carol -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Carol">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:occupies rdf:resource="&organization-iaap;AssistantOfTheIAAP"/>
+        <organization:hasDegree rdf:resource="&organization-iaap;TechnicalEngineering"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Chris -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Chris">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-iaap;ComputerScience"/>
+        <organization:occupies rdf:resource="&organization-iaap;TechnicianOfTheLegalDepartment"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#ComputerScience -->
+
+    <NamedIndividual rdf:about="&organization-iaap;ComputerScience">
+        <rdf:type rdf:resource="&organization;Degree"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#ConsultativeBoard -->
+
+    <NamedIndividual rdf:about="&organization-iaap;ConsultativeBoard">
+        <rdf:type rdf:resource="&organization;OrganizationalUnit"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Daniel -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Daniel">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-iaap;ComputerScience"/>
+        <organization:occupies rdf:resource="&organization-iaap;TechnicianOfTheConsultativeBoard"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#David -->
+
+    <NamedIndividual rdf:about="&organization-iaap;David">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-iaap;ComputerScience"/>
+        <organization:occupies rdf:resource="&organization-iaap;TechnicianOfTheConsultativeBoard"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Diana -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Diana">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:occupies rdf:resource="&organization-iaap;AssistantOfTheConsultativeBoard"/>
+        <organization:hasDegree rdf:resource="&organization-iaap;TechnicalEngineering"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#DocumentSigner -->
+
+    <NamedIndividual rdf:about="&organization-iaap;DocumentSigner">
+        <rdf:type rdf:resource="&organization;Role"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#DocumentWriter -->
+
+    <NamedIndividual rdf:about="&organization-iaap;DocumentWriter">
+        <rdf:type rdf:resource="&organization;Role"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Engineering -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Engineering">
+        <rdf:type rdf:resource="&organization;Degree"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#IAAP -->
+
+    <NamedIndividual rdf:about="&organization-iaap;IAAP">
+        <rdf:type rdf:resource="&organization;OrganizationalUnit"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#LegalDepartment -->
+
+    <NamedIndividual rdf:about="&organization-iaap;LegalDepartment">
+        <rdf:type rdf:resource="&organization;OrganizationalUnit"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Lucas -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Lucas">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-iaap;ComputerScience"/>
+        <organization:occupies rdf:resource="&organization-iaap;TechnicianOfTheLegalDepartment"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Lydia -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Lydia">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-iaap;ComputerScience"/>
+        <organization:occupies rdf:resource="&organization-iaap;TechnicianOfTheIAAP"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Mario -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Mario">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:occupies rdf:resource="&organization-iaap;BusinessManager"/>
+        <organization:hasDegree rdf:resource="&organization-iaap;BusinessStudies"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Samuel -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Samuel">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:occupies rdf:resource="&organization-iaap;AssistantOfTheIAAP"/>
+        <organization:hasDegree rdf:resource="&organization-iaap;Engineering"/>
+        <organization:occupies rdf:resource="&organization-iaap;Secretary"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Secretary -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Secretary">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;reportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:reportsTo rdf:resource="&organization-iaap;BusinessManager"/>
+        <organization:participatesIn rdf:resource="&organization-iaap;DocumentSigner"/>
+        <organization:isMemberOf rdf:resource="&organization-iaap;IAAP"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#TechnicalAssistant -->
+
+    <NamedIndividual rdf:about="&organization-iaap;TechnicalAssistant">
+        <rdf:type rdf:resource="&organization;Role"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#TechnicalEngineering -->
+
+    <NamedIndividual rdf:about="&organization-iaap;TechnicalEngineering">
+        <rdf:type rdf:resource="&organization;Degree"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#Technician -->
+
+    <NamedIndividual rdf:about="&organization-iaap;Technician">
+        <rdf:type rdf:resource="&organization;Role"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#TechnicianOfTheConsultativeBoard -->
+
+    <NamedIndividual rdf:about="&organization-iaap;TechnicianOfTheConsultativeBoard">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-iaap;Analyst"/>
+        <organization:isMemberOf rdf:resource="&organization-iaap;ConsultativeBoard"/>
+        <organization:participatesIn rdf:resource="&organization-iaap;Technician"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#TechnicianOfTheIAAP -->
+
+    <NamedIndividual rdf:about="&organization-iaap;TechnicianOfTheIAAP">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;reportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-iaap;Analyst"/>
+        <organization:reportsTo rdf:resource="&organization-iaap;BusinessManager"/>
+        <organization:isMemberOf rdf:resource="&organization-iaap;IAAP"/>
+        <organization:participatesIn rdf:resource="&organization-iaap;Technician"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-iaap.owl#TechnicianOfTheLegalDepartment -->
+
+    <NamedIndividual rdf:about="&organization-iaap;TechnicianOfTheLegalDepartment">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-iaap;Analyst"/>
+        <organization:isMemberOf rdf:resource="&organization-iaap;LegalDepartment"/>
+        <organization:participatesIn rdf:resource="&organization-iaap;Technician"/>
+    </NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization-iaap;Accountable"/>
+            <rdf:Description rdf:about="&organization-iaap;Analyst"/>
+            <rdf:Description rdf:about="&organization-iaap;DocumentSigner"/>
+            <rdf:Description rdf:about="&organization-iaap;DocumentWriter"/>
+            <rdf:Description rdf:about="&organization-iaap;TechnicalAssistant"/>
+            <rdf:Description rdf:about="&organization-iaap;Technician"/>
+        </distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization-iaap;AssistantOfTheConsultativeBoard"/>
+            <rdf:Description rdf:about="&organization-iaap;AssistantOfTheIAAP"/>
+            <rdf:Description rdf:about="&organization-iaap;AssistantOfTheLegalDepartment"/>
+            <rdf:Description rdf:about="&organization-iaap;BusinessManager"/>
+            <rdf:Description rdf:about="&organization-iaap;Secretary"/>
+            <rdf:Description rdf:about="&organization-iaap;TechnicianOfTheConsultativeBoard"/>
+            <rdf:Description rdf:about="&organization-iaap;TechnicianOfTheIAAP"/>
+            <rdf:Description rdf:about="&organization-iaap;TechnicianOfTheLegalDepartment"/>
+        </distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization-iaap;Alex"/>
+            <rdf:Description rdf:about="&organization-iaap;Anna"/>
+            <rdf:Description rdf:about="&organization-iaap;Carol"/>
+            <rdf:Description rdf:about="&organization-iaap;Chris"/>
+            <rdf:Description rdf:about="&organization-iaap;Daniel"/>
+            <rdf:Description rdf:about="&organization-iaap;David"/>
+            <rdf:Description rdf:about="&organization-iaap;Diana"/>
+            <rdf:Description rdf:about="&organization-iaap;Lucas"/>
+            <rdf:Description rdf:about="&organization-iaap;Lydia"/>
+            <rdf:Description rdf:about="&organization-iaap;Mario"/>
+            <rdf:Description rdf:about="&organization-iaap;Samuel"/>
+        </distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization-iaap;BusinessStudies"/>
+            <rdf:Description rdf:about="&organization-iaap;ComputerScience"/>
+            <rdf:Description rdf:about="&organization-iaap;Engineering"/>
+            <rdf:Description rdf:about="&organization-iaap;TechnicalEngineering"/>
+        </distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization-iaap;ConsultativeBoard"/>
+            <rdf:Description rdf:about="&organization-iaap;IAAP"/>
+            <rdf:Description rdf:about="&organization-iaap;LegalDepartment"/>
+        </distinctMembers>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1785) http://owlapi.sourceforge.net -->
+
