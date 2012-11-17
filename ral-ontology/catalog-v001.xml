@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-    <uri id="User Edited Redirect" name="http://www.isa.us.es/ontologies/AbstractBP.owl" uri="AbstractBP.owl"/>
+    <uri id="User Edited Redirect" name="http://www.isa.us.es/ontologies/AbstractBP-relationships.owl" uri="../bpm-isa-common/bp-ontology/AbstractBP-relationships.owl"/>
+    <uri id="User Edited Redirect" name="http://www.isa.us.es/ontologies/AbstractBP.owl" uri="../bpm-isa-common/bp-ontology/AbstractBP.owl"/>
     <uri id="User Edited Redirect" name="http://www.isa.us.es/cristal/organization.owl" uri="organization.owl"/>
     <uri id="User Edited Redirect" name="http://www.isa.us.es/cristal/bp-hiring-resolution-log.owl" uri="bp-hiring-resolution-log.owl"/>
     <uri id="Imports Wizard Entry" name="http://www.isa.us.es/cristal/bp-hiring-resolution.owl" uri="bp-hiring-resolution.owl"/>
-    <uri id="Imports Wizard Entry" name="http://www.isa.us.es/cristal/bp.owl" uri="bp.owl"/>
     <uri id="Imports Wizard Entry" name="http://www.isa.us.es/cristal/organization-iaap.owl" uri="organization-iaap.owl"/>
 </catalog>
