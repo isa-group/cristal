@@ -25,6 +25,7 @@
      xmlns:organization-iaap="http://www.isa.us.es/cristal/organization-iaap.owl#">
     <Ontology rdf:about="http://www.isa.us.es/cristal/bp-hiring-resolution.owl">
         <imports rdf:resource="http://www.isa.us.es/cristal/organization-iaap.owl"/>
+        <imports rdf:resource="http://www.isa.us.es/ontologies/AbstractBP-relationships.owl"/>
         <imports rdf:resource="http://www.isa.us.es/ontologies/AbstractBP.owl"/>
     </Ontology>
     
@@ -41,10 +42,62 @@
     
 
 
-    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#AnalyseReports -->
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#AnalyseReportsInstances -->
 
-    <Class rdf:about="&bp-hiring-resolution;AnalyseReports">
+    <Class rdf:about="&bp-hiring-resolution;AnalyseReportsInstances">
+        <equivalentClass>
+            <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasInstance"/>
+                    </rdf:Description>
+                </onProperty>
+                <hasValue rdf:resource="&bp-hiring-resolution;AnalyseReports"/>
+            </Restriction>
+        </equivalentClass>
         <rdfs:subClassOf rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlySucceeds"/>
+                <onClass>
+                    <Class>
+                        <unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoardInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportLegalDepartmentInstances"/>
+                        </unionOf>
+                    </Class>
+                </onClass>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;readsDataObjectInstance"/>
+                <onClass rdf:resource="&bp-hiring-resolution;ReportLD"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlyPrecedes"/>
+                <onClass>
+                    <Class>
+                        <unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestExternalResolutionInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;ReviewResolutionProposalInstances"/>
+                        </unionOf>
+                    </Class>
+                </onClass>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;readsDataObjectInstance"/>
+                <onClass rdf:resource="&bp-hiring-resolution;ReportCB"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
                 <onProperty rdf:resource="&AbstractBP;hasPerformer"/>
@@ -68,7 +121,7 @@
         <equivalentClass>
             <Restriction>
                 <onProperty rdf:resource="&AbstractBP;isPerformerOf"/>
-                <someValuesFrom rdf:resource="&bp-hiring-resolution;AnalyseReports"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;AnalyseReportsInstances"/>
             </Restriction>
         </equivalentClass>
         <rdfs:subClassOf rdf:resource="&organization;Person"/>
@@ -86,7 +139,7 @@
                         <inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
                     </rdf:Description>
                 </onProperty>
-                <someValuesFrom rdf:resource="&bp-hiring-resolution;CreateResolutionProposalDraft"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;CreateResolutionProposalDraftInstances"/>
             </Restriction>
         </equivalentClass>
         <equivalentClass>
@@ -133,6 +186,16 @@
     <Class rdf:about="&bp-hiring-resolution;AssignmentRER">
         <equivalentClass>
             <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
+                    </rdf:Description>
+                </onProperty>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;RequestExternalResolutionInstances"/>
+            </Restriction>
+        </equivalentClass>
+        <equivalentClass>
+            <Restriction>
                 <onProperty rdf:resource="&organization;occupies"/>
                 <someValuesFrom>
                     <Restriction>
@@ -143,23 +206,13 @@
                                 <someValuesFrom>
                                     <Restriction>
                                         <onProperty rdf:resource="&AbstractBP;isPerformerOf"/>
-                                        <someValuesFrom rdf:resource="&bp-hiring-resolution;AnalyseReports"/>
+                                        <someValuesFrom rdf:resource="&bp-hiring-resolution;AnalyseReportsInstances"/>
                                     </Restriction>
                                 </someValuesFrom>
                             </Restriction>
                         </someValuesFrom>
                     </Restriction>
                 </someValuesFrom>
-            </Restriction>
-        </equivalentClass>
-        <equivalentClass>
-            <Restriction>
-                <onProperty>
-                    <rdf:Description>
-                        <inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
-                    </rdf:Description>
-                </onProperty>
-                <someValuesFrom rdf:resource="&bp-hiring-resolution;RequestExternalResolution"/>
             </Restriction>
         </equivalentClass>
         <rdfs:subClassOf rdf:resource="&organization;Person"/>
@@ -177,7 +230,7 @@
                         <inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
                     </rdf:Description>
                 </onProperty>
-                <someValuesFrom rdf:resource="&bp-hiring-resolution;RequestReportConsultiveBoard"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;RequestReportConsultiveBoardInstances"/>
             </Restriction>
         </equivalentClass>
         <equivalentClass>
@@ -208,7 +261,7 @@
                         <inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
                     </rdf:Description>
                 </onProperty>
-                <someValuesFrom rdf:resource="&bp-hiring-resolution;RequestReportLegalDepartment"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;RequestReportLegalDepartmentInstances"/>
             </Restriction>
         </equivalentClass>
         <rdfs:subClassOf rdf:resource="&organization;Person"/>
@@ -226,7 +279,7 @@
                         <inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
                     </rdf:Description>
                 </onProperty>
-                <someValuesFrom rdf:resource="&bp-hiring-resolution;ReviewResolutionProposal"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;ReviewResolutionProposalInstances"/>
             </Restriction>
         </equivalentClass>
         <equivalentClass>
@@ -239,7 +292,7 @@
                 <someValuesFrom>
                     <Class>
                         <intersectionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraft"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraftInstances"/>
                             <Restriction>
                                 <onProperty>
                                     <rdf:Description>
@@ -261,16 +314,6 @@
     <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#AssignmentSSNR -->
 
     <Class rdf:about="&bp-hiring-resolution;AssignmentSSNR">
-        <equivalentClass>
-            <Restriction>
-                <onProperty>
-                    <rdf:Description>
-                        <inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
-                    </rdf:Description>
-                </onProperty>
-                <someValuesFrom rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolution"/>
-            </Restriction>
-        </equivalentClass>
         <equivalentClass>
             <Class>
                 <unionOf rdf:parseType="Collection">
@@ -295,20 +338,67 @@
                 </unionOf>
             </Class>
         </equivalentClass>
+        <equivalentClass>
+            <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasPerformer"/>
+                    </rdf:Description>
+                </onProperty>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolutionInstances"/>
+            </Restriction>
+        </equivalentClass>
         <rdfs:subClassOf rdf:resource="&organization;Person"/>
     </Class>
     
 
 
-    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#CreateResolutionProposalDraft -->
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#CreateResolutionProposalDraftInstances -->
 
-    <Class rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraft">
+    <Class rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraftInstances">
+        <equivalentClass>
+            <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasInstance"/>
+                    </rdf:Description>
+                </onProperty>
+                <hasValue rdf:resource="&bp-hiring-resolution;CreateResolutionProposal"/>
+            </Restriction>
+        </equivalentClass>
         <rdfs:subClassOf rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;writesDataObjectInstance"/>
+                <onClass rdf:resource="&bp-hiring-resolution;Resolution"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlyPrecedes"/>
+                <onClass>
+                    <Class>
+                        <unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoardInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportLegalDepartmentInstances"/>
+                        </unionOf>
+                    </Class>
+                </onClass>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
                 <onProperty rdf:resource="&AbstractBP;hasPerformer"/>
                 <onClass rdf:resource="&bp-hiring-resolution;AssignmentCRPD"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlySucceeds"/>
+                <cardinality rdf:datatype="&xsd;nonNegativeInteger">0</cardinality>
             </Restriction>
         </rdfs:subClassOf>
     </Class>
@@ -325,13 +415,13 @@
                 <allValuesFrom>
                     <Class>
                         <unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="&bp-hiring-resolution;AnalyseReports"/>
-                            <rdf:Description rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraft"/>
-                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestExternalResolution"/>
-                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoard"/>
-                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportLegalDepartment"/>
-                            <rdf:Description rdf:about="&bp-hiring-resolution;ReviewResolutionProposal"/>
-                            <rdf:Description rdf:about="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;AnalyseReportsInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraftInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestExternalResolutionInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoardInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportLegalDepartmentInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;ReviewResolutionProposalInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;SignStoreNotifyResolutionInstances"/>
                         </unionOf>
                     </Class>
                 </allValuesFrom>
@@ -357,10 +447,27 @@
     
 
 
-    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestExternalResolution -->
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestExternalResolutionInstances -->
 
-    <Class rdf:about="&bp-hiring-resolution;RequestExternalResolution">
+    <Class rdf:about="&bp-hiring-resolution;RequestExternalResolutionInstances">
+        <equivalentClass>
+            <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasInstance"/>
+                    </rdf:Description>
+                </onProperty>
+                <hasValue rdf:resource="&bp-hiring-resolution;RequestExternalResolution"/>
+            </Restriction>
+        </equivalentClass>
         <rdfs:subClassOf rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlySucceeds"/>
+                <onClass rdf:resource="&bp-hiring-resolution;AnalyseReportsInstances"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
                 <onProperty rdf:resource="&AbstractBP;hasPerformer"/>
@@ -368,14 +475,78 @@
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlyPrecedes"/>
+                <onClass rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolutionInstances"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
     </Class>
     
 
 
-    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestReportConsultiveBoard -->
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestReportConsultiveBoardInstances -->
 
-    <Class rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoard">
+    <Class rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoardInstances">
+        <equivalentClass>
+            <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasInstance"/>
+                    </rdf:Description>
+                </onProperty>
+                <hasValue rdf:resource="&bp-hiring-resolution;RequestReportConsultiveBoard"/>
+            </Restriction>
+        </equivalentClass>
         <rdfs:subClassOf rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlySucceeds"/>
+                <onClass>
+                    <Class>
+                        <unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraftInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportLegalDepartmentInstances"/>
+                        </unionOf>
+                    </Class>
+                </onClass>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instancePrecedes"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;AnalyseReportsInstances"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceSucceeds"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;CreateResolutionProposalDraftInstances"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlyPrecedes"/>
+                <onClass>
+                    <Class>
+                        <unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&bp-hiring-resolution;AnalyseReportsInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportLegalDepartmentInstances"/>
+                        </unionOf>
+                    </Class>
+                </onClass>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;readsDataObjectInstance"/>
+                <onClass rdf:resource="&bp-hiring-resolution;ResolutionProposal"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
                 <onProperty rdf:resource="&AbstractBP;hasPerformer"/>
@@ -387,15 +558,72 @@
     
 
 
-    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestReportLegalDepartment -->
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestReportLegalDepartmentInstances -->
 
-    <Class rdf:about="&bp-hiring-resolution;RequestReportLegalDepartment">
+    <Class rdf:about="&bp-hiring-resolution;RequestReportLegalDepartmentInstances">
+        <equivalentClass>
+            <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasInstance"/>
+                    </rdf:Description>
+                </onProperty>
+                <hasValue rdf:resource="&bp-hiring-resolution;RequestReportLegalDepartment"/>
+            </Restriction>
+        </equivalentClass>
         <rdfs:subClassOf rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlyPrecedes"/>
+                <onClass>
+                    <Class>
+                        <unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&bp-hiring-resolution;AnalyseReportsInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoardInstances"/>
+                        </unionOf>
+                    </Class>
+                </onClass>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlySucceeds"/>
+                <onClass>
+                    <Class>
+                        <unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraftInstances"/>
+                            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoardInstances"/>
+                        </unionOf>
+                    </Class>
+                </onClass>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
                 <onProperty rdf:resource="&AbstractBP;hasPerformer"/>
                 <onClass rdf:resource="&bp-hiring-resolution;AssignmentRRLD"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instancePrecedes"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;AnalyseReportsInstances"/>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;readsDataObjectInstance"/>
+                <onClass rdf:resource="&bp-hiring-resolution;ResolutionProposal"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceSucceeds"/>
+                <someValuesFrom rdf:resource="&bp-hiring-resolution;CreateResolutionProposalDraftInstances"/>
             </Restriction>
         </rdfs:subClassOf>
     </Class>
@@ -418,10 +646,48 @@
     
 
 
-    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#ReviewResolutionProposal -->
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#ReviewResolutionProposalInstances -->
 
-    <Class rdf:about="&bp-hiring-resolution;ReviewResolutionProposal">
+    <Class rdf:about="&bp-hiring-resolution;ReviewResolutionProposalInstances">
+        <equivalentClass>
+            <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasInstance"/>
+                    </rdf:Description>
+                </onProperty>
+                <hasValue rdf:resource="&bp-hiring-resolution;ReviewResolutionProposal"/>
+            </Restriction>
+        </equivalentClass>
         <rdfs:subClassOf rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlyPrecedes"/>
+                <onClass rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolutionInstances"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;readsDataObjectInstance"/>
+                <onClass rdf:resource="&bp-hiring-resolution;ResolutionProposal"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlySucceeds"/>
+                <onClass rdf:resource="&bp-hiring-resolution;AnalyseReportsInstances"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;writesDataObjectInstance"/>
+                <onClass rdf:resource="&bp-hiring-resolution;Resolution"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
                 <onProperty rdf:resource="&AbstractBP;hasPerformer"/>
@@ -433,10 +699,47 @@
     
 
 
-    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#SignStoreNotifyResolution -->
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#SignStoreNotifyResolutionInstances -->
 
-    <Class rdf:about="&bp-hiring-resolution;SignStoreNotifyResolution">
+    <Class rdf:about="&bp-hiring-resolution;SignStoreNotifyResolutionInstances">
+        <equivalentClass>
+            <Restriction>
+                <onProperty>
+                    <rdf:Description>
+                        <inverseOf rdf:resource="&AbstractBP;hasInstance"/>
+                    </rdf:Description>
+                </onProperty>
+                <hasValue rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+            </Restriction>
+        </equivalentClass>
+        <equivalentClass>
+            <Class>
+                <unionOf rdf:parseType="Collection">
+                    <Restriction>
+                        <onProperty rdf:resource="&AbstractBP;instanceDirectlySucceeds"/>
+                        <someValuesFrom rdf:resource="&bp-hiring-resolution;RequestExternalResolutionInstances"/>
+                    </Restriction>
+                    <Restriction>
+                        <onProperty rdf:resource="&AbstractBP;instanceDirectlySucceeds"/>
+                        <someValuesFrom rdf:resource="&bp-hiring-resolution;ReviewResolutionProposalInstances"/>
+                    </Restriction>
+                </unionOf>
+            </Class>
+        </equivalentClass>
         <rdfs:subClassOf rdf:resource="&AbstractBP;ActivityInstance"/>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;readsDataObjectInstance"/>
+                <onClass rdf:resource="&bp-hiring-resolution;Resolution"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="&AbstractBP;instanceDirectlyPrecedes"/>
+                <cardinality rdf:datatype="&xsd;nonNegativeInteger">0</cardinality>
+            </Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
                 <onProperty rdf:resource="&AbstractBP;hasPerformer"/>
@@ -451,6 +754,96 @@
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#AnalyseReports -->
+
+    <NamedIndividual rdf:about="&bp-hiring-resolution;AnalyseReports">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;RequestExternalResolution"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;ReviewResolutionProposal"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#CreateResolutionProposal -->
+
+    <NamedIndividual rdf:about="&bp-hiring-resolution;CreateResolutionProposal">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;AnalyseReports"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;RequestExternalResolution"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;RequestReportConsultiveBoard"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;RequestReportLegalDepartment"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;ReviewResolutionProposal"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestExternalResolution -->
+
+    <NamedIndividual rdf:about="&bp-hiring-resolution;RequestExternalResolution">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestReportConsultiveBoard -->
+
+    <NamedIndividual rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoard">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;AnalyseReports"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;CreateResolutionProposal"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;RequestExternalResolution"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;RequestReportLegalDepartment"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;ReviewResolutionProposal"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#RequestReportLegalDepartment -->
+
+    <NamedIndividual rdf:about="&bp-hiring-resolution;RequestReportLegalDepartment">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;AnalyseReports"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;CreateResolutionProposal"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;RequestExternalResolution"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;RequestReportConsultiveBoard"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;ReviewResolutionProposal"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#ReviewResolutionProposal -->
+
+    <NamedIndividual rdf:about="&bp-hiring-resolution;ReviewResolutionProposal">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP:weakOrder rdf:resource="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-hiring-resolution.owl#SignStoreNotifyResolution -->
+
+    <NamedIndividual rdf:about="&bp-hiring-resolution;SignStoreNotifyResolution">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+    </NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
     // General axioms
     //
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -459,13 +852,13 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <members rdf:parseType="Collection">
-            <rdf:Description rdf:about="&bp-hiring-resolution;AnalyseReports"/>
-            <rdf:Description rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraft"/>
-            <rdf:Description rdf:about="&bp-hiring-resolution;RequestExternalResolution"/>
-            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoard"/>
-            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportLegalDepartment"/>
-            <rdf:Description rdf:about="&bp-hiring-resolution;ReviewResolutionProposal"/>
-            <rdf:Description rdf:about="&bp-hiring-resolution;SignStoreNotifyResolution"/>
+            <rdf:Description rdf:about="&bp-hiring-resolution;AnalyseReportsInstances"/>
+            <rdf:Description rdf:about="&bp-hiring-resolution;CreateResolutionProposalDraftInstances"/>
+            <rdf:Description rdf:about="&bp-hiring-resolution;RequestExternalResolutionInstances"/>
+            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportConsultiveBoardInstances"/>
+            <rdf:Description rdf:about="&bp-hiring-resolution;RequestReportLegalDepartmentInstances"/>
+            <rdf:Description rdf:about="&bp-hiring-resolution;ReviewResolutionProposalInstances"/>
+            <rdf:Description rdf:about="&bp-hiring-resolution;SignStoreNotifyResolutionInstances"/>
         </members>
     </rdf:Description>
 </rdf:RDF>
