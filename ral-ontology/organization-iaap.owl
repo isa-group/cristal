@@ -48,15 +48,15 @@
         <rdf:type rdf:resource="&organization;Person"/>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;hasDegree"/>
-                <onClass rdf:resource="&organization;Degree"/>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;occupies"/>
-                <onClass rdf:resource="&organization;Position"/>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
@@ -104,9 +104,9 @@
         <rdf:type rdf:resource="&organization;Position"/>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;isMemberOf"/>
-                <onClass rdf:resource="&organization;OrganizationalUnit"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <rdf:type>
@@ -118,9 +118,9 @@
         </rdf:type>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;participatesIn"/>
-                <onClass rdf:resource="&organization;Role"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <organization:isMemberOf rdf:resource="&organization-iaap;ConsultativeBoard"/>
@@ -137,13 +137,6 @@
         <rdf:type rdf:resource="&organization;Position"/>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;participatesIn"/>
-                <onClass rdf:resource="&organization;Role"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
-            </Restriction>
-        </rdf:type>
-        <rdf:type>
-            <Restriction>
                 <onProperty rdf:resource="&organization;isMemberOf"/>
                 <onClass rdf:resource="&organization;OrganizationalUnit"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
@@ -154,6 +147,13 @@
                 <onProperty rdf:resource="&organization;reportsTo"/>
                 <onClass rdf:resource="&organization;Position"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <organization:participatesIn rdf:resource="&organization-iaap;DocumentWriter"/>
@@ -170,13 +170,6 @@
         <rdf:type rdf:resource="&organization;Position"/>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;reportsTo"/>
-                <onClass rdf:resource="&organization;Position"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
-            </Restriction>
-        </rdf:type>
-        <rdf:type>
-            <Restriction>
                 <onProperty rdf:resource="&organization;isMemberOf"/>
                 <onClass rdf:resource="&organization;OrganizationalUnit"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
@@ -187,6 +180,13 @@
                 <onProperty rdf:resource="&organization;participatesIn"/>
                 <onClass rdf:resource="&organization;Role"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;reportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <organization:participatesIn rdf:resource="&organization-iaap;DocumentWriter"/>
@@ -213,6 +213,13 @@
                 <onProperty rdf:resource="&organization;participatesIn"/>
                 <onClass rdf:resource="&organization;Role"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;extendedReportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <organization:participatesIn rdf:resource="&organization-iaap;Accountable"/>
@@ -259,15 +266,15 @@
         <rdf:type rdf:resource="&organization;Person"/>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;hasDegree"/>
-                <onClass rdf:resource="&organization;Degree"/>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;occupies"/>
-                <onClass rdf:resource="&organization;Position"/>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
@@ -435,15 +442,15 @@
         <rdf:type rdf:resource="&organization;Person"/>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;hasDegree"/>
-                <onClass rdf:resource="&organization;Degree"/>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;occupies"/>
-                <onClass rdf:resource="&organization;Position"/>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
@@ -461,7 +468,7 @@
             <Restriction>
                 <onProperty rdf:resource="&organization;hasDegree"/>
                 <onClass rdf:resource="&organization;Degree"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <rdf:type>
@@ -472,7 +479,6 @@
             </Restriction>
         </rdf:type>
         <organization:occupies rdf:resource="&organization-iaap;BusinessManager"/>
-        <organization:hasDegree rdf:resource="&organization-iaap;BusinessStudies"/>
     </NamedIndividual>
     
 
@@ -483,16 +489,16 @@
         <rdf:type rdf:resource="&organization;Person"/>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;occupies"/>
-                <onClass rdf:resource="&organization;Position"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+                <onProperty rdf:resource="&organization;hasDegree"/>
+                <onClass rdf:resource="&organization;Degree"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;hasDegree"/>
-                <onClass rdf:resource="&organization;Degree"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+                <onProperty rdf:resource="&organization;occupies"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <organization:occupies rdf:resource="&organization-iaap;AssistantOfTheIAAP"/>
@@ -508,15 +514,15 @@
         <rdf:type rdf:resource="&organization;Position"/>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;reportsTo"/>
-                <onClass rdf:resource="&organization;Position"/>
+                <onProperty rdf:resource="&organization;isMemberOf"/>
+                <onClass rdf:resource="&organization;OrganizationalUnit"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <rdf:type>
             <Restriction>
-                <onProperty rdf:resource="&organization;isMemberOf"/>
-                <onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <onProperty rdf:resource="&organization;reportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdf:type>
@@ -571,6 +577,13 @@
         </rdf:type>
         <rdf:type>
             <Restriction>
+                <onProperty rdf:resource="&organization;extendedReportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
                 <onProperty rdf:resource="&organization;isMemberOf"/>
                 <onClass rdf:resource="&organization;OrganizationalUnit"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
@@ -589,6 +602,13 @@
         <rdf:type rdf:resource="&organization;Position"/>
         <rdf:type>
             <Restriction>
+                <onProperty rdf:resource="&organization;participatesIn"/>
+                <onClass rdf:resource="&organization;Role"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
+        <rdf:type>
+            <Restriction>
                 <onProperty rdf:resource="&organization;isMemberOf"/>
                 <onClass rdf:resource="&organization;OrganizationalUnit"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
@@ -599,13 +619,6 @@
                 <onProperty rdf:resource="&organization;reportsTo"/>
                 <onClass rdf:resource="&organization;Position"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
-            </Restriction>
-        </rdf:type>
-        <rdf:type>
-            <Restriction>
-                <onProperty rdf:resource="&organization;participatesIn"/>
-                <onClass rdf:resource="&organization;Role"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
             </Restriction>
         </rdf:type>
         <organization:participatesIn rdf:resource="&organization-iaap;Analyst"/>
@@ -620,6 +633,13 @@
 
     <NamedIndividual rdf:about="&organization-iaap;TechnicianOfTheLegalDepartment">
         <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type>
+            <Restriction>
+                <onProperty rdf:resource="&organization;extendedReportsTo"/>
+                <onClass rdf:resource="&organization;Position"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">0</qualifiedCardinality>
+            </Restriction>
+        </rdf:type>
         <rdf:type>
             <Restriction>
                 <onProperty rdf:resource="&organization;participatesIn"/>
@@ -652,17 +672,6 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
         <distinctMembers rdf:parseType="Collection">
-            <rdf:Description rdf:about="&organization-iaap;Accountable"/>
-            <rdf:Description rdf:about="&organization-iaap;Analyst"/>
-            <rdf:Description rdf:about="&organization-iaap;DocumentSigner"/>
-            <rdf:Description rdf:about="&organization-iaap;DocumentWriter"/>
-            <rdf:Description rdf:about="&organization-iaap;TechnicalAssistant"/>
-            <rdf:Description rdf:about="&organization-iaap;Technician"/>
-        </distinctMembers>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
-        <distinctMembers rdf:parseType="Collection">
             <rdf:Description rdf:about="&organization-iaap;AssistantOfTheConsultativeBoard"/>
             <rdf:Description rdf:about="&organization-iaap;AssistantOfTheIAAP"/>
             <rdf:Description rdf:about="&organization-iaap;AssistantOfTheLegalDepartment"/>
@@ -692,18 +701,29 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
         <distinctMembers rdf:parseType="Collection">
-            <rdf:Description rdf:about="&organization-iaap;BusinessStudies"/>
-            <rdf:Description rdf:about="&organization-iaap;ComputerScience"/>
-            <rdf:Description rdf:about="&organization-iaap;Engineering"/>
-            <rdf:Description rdf:about="&organization-iaap;TechnicalEngineering"/>
+            <rdf:Description rdf:about="&organization-iaap;ConsultativeBoard"/>
+            <rdf:Description rdf:about="&organization-iaap;IAAP"/>
+            <rdf:Description rdf:about="&organization-iaap;LegalDepartment"/>
         </distinctMembers>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
         <distinctMembers rdf:parseType="Collection">
-            <rdf:Description rdf:about="&organization-iaap;ConsultativeBoard"/>
-            <rdf:Description rdf:about="&organization-iaap;IAAP"/>
-            <rdf:Description rdf:about="&organization-iaap;LegalDepartment"/>
+            <rdf:Description rdf:about="&organization-iaap;Accountable"/>
+            <rdf:Description rdf:about="&organization-iaap;Analyst"/>
+            <rdf:Description rdf:about="&organization-iaap;DocumentSigner"/>
+            <rdf:Description rdf:about="&organization-iaap;DocumentWriter"/>
+            <rdf:Description rdf:about="&organization-iaap;TechnicalAssistant"/>
+            <rdf:Description rdf:about="&organization-iaap;Technician"/>
+        </distinctMembers>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDifferent"/>
+        <distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization-iaap;BusinessStudies"/>
+            <rdf:Description rdf:about="&organization-iaap;ComputerScience"/>
+            <rdf:Description rdf:about="&organization-iaap;Engineering"/>
+            <rdf:Description rdf:about="&organization-iaap;TechnicalEngineering"/>
         </distinctMembers>
     </rdf:Description>
 </rdf:RDF>
