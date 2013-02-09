@@ -81,6 +81,5 @@
 	<modules>
 		<module>raci2bpmn</module>
 		<module>cristal-web</module>
-		<module>ral-ontology-tests</module>
 	</modules>
 </project>
