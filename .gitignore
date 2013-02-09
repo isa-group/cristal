@@ -1,3 +1,9 @@
+target
+.settings
+.project
+.classpath
+.idea
+*.iml
 raci2bpmn/target
 raci2bpmn/.settings
 raci2bpmn/.project
