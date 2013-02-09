@@ -39,21 +39,7 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<distributionManagement>
-		<repository>
-			<id>isa.devel.archiva.internal</id>
-			<name>ISA group maven repo</name>
-			<url>http://devel.isa.us.es/archiva/repository/internal/</url>
-		</repository>
-	</distributionManagement>
 
-	<repositories>
-		<repository>
-			<id>isa.devel.archiva.internal</id>
-			<name>ISA group maven repo</name>
-			<url>http://devel.isa.us.es/archiva/repository/internal/</url>
-		</repository>
-	</repositories>
 
 	<url>http://www.isa.us.es/cristal</url>
 	<licenses>
