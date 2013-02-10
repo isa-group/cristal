@@ -43,7 +43,26 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>es.us.isa.snapshots</id>
+			<name>ISA group Snapshots</id>
+			<url>http://clinker.isa.us.es/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>		
+		<repository>
+			<id>es.us.isa.releases</id>
+			<name>ISA group Releases</name>
+			<url>http://clinker.isa.us.es/nexus/content/repositories/releases</url>
+		</repository>
+	</distributionManagement>
 
+	<repositories>
+		<repository>
+			<id>es.us.isa</id>
+			<name>ISA group</name>
+			<url>http://clinker.isa.us.es/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
 
 	<url>http://www.isa.us.es/cristal</url>
 	<licenses>
