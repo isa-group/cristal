@@ -340,14 +340,7 @@ public class RaciSubprocess {
 		subprocess.getFlowElement().add(objectFactory.createSequenceFlow(seq));
 	}
 	
-	// A–adimos evento de inicio al subproceso
 	private TStartEvent addStartEvent() {
-
-		// creamos un diagrama
-		//BPMNDiagram diagram = new BPMNDiagram();
-		//JAXBElement<Diagram> subprocess = (new ObjectFactory()).createDiagram(diagram);
-		
-		// a–adimos un evento de inicio al diagrama
 		TStartEvent se = new TStartEvent();
 		se.setName("Sub-process Start");
 		se.setId(IdGenerator.createId());
