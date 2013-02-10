@@ -46,7 +46,7 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>es.us.isa.snapshots</id>
-			<name>ISA group Snapshots</id>
+			<name>ISA group Snapshots</name>
 			<url>http://clinker.isa.us.es/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>		
 		<repository>
