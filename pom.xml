@@ -90,5 +90,6 @@
 	<modules>
 		<module>raci2bpmn</module>
 		<module>cristal-web</module>
-	</modules>
+        <module>ral-model</module>
+    </modules>
 </project>
