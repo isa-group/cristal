@@ -6,15 +6,9 @@ package es.us.isa.cristal.model.constraints;
  * @author Edelia
  *
  */
-public class PersonInDataFieldConstraint extends PersonConstraint {
+public class PersonInDataFieldConstraint extends DataConstraint implements PersonConstraint {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3952814915336556004L;
-	// identificador de campo de dataobject
-	private String field;
-	
+
 	/**
 	 * Constructor de la clase
 	 * 
@@ -23,18 +17,7 @@ public class PersonInDataFieldConstraint extends PersonConstraint {
 	 */
 	public PersonInDataFieldConstraint(String id, String field) {
 
-		super(id);
-		this.field = field;
+		super(id, field);
 	}
 	
-	/**
-	 * Devuelve la propiedad: field
-	 * identificador de campo de dataobject
-	 * 
-	 * @return Valor de la propiedad
-	 */
-	public String getField() {
-		
-		return this.field;
-	}
 }

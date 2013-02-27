@@ -106,7 +106,9 @@ fieldName : ID ;
 
 namePosition : ID ;
 
-groupResourceName : ID ;
+groupResourceName : ID+ ;
+
+/*'"' ID+ '"' {$text = $ID.text;};*/
 
 /*capabilityName : ID ;
 

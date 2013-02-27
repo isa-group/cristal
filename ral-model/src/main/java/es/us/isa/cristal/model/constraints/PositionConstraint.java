@@ -1,6 +1,6 @@
 package es.us.isa.cristal.model.constraints;
 
-public class PositionConstraint extends Constraint {
+public class PositionConstraint extends IdConstraint {
 
 	/**
 	 * 

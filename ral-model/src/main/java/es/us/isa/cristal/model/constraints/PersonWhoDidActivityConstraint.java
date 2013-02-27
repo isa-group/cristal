@@ -6,12 +6,7 @@ package es.us.isa.cristal.model.constraints;
  * @author Edelia
  *
  */
-public class PersonWhoDidActivityConstraint extends PersonConstraint {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1530259330499545854L;
+public class PersonWhoDidActivityConstraint extends ActivityConstraint implements PersonConstraint {
 
 	/**
 	 * Constructor de la clase

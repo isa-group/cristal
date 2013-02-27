@@ -32,7 +32,7 @@ public class PersonExprTest {
         PersonExpr expr = parse("IS PERSON IN DATA FIELD data.field");
         PersonInDataFieldConstraint c = (PersonInDataFieldConstraint) expr.getPersonConstraint();
 
-        Assert.assertEquals("data", c.getId());
+        Assert.assertEquals("data", c.getData());
         Assert.assertEquals("field", c.getField());
     }
-}
+    }

@@ -28,6 +28,15 @@
 		</plugins>
 	</build>
 
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -40,6 +49,16 @@
 				<artifactId>cristal-web</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>ral-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>ral-neo4j</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -91,5 +110,6 @@
 		<module>raci2bpmn</module>
 		<module>cristal-web</module>
         <module>ral-model</module>
+        <module>ral-neo4j</module>
     </modules>
 </project>
