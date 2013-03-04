@@ -9,11 +9,6 @@ package es.us.isa.cristal.model.expressions;
 public class CapabilityExpr extends RALExpr {
 	
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5488770735441699579L;
-
-	/**
 	 * Constructor de la clase
 	 * 
 	 * @param capabilityName Identificador de la capacidad

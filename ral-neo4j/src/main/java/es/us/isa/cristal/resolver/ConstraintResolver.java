@@ -12,9 +12,9 @@ import es.us.isa.cristal.model.constraints.IdConstraint;
  */
 public class ConstraintResolver {
     private BPEngine engine;
-    private long pid;
+    private Object pid;
 
-    public ConstraintResolver(BPEngine eng, long pid) {
+    public ConstraintResolver(BPEngine eng, Object pid) {
         this.engine = eng;
         this.pid = pid;
     }

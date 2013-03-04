@@ -1,4 +1,4 @@
-package es.us.isa.cristal.neo4j;
+package es.us.isa.cristal.neo4j.queries;
 
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.resolver.ConstraintResolver;
@@ -8,7 +8,7 @@ import es.us.isa.cristal.resolver.ConstraintResolver;
  * Date: 24/02/13
  * Time: 16:42
  */
-public interface QueryBuilder {
+public interface ExprBuilder {
     public Class<? extends RALExpr> getExprType();
-    public String build(RALExpr expr, ConstraintResolver resolver);
+    public Query build(RALExpr expr, ConstraintResolver resolver);
 }

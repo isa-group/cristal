@@ -57,13 +57,13 @@ exprBase returns [RALExpr value] :
 exprSimple returns [RALExpr value] :
   'IS' ( e1=personConstraint {$value = new PersonExpr($e1.value);}
          | 'ASSIGNMENT IN ACTIVITY' activityName {$value = new IsAssignmentExpr($activityName.text); }
-         | depth 'REPORTED BY' e2=positionConstraint {$value = new IsReportedByExpr($depth.value, $e2.value);} )
+         | depth 'REPORTED BY' e2=positionConstraint {$value = new ReportExpr($depth.value, $e2.value, HierarchyDirection.INVERSE);} )
   | 'HAS' ( groupResourceType e3=groupResourceConstraint {$value = new GroupResourceExpr($groupResourceType.value, $e3.value);}
   			| 'CAPABILITY' capabilityConstraint {$value = new CapabilityExpr($capabilityConstraint.text);} )
   | 'SHARES' amount groupResourceType 'WITH' e1=personConstraint {$value = new CommonalityExpr(CommonalityAmount.valueOf($amount.text), $groupResourceType.value, $e1.value);}
-  | 'REPORTS TO' e2=positionConstraint depth {$value = new ReportsToExpr($depth.value, $e2.value);}
-  | 'CAN' ( 'DELEGATE WORK TO' e2=positionConstraint {$value = new DelegateToExpr($e2.value);}
-  			| 'HAVE WORK DELEGATED BY' e2=positionConstraint {$value = new HaveDelegatedExpr($e2.value);} ) ;
+  | 'REPORTS TO' e2=positionConstraint depth {$value = new ReportExpr($depth.value, $e2.value, HierarchyDirection.DIRECT);}
+  | 'CAN' ( 'DELEGATE WORK TO' e2=positionConstraint {$value = new DelegateExpr($e2.value, HierarchyDirection.DIRECT);}
+  			| 'HAVE WORK DELEGATED BY' e2=positionConstraint {$value = new DelegateExpr($e2.value, HierarchyDirection.INVERSE);} ) ;
 
 personConstraint returns [PersonConstraint value] : 
   personName {$value = new ThisPersonConstraint($personName.text);}
@@ -98,13 +98,13 @@ taskName : ID ;
 
 personName : ID ;
 
-activityName : ID ;
+activityName : ID+ ;
 
 dataobject : ID ;
 
 fieldName : ID ;
 
-namePosition : ID ;
+namePosition : ID+ ;
 
 groupResourceName : ID+ ;
 

@@ -1,9 +1,7 @@
 package es.us.isa.cristal.neo4j.queries;
 
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.neo4j.Neo4jQueryBuilder;
 import es.us.isa.cristal.resolver.BPEngineMock;
-import es.us.isa.cristal.resolver.ConstraintResolver;
 import org.junit.Before;
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.cypher.ExecutionResult;
@@ -25,12 +23,12 @@ import java.util.Set;
  */
 public abstract class AbstractBaseTest {
 
-    private static final String GRAPH_DESCRIPTION = "CREATE anthony = { name : 'Anthony' }\n" +
+    private static final String GRAPH_DESCRIPTION = "CREATE anthony = { name : 'Anthony', degree: 'PhD' }\n" +
             "CREATE betty = { name : 'Betty' }\n" +
             "CREATE daniel = { name : 'Daniel' }\n" +
             "CREATE anna = { name : 'Anna' }\n" +
-            "CREATE charles = { name : 'Charles' }\n" +
-            "CREATE christine = { name : 'Christine' }\n" +
+            "CREATE charles = { name : 'Charles', degree: 'PhD' }\n" +
+            "CREATE christine = { name : 'Christine', degree: 'MsC' }\n" +
             "CREATE adele = { name : 'Adele' }\n" +
             "\n" +
             "CREATE theos = { unit : 'Theos' }\n" +
@@ -72,6 +70,7 @@ public abstract class AbstractBaseTest {
             "CREATE theos_coordinator-[:ROLE]->resourcemanager \n"+
             "CREATE theos_responsible-[:ROLE]->responsible \n"+
             "CREATE theos_responsible-[:ROLE]->researcher \n"+
+            "CREATE theos_student-[:ROLE]->researcher \n"+
             "CREATE theos_student-[:ROLE]->student \n"+
             "CREATE theos_account-[:ROLE]->administrator \n"+
             "CREATE theos_technician-[:ROLE]->technician \n"+
@@ -115,9 +114,9 @@ public abstract class AbstractBaseTest {
     }
 
     protected ExecutionResult doQuery(RALExpr expr) {
-        Neo4jQueryBuilder builder = new Neo4jQueryBuilder();
-        ConstraintResolver res = new ConstraintResolver(new BPEngineMock(), 0L);
-        String query = builder.build(expr, res);
+        Neo4jQueryBuilder builder = new Neo4jQueryBuilder(new BPEngineMock());
+        String query = builder.build(expr, 0L);
+        System.out.println(query);
         return engine.execute(query);
     }
 }

@@ -15,25 +15,23 @@ import java.util.Set;
  * Date: 27/02/13
  * Time: 10:35
  */
-public class NegativeExprTest extends AbstractBaseTest {
+public class DelegateExprTest extends AbstractBaseTest {
 
     @Test
-    public void shouldQueryNegativePersons() {
-        RALExpr expr = RALParser.parse("NOT IS Charles");
+    public void shouldQueryDelegateToPosition() {
+        RALExpr expr = RALParser.parse("CAN DELEGATE WORK TO POSITION THEOS PhD Student");
         ExecutionResult executionResult = doQuery(expr);
         Set<String> result = getSetFromResult(executionResult);
 
-        Assert.assertEquals(6, result.size());
-        Assert.assertEquals(new HashSet<String>(Arrays.asList("Anthony", "Christine", "Adele", "Anna", "Daniel", "Betty")), result);
+        Assert.assertEquals(new HashSet<String>(Arrays.asList("Anthony", "Charles")), result);
     }
 
     @Test
-    public void shouldQueryNegativeRoles() {
-        RALExpr expr = RALParser.parse("NOT HAS ROLE Account Administrator");
+    public void shouldQueryHaveDelegateByPosition() {
+        RALExpr expr = RALParser.parse("CAN HAVE WORK DELEGATED BY POSITION THEOS Project Coordinator");
         ExecutionResult executionResult = doQuery(expr);
         Set<String> result = getSetFromResult(executionResult);
 
-        Assert.assertEquals(5, result.size());
-        Assert.assertEquals(new HashSet<String>(Arrays.asList("Charles", "Christine", "Adele", "Anna", "Daniel")), result);
+        Assert.assertEquals(new HashSet<String>(Arrays.asList("Charles", "Betty", "Anna", "Daniel", "Anthony" )), result);
     }
 }

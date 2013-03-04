@@ -15,25 +15,25 @@ import java.util.Set;
  * Date: 27/02/13
  * Time: 10:35
  */
-public class NegativeExprTest extends AbstractBaseTest {
+public class CommonalityExprTest extends AbstractBaseTest {
 
     @Test
-    public void shouldQueryNegativePersons() {
-        RALExpr expr = RALParser.parse("NOT IS Charles");
+    public void shouldQueryShareSomeRole() {
+        RALExpr expr = RALParser.parse("SHARES SOME ROLE WITH Charles");
         ExecutionResult executionResult = doQuery(expr);
         Set<String> result = getSetFromResult(executionResult);
 
-        Assert.assertEquals(6, result.size());
-        Assert.assertEquals(new HashSet<String>(Arrays.asList("Anthony", "Christine", "Adele", "Anna", "Daniel", "Betty")), result);
+        Assert.assertEquals(4, result.size());
+        Assert.assertEquals(new HashSet<String>(Arrays.asList("Anthony", "Charles", "Christine", "Adele")), result);
     }
 
     @Test
-    public void shouldQueryNegativeRoles() {
-        RALExpr expr = RALParser.parse("NOT HAS ROLE Account Administrator");
+    public void shouldQueryShareAllRole() {
+        RALExpr expr = RALParser.parse("SHARES ALL ROLE WITH Adele");
         ExecutionResult executionResult = doQuery(expr);
         Set<String> result = getSetFromResult(executionResult);
 
-        Assert.assertEquals(5, result.size());
-        Assert.assertEquals(new HashSet<String>(Arrays.asList("Charles", "Christine", "Adele", "Anna", "Daniel")), result);
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(new HashSet<String>(Arrays.asList("Adele", "Christine")), result);
     }
 }
