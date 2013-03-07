@@ -14,10 +14,10 @@ public class Query {
     private String with;
 
     public static class QueryBuilder {
-        private String start = "";
-        private String where = "";
-        private String match = "";
-        private String with = "";
+        private String start = null;
+        private String where = null;
+        private String match = null;
+        private String with = null;
 
         public QueryBuilder start(String... start) {
             this.start = Joiner.on(",").join(start);
@@ -30,12 +30,12 @@ public class Query {
         }
 
         public QueryBuilder match(String... match) {
-            this.match = Joiner.on(",").join(match);
+            this.match = Joiner.on(",").skipNulls().join(match);
             return this;
         }
 
         public QueryBuilder with(String... with) {
-            this.with = Joiner.on(",").join(with);
+            this.with = Joiner.on(",").skipNulls().join(with);
             return this;
         }
 

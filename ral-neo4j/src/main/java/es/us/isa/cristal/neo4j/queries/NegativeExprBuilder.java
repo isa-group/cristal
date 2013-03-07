@@ -27,6 +27,9 @@ public class NegativeExprBuilder implements ExprBuilder {
         NegativeExpr negativeExpr = (NegativeExpr) expr;
         Query q = builder.buildQuery(negativeExpr.getExprObject(), resolver);
 
-        return Query.start(q.getStart()).where("NOT (" + q.getWhere() + ")").build();
+        return Query.start(q.getStart())
+                .match(q.getMatch())
+                .with(q.getWith())
+                .where("NOT (" + q.getWhere() + ")").build();
     }
 }

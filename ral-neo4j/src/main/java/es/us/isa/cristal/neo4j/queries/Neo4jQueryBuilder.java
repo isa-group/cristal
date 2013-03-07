@@ -39,11 +39,11 @@ public class Neo4jQueryBuilder {
         ConstraintResolver resolver = new ConstraintResolver(bpEngine, pid);
         Query q = buildQuery(expr, resolver);
         StringBuilder sb = new StringBuilder("START person=node:node_auto_index('name:*')");
-        if (! q.getStart().isEmpty())
+        if (q.getStart() != null && ! q.getStart().isEmpty())
             sb.append(", ").append(q.getStart());
-        if (! q.getMatch().isEmpty())
+        if (q.getMatch() != null && ! q.getMatch().isEmpty())
             sb.append(" MATCH ").append(q.getMatch());
-        if (! q.getWith().isEmpty())
+        if (q.getWith() != null && ! q.getWith().isEmpty())
             sb.append(" WITH person,").append(q.getWith());
         sb.append(" WHERE ").append(q.getWhere());
         sb.append(" RETURN DISTINCT person.name");

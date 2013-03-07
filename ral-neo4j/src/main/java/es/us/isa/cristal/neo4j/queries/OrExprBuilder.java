@@ -28,7 +28,10 @@ public class OrExprBuilder implements ExprBuilder {
         Query left = builder.buildQuery(and.getObjectExprLeft(), resolver);
         Query right = builder.buildQuery(and.getObjectExprRight(), resolver);
 
-        return Query.start(left.getStart(), right.getStart()).where("(" + left.getWhere() + ") OR (" + right.getWhere() + ")").build();
+        return Query.start(left.getStart(), right.getStart())
+                .match(left.getMatch(), right.getMatch())
+                .with(left.getWith(), right.getWith())
+                .where("(" + left.getWhere() + ") OR (" + right.getWhere() + ")").build();
 
     }
 }
