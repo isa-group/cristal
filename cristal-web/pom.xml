@@ -21,6 +21,11 @@
 			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>raci2bpmn</artifactId>
 		</dependency>
+
+        <dependency>
+            <groupId>es.us.isa.cristal</groupId>
+            <artifactId>ral-neo4j</artifactId>
+        </dependency>
 		
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -110,7 +115,6 @@
 				<configuration>
 					<warSourceExcludes>**/WEB-INF/web.xml</warSourceExcludes>
 					<webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
-					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 

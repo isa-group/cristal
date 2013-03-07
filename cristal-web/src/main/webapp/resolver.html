@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+      div#contentf {
+    position: fixed;
+    top: 100px;
+    right: 25px;
+    left:25px;
+    bottom: 25px;
+    min-width: 200px;
+    background: black; 
+        /* DEBUG: If the iframe doesn't cover the whole space,
+           it'll show through as black. */
+}
+
+    /* Position the iframe inside the new stacking context
+       to take up the whole space */
+div#contentf iframe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+</style>
+
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+				</a> 
+				<a class="brand" href="index.html">CRISTAL</a>
+                <ul class="nav">
+                    <li><a href="index.html">RACI Editor</a></li>
+                    <li class="active"><a href="#">RAL Resolver</a></li>
+                </ul>
+				<div class="nav-collapse pull-right">
+					<ul class="nav">
+	                    <li id="process-menu" class="dropdown">
+	                      <a href="#" id="drop-processes" role="button" class="dropdown-toggle" data-toggle="dropdown">Select process <b class="caret"></b></a>
+	                      <ul id="menu-processes" class="dropdown-menu" role="menu" aria-labelledby="drop-processes">
+	                        <li><a tabindex="-1" href="#">No processes available</a></li>
+	                      </ul>
+	                    </li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+
+        <p class="lead">
+            This is an example of resolution of RAL expressions. To use it just enter a RAL expression in the following text box.
+        </p>
+
+        <div class="input-append">
+            <input class="input-xxlarge" type="text" id="expression" placeholder="Enter RAL expression to resolve"/>
+            <button class="btn" type="button" id="resolve">Resolve</button>
+        </div>
+
+        <p id="resolution"></p>
+
+        <hr/>
+        <h2>Organizational model</h2>
+        <p class="lead">
+            This example is based on the following organizational model. It also assumes that the value of all data
+            fields is Anna and the person who did any activity was Charles.
+            <ul class="thumbnails">
+                <li class="span6">
+                    <div class="thumbnail">
+                        <img src="img/om.png"/>
+                        <h3>Organizational structure</h3>
+                        <p>It depicts the positions (yellow boxes) and the people that occupy those positions
+                            (white boxes) attached to them</p>
+                    </div>
+                </li>
+                <li class="span4">
+                    <div class="thumbnail">
+                        <img src="img/position-role_table.png"/>
+                        <h3>Relation position-role</h3>
+                        <p>It depicts the roles that are assigned to each position.</p>
+                    </div>
+                </li>
+
+            </ul>
+        </p>
+
+	</div>
+	<!-- /container -->
+
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+<!-- 	<script -->
+<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/jquery.json-2.3.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		//          
+
+        $("#resolve").click(function() {
+            $.ajax({
+                type: "POST",
+                url: "api/resolve",
+                data: $("#expression").val(),
+                success: function(data) {
+                    $("#resolution").html(data).removeClass().addClass("text-success");
+                },
+                error: function(data) {
+                    $("#resolution").html("RAL Expression was not valid").removeClass().addClass("text-error");
+                }
+            });
+        });
+
+		//
+	</script>
+</body>
+</html>
