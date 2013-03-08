@@ -48,17 +48,6 @@ div#contentf iframe {
                     <li><a href="index.html">RACI Editor</a></li>
                     <li class="active"><a href="#">RAL Resolver</a></li>
                 </ul>
-				<div class="nav-collapse pull-right">
-					<ul class="nav">
-	                    <li id="process-menu" class="dropdown">
-	                      <a href="#" id="drop-processes" role="button" class="dropdown-toggle" data-toggle="dropdown">Select process <b class="caret"></b></a>
-	                      <ul id="menu-processes" class="dropdown-menu" role="menu" aria-labelledby="drop-processes">
-	                        <li><a tabindex="-1" href="#">No processes available</a></li>
-	                      </ul>
-	                    </li>
-					</ul>
-				</div>
-				<!--/.nav-collapse -->
 			</div>
 		</div>
 	</div>
@@ -113,20 +102,28 @@ div#contentf iframe {
 	<script src="js/jquery.json-2.3.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script type="text/javascript" charset="utf-8">
-		//          
+		//
+        $(function() {
+            var resolve = function() {
+                $.ajax({
+                    type: "POST",
+                    url: "api/resolve",
+                    data: $("#expression").val(),
+                    success: function(data) {
+                        $("#resolution").html(data).removeClass().addClass("text-success");
+                    },
+                    error: function(data) {
+                        $("#resolution").html("RAL Expression was not valid").removeClass().addClass("text-error");
+                    }
+                });
+            };
 
-        $("#resolve").click(function() {
-            $.ajax({
-                type: "POST",
-                url: "api/resolve",
-                data: $("#expression").val(),
-                success: function(data) {
-                    $("#resolution").html(data).removeClass().addClass("text-success");
-                },
-                error: function(data) {
-                    $("#resolution").html("RAL Expression was not valid").removeClass().addClass("text-error");
-                }
+            $("#resolve").click(resolve);
+            $("#expression").keypress(function(event) {
+                if (event.keyCode == 13)
+                    resolve();
             });
+
         });
 
 		//
