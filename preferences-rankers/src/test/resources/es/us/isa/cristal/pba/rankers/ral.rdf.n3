@@ -1,0 +1,19 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix wsml: <http://www.wsmo.org/wsml/wsml-syntax#>.
+@prefix st: <http://www.wsmo.org/ns/service-template/0.1#>.
+@prefix sf: <http://www.service-finder.eu/ontologies/ServiceCategories#>.
+@prefix sr: <http://seekda.com/ontologies/RankingOntology#>.
+@prefix pref: <http://www.wsmo.org/ontologies/nfp/preferenceOntology#>.
+@prefix puri: <http://www.isa.us.es/preferences#>.
+@prefix mechanism: <http://www.isa.us.es/cristal/ranking#>.
+@prefix tel: <http://www.example.com/telcom#>.
+@prefix ex: <http://localhost:8081/DisCloud/serviceTemplates/SMS1#>.
+
+ex:prefCost1 a puri:FavoritesPreference;
+			 a puri:PreferenceTerm;
+			 puri:hasRankingMechanism mechanism:RALRanker;
+			 puri:refersTo tel:BelongsTo;
+			 puri:hasFavorites "HAS ROLE Account Administrator"^^xsd:string.
+

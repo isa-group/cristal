@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cristal</artifactId>
+        <groupId>es.us.isa.cristal</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>preferences-rankers</artifactId>
+
+    <repositories>
+        <repository>
+            <id>semweb4j-repo</id>
+            <name>Semweb4j.org maven repo</name>
+            <url>http://semweb4j.org/repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>es.isa</groupId>
+            <artifactId>puri</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>es.us.isa.cristal</groupId>
+            <artifactId>ral-neo4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.semweb4j</groupId>
+            <artifactId>rdf2go.impl.sesame23</artifactId>
+            <version>4.7.2</version>
+        </dependency>
+    </dependencies>
+
+</project>

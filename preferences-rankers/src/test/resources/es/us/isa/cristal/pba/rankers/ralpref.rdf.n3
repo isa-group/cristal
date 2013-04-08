@@ -1,0 +1,71 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix wsml: <http://www.wsmo.org/wsml/wsml-syntax#>.
+@prefix st: <http://www.wsmo.org/ns/service-template/0.1#>.
+@prefix sf: <http://www.service-finder.eu/ontologies/ServiceCategories#>.
+@prefix sr: <http://seekda.com/ontologies/RankingOntology#>.
+@prefix pref: <http://www.wsmo.org/ontologies/nfp/preferenceOntology#>.
+@prefix puri: <http://www.isa.us.es/preferences#>.
+@prefix mechanism: <http://www.isa.us.es/puri/ranking#>.
+@prefix res: <http://www.example.com/telcom#>.
+@prefix ex: <http://localhost:8081/DisCloud/serviceTemplates/SMS1#>.
+
+pref:RequestReport a puri:BalancedPreference;
+			a puri:PreferenceTerm;
+		   	puri:hasRankingMechanism mechanism:SOA4AllWeightedMultiCriteriaRanking;
+            puri:hasOperands ex:prefCost;
+			puri:hasOperands ex:prefWork.
+
+ex:prefCost a puri:LowestPreference;
+			a puri:PreferenceTerm;
+			puri:hasRankingMechanism mechanism:ResourceInfoRanker;
+			puri:refersTo org:cost.
+
+ex:prefWork a puri:LowestPreference;
+			a puri:PreferenceTerm;
+			puri:hasRankingMechanism mechanism:WorklistRanker;
+			puri:refersTo worklist:Size.			 
+
+pref:UpdateProposal a puri:FavoritesPreference;
+	  	    a puri:PreferenceTerm;
+  		 	puri:hasRankingMechanism mechanism:RALRanker;
+			puri:refersTo org:Resource;
+			puri:hasFavorites "IS RESPONSIBLE FOR ACTIVITY Create a Resolution Proposal Draft"^^xsd:string.
+
+pref:CreateProposal a puri:HighestPreference;
+			a puri:PreferenceTerm;
+  		    puri:hasRankingMechanism mechanism:HistoryRanker;
+		    puri:refersTo his:HistoryCountActivity;
+		    puri:hasOperands proc:CreateResolutionProposalDraft.
+
+
+
+pref:RequestReport a soup:BalancedPreference;
+   a soup:PreferenceTerm;
+   soup:hasRankingMechanism mechanism:DefaultParetoImpl;
+   soup:hasOperands pref:prefCost;
+   soup:hasOperands pref:prefWork.
+
+pref:prefCost a soup:LowestPreference;
+   a soup:PreferenceTerm;
+   soup:hasRankingMechanism mechanism:ResourceInfoRanker;
+   soup:refersTo org:cost.
+
+pref:prefWork a soup:LowestPreference;
+   a soup:PreferenceTerm;
+   soup:hasRankingMechanism mechanism:WorklistRanker;
+   soup:refersTo worklist:size.
+
+pref:UpdateProposal a soup:FavoritesPreference;
+   a soup:PreferenceTerm;
+   soup:hasRankingMechanism mechanism:RALRanker;
+   soup:refersTo org:Resource;
+   soup:hasFavorites "IS PERSON RESPONSIBLE FOR ACTIVITY Create
+                       a Resolution Proposal Draft"^^xsd:string.
+
+pref:CreateProposal a soup:HighestPreference;
+   a soup:PreferenceTerm;
+   soup:hasRankingMechanism mechanism:HistoryRanker;
+   soup:refersTo his:HistoryCountActivity;
+   soup:hasOperands proc:CreateResolutionProposalDraft.
