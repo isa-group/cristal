@@ -1,9 +1,14 @@
 package es.us.isa.cristal.web;
 
 import com.google.common.io.Files;
+import es.isa.puri.Ranking;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.parser.RALParser;
+import es.us.isa.cristal.pba.PBAResolver;
+import es.us.isa.cristal.pba.rankers.BPHistory;
+import es.us.isa.cristal.pba.rankers.Person;
+import es.us.isa.cristal.pba.rankers.TaskEngine;
 import es.us.isa.cristal.resolver.BPEngine;
 import es.us.isa.cristal.resolver.RALResolver;
 import org.neo4j.cypher.ExecutionEngine;
@@ -15,7 +20,9 @@ import org.neo4j.kernel.impl.util.StringLogger;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import java.io.File;
+import java.io.StringReader;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -25,16 +32,16 @@ import java.util.logging.Logger;
  */
 @Path("/api/resolve")
 public class ResolveResource {
-    private static final Logger log = Logger.getLogger(Raci2BpmnResource.class
+    private static final Logger log = Logger.getLogger(ResolveResource.class
             .getName());
 
-    private static final String GRAPH_DESCRIPTION = "CREATE anthony = { name : 'Anthony', degree: 'PhD' }\n" +
-            "CREATE betty = { name : 'Betty' }\n" +
-            "CREATE daniel = { name : 'Daniel' }\n" +
-            "CREATE anna = { name : 'Anna' }\n" +
-            "CREATE charles = { name : 'Charles', degree: 'PhD' }\n" +
-            "CREATE christine = { name : 'Christine', degree: 'MsC' }\n" +
-            "CREATE adele = { name : 'Adele' }\n" +
+    private static final String GRAPH_DESCRIPTION = "CREATE anthony = { name : 'Anthony', degree: 'PhD', cost: 10}\n" +
+            "CREATE betty = { name : 'Betty', cost: 3 }\n" +
+            "CREATE daniel = { name : 'Daniel', cost: 5 }\n" +
+            "CREATE anna = { name : 'Anna', cost: 4 }\n" +
+            "CREATE charles = { name : 'Charles', degree: 'PhD', cost: 8 }\n" +
+            "CREATE christine = { name : 'Christine', degree: 'MsC', cost: 7 }\n" +
+            "CREATE adele = { name : 'Adele', cost: 7 }\n" +
             "\n" +
             "CREATE theos = { unit : 'Theos' }\n" +
             "\n" +
@@ -93,6 +100,12 @@ public class ResolveResource {
             "CREATE theos_responsible<-[:REPORTS]-theos_student";
 
     private ExecutionEngine engine;
+    private BPHistory history;
+    private TaskEngine taskEngine;
+    private BPEngine bpEngine;
+
+    private RALResolver ralResolver;
+    private PBAResolver pbaResolver;
 
     public ResolveResource() {
         File storeDir = null;
@@ -111,19 +124,75 @@ public class ResolveResource {
                 StringLogger.logger(new File(storeDir.getAbsolutePath() + "/logger")) );
         engine.execute( GRAPH_DESCRIPTION );
 
+        history = new BPHistoryMock();
+        taskEngine = new TaskEngineMock();
+        bpEngine = new BPEngineMock();
+
+        ralResolver = new Neo4JRalResolver(bpEngine, engine);
+        pbaResolver = new PBAResolver(history, taskEngine, ralResolver, engine);
+
         log.info("Database created");
     }
 
     @POST
+    @Path("/ral")
     public Collection<String> resolve(String expr){
         log.info("Expression: "+expr);
 
-        RALResolver resolver = new Neo4JRalResolver(new BPEngineMock(), engine);
-        Collection<String> result = resolver.resolve(RALParser.parse(expr), 0);
+        Collection<String> result = ralResolver.resolve(RALParser.parse(expr), 0);
 
         log.info("Result: " +result);
 
         return result;
+    }
+
+    @POST
+    @Path("/pba")
+    public List<String> prioritize(PriorityAllocation allocation) {
+        log.info("Preferences: "+allocation.getPreference());
+        log.info("Potential performers: " + allocation.getPotentialPerformers());
+
+        Ranking<Person> ranking = pbaResolver.resolve(new StringReader(allocation.getPreference()),
+                Person.fromNames(allocation.listPotentialPerformers()));
+
+        List<String> result = Person.toStrings(ranking.getResultsAsList());
+        log.info("Result: " + result);
+        return result;
+    }
+
+    private class TaskEngineMock implements TaskEngine {
+        @Override
+        public long countTasks(String user) {
+            long count = 0;
+
+            if ("Anthony".equals(user)) count =  7;
+            else if ("Charles".equals(user)) count = 8;
+            else if ("Christine".equals(user)) count =  4;
+            else if ("Adele".equals(user)) count =  4;
+            else if ("Betty".equals(user)) count = 3;
+            else if ("Daniel".equals(user)) count = 10;
+            else if ("Anna".equals(user)) count = 5;
+
+            return count;
+        }
+    }
+
+    private class BPHistoryMock implements BPHistory {
+        @Override
+        public long countActivityByPerson(String user, String activity, String processId) {
+            long count = 0;
+
+            if ("Anthony".equals(user)) count =  15;
+            else if ("Charles".equals(user)) count = 8;
+            else if ("Christine".equals(user)) count =  10;
+            else if ("Adele".equals(user)) count =  6;
+            else if ("Betty".equals(user)) count = 4;
+            else if ("Daniel".equals(user)) count = 10;
+            else if ("Anna".equals(user)) count = 5;
+
+            return count;
+
+        }
     }
 
     private class BPEngineMock implements BPEngine {

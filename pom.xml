@@ -59,6 +59,11 @@
                 <artifactId>ral-neo4j</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>preferences-rankers</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -111,5 +116,6 @@
 		<module>cristal-web</module>
         <module>ral-model</module>
         <module>ral-neo4j</module>
+        <module>preferences-rankers</module>
     </modules>
 </project>

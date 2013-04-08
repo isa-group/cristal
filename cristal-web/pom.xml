@@ -26,6 +26,11 @@
             <groupId>es.us.isa.cristal</groupId>
             <artifactId>ral-neo4j</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>es.us.isa.cristal</groupId>
+            <artifactId>preferences-rankers</artifactId>
+        </dependency>
 		
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -145,7 +150,6 @@
 				<executions>
 					<execution>
 						<id>deploy</id>
-						<phase />
 						<goals>
 							<goal>deployer-redeploy</goal>
 						</goals>

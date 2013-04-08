@@ -1,0 +1,18 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix soup: <http://www.isa.us.es/preferences#>.
+@prefix mechanism: <http://www.isa.us.es/cristal/ranking#>.
+@prefix ex: <http://www.isa.us.es/cristal/example#>.
+@prefix history: <http://www.isa.us.es/cristal/history#>.
+@prefix proc: <http://www.isa.us.es/cristal/iaapProcess#>.
+@prefix bp: <http://www.isa.us.es/ontologies/AbstractBP.owl#>.
+
+ex:CreateProposal a soup:HighestPreference;
+   a soup:PreferenceTerm;
+   soup:hasRankingMechanism mechanism:HistoryRanker;
+   soup:refersTo history:HistoryCountActivity;
+   soup:hasOperands proc:CreateResolutionProposalDraft.
+
+proc:CreateResolutionProposalDraft a bp:Activity;
+   bp:belongsToProcess proc:iaapProcess.

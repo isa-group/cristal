@@ -46,8 +46,8 @@ div#contentf iframe {
 				<a class="brand" href="index.html">CRISTAL</a>
                 <ul class="nav">
                     <li><a href="index.html">RACI Editor</a></li>
-                    <li class="active"><a href="#">RAL Resolver</a></li>
-                    <li><a href="priority.html">Priority-based Allocation</a></li>
+                    <li><a href="resolver.html">RAL Resolver</a></li>
+                    <li class="active"><a href="#">Priority-based Allocation</a></li>
                 </ul>
 			</div>
 		</div>
@@ -56,13 +56,45 @@ div#contentf iframe {
 	<div class="container">
 
         <p class="lead">
-            This is an example of resolution of RAL expressions. To use it just enter a RAL expression in the following text box.
+            This is an example of priority-based allocation. To use it just enter a preference and the list of potential performers in the following text boxes.
         </p>
 
-        <div class="input-append">
-            <input class="input-xxlarge" type="text" id="expression" placeholder="Enter RAL expression to resolve"/>
-            <button class="btn" type="button" id="resolve">Resolve</button>
-        </div>
+        <form class="form-horizontal">
+            <div class="control-group">
+                <div class="controls">
+                    <div class="btn-group">
+                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                            Load example
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="examples">
+                            <li><a tabindex="-1" href="#" id="ex-ral">RAL Expression</a></li>
+                            <li><a tabindex="-1" href="#" id="ex-ri">Resource information</a></li>
+                            <li><a tabindex="-1" href="#" id="ex-worklist">Worklist</a></li>
+                            <li><a tabindex="-1" href="#" id="ex-history">History</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="preference">Enter preference</label>
+                <div class="controls">
+                    <textarea id="preference" class="input-xxlarge" rows="13" placeholder="Enter preference"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="persons">Potential performers</label>
+                <div class="controls">
+                    <input class="input-xxlarge" type="text" id="persons" placeholder="Enter a comma separated list of the potential performers"/>
+                    <span class="help-block">The allowed names are: Anthony, Anna, Betty, Charles, Christine, Adele and Daniel</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn" type="button" id="resolve">Resolve</button>
+                </div>
+            </div>
+        </form>
 
         <p id="resolution"></p>
 
@@ -105,16 +137,30 @@ div#contentf iframe {
 	<script type="text/javascript" charset="utf-8">
 		//
         $(function() {
+            $("#examples a").click( function() {
+                $.ajax({
+                    type: "GET",
+                    url: "example/" + this.id + ".rdf.n3",
+                    success: function(data) {
+                        $("#preference").val(data);
+                    }
+                });
+
+                $("#persons").val("Christine, Anthony, Charles, Adele");
+            });
+
             var resolve = function() {
+                var data = {preference: $("#preference").val(), potentialPerformers: $("#persons").val()};
                 $.ajax({
                     type: "POST",
-                    url: "api/resolve/ral",
-                    data: $("#expression").val(),
+                    url: "api/resolve/pba",
+                    data: $.toJSON(data),
+                    contentType: "application/json",
                     success: function(data) {
                         $("#resolution").html(data).removeClass().addClass("text-success");
                     },
                     error: function(data) {
-                        $("#resolution").html("RAL Expression was not valid").removeClass().addClass("text-error");
+                        $("#resolution").html("Preferences were not valid").removeClass().addClass("text-error");
                     }
                 });
             };

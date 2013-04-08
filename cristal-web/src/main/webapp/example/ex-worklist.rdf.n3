@@ -1,0 +1,13 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix soup: <http://www.isa.us.es/preferences#>.
+@prefix mechanism: <http://www.isa.us.es/cristal/ranking#>.
+@prefix ex: <http://www.isa.us.es/cristal/example#>.
+@prefix worklist: <http://www.isa.us.es/cristal/worklist#>.
+
+ex:prefWork a soup:LowestPreference;
+   a soup:PreferenceTerm;
+   soup:hasRankingMechanism mechanism:WorklistRanker;
+   soup:refersTo worklist:size.
+

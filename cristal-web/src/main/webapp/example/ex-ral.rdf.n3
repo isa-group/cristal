@@ -1,0 +1,15 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix pref: <http://www.wsmo.org/ontologies/nfp/preferenceOntology#>.
+@prefix soup: <http://www.isa.us.es/preferences#>.
+@prefix mechanism: <http://www.isa.us.es/cristal/ranking#>.
+@prefix org: <http://www.isa.us.es/cristal/organization#>.
+@prefix ex: <http://www.isa.us.es/cristal/example#>.
+
+ex:prefCost1 a soup:FavoritesPreference;
+			 a soup:PreferenceTerm;
+			 soup:hasRankingMechanism mechanism:RALRanker;
+			 soup:refersTo org:Resource;
+			 soup:hasFavorites "HAS ROLE Account Administrator"^^xsd:string.
+
