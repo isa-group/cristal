@@ -94,7 +94,7 @@ public class HistoryRankerTest {
                 pref);
 
         List<Person> rankedList = ranking.getResultsAsList();
-        Assert.assertEquals(rankedList, Lists.newArrayList(adele, charles, christine, anthony));
+        Assert.assertEquals(Lists.newArrayList(anthony, christine, charles, adele), rankedList);
 
     }
 
