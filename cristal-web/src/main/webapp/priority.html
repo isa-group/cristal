@@ -99,29 +99,76 @@ div#contentf iframe {
         <p id="resolution"></p>
 
         <hr/>
-        <h2>Organizational model</h2>
         <p class="lead">
-            This example is based on the following organizational model. It also assumes that the value of all data
-            fields is Anna and the person who did any activity was Charles.
-            <ul class="thumbnails">
-                <li class="span6">
-                    <div class="thumbnail">
-                        <img src="img/om.png"/>
-                        <h3>Organizational structure</h3>
-                        <p>It depicts the positions (yellow boxes) and the people that occupy those positions
-                            (white boxes) attached to them</p>
-                    </div>
-                </li>
-                <li class="span4">
-                    <div class="thumbnail">
-                        <img src="img/position-role_table.png"/>
-                        <h3>Relation position-role</h3>
-                        <p>It depicts the roles that are assigned to each position.</p>
-                    </div>
-                </li>
-
-            </ul>
+            This example is based on the following elements:
         </p>
+
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#taborg" data-toggle="tab">Organizational Model</a></li>
+              <li><a href="#tabprocess" data-toggle="tab">Process instance</a></li>
+              <li><a href="#tabworklist" data-toggle="tab">Worklists</a></li>
+              <li><a href="#tabhistory" data-toggle="tab">History</a></li>
+            </ul>
+            
+            <div id="myTabContent" class="tab-content">
+            
+              <div class="tab-pane fade in active" id="taborg">
+                <ul class="thumbnails">
+                    <li class="span6">
+                        <div class="thumbnail">
+                            <img src="img/om.png"/>
+                            <h4>Organizational structure</h4>
+                            <p>It depicts the positions (yellow boxes) and the people that occupy those positions
+                                (white boxes) attached to them</p>
+                        </div>
+                    </li>
+                    <li class="span4">
+                        <div class="thumbnail">
+                            <img src="img/position-role_table.png"/>
+                            <h4>Relation position-role</h4>
+                            <p>It depicts the roles that are assigned to each position.</p>
+                        </div>
+                    </li>
+                </ul>
+              </div>
+              
+              
+              <div class="tab-pane fade" id="tabprocess">
+                <img src="img/BPModel.png"/>
+                <p class="lead">
+                    Regarding run-time information, the value of all data fields is Anna and the person who did any activity was Charles.
+                </p>
+              </div>
+              
+              <div class="tab-pane fade" id="tabworklist">
+                <p class="lead">
+                    The current state of the worklists of the resources is as follows:
+                    <ul>
+                        <li>Anthony:  7</li>
+                        <li>Charles: 8</li>
+                        <li>Christine: 4</li>
+                        <li>Adele: 4</li>
+                        <li>Betty: 3</li>
+                        <li>Daniel: 10</li>
+                        <li>Anna: 5</li>
+                    </ul>
+                </p>
+              </div>
+              <div class="tab-pane fade" id="tabhistory">
+                <p class="lead">
+                    The number of times each resource has executed each and every activity of the process is:
+                    <ul>
+                        <li>Anthony: 15</li>
+                        <li>Charles: 8</li>
+                        <li>Christine: 10</li>
+                        <li>Adele: 6</li>
+                        <li>Betty: 4</li>
+                        <li>Daniel: 10</li>
+                        <li>Anna: 5</li>
+                    </ul>                        
+                </p>
+              </div>
+            </div>
 
 	</div>
 	<!-- /container -->
