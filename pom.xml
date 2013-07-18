@@ -85,7 +85,16 @@
 			<id>es.us.isa</id>
 			<name>ISA group</name>
 			<url>http://clinker.isagroup.es/nexus/content/groups/public</url>
+            <snapshots><enabled>true</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
 		</repository>
+        <repository>
+            <id>clinker-snapshots</id>
+            <name>ISA group snapshots</name>
+            <url>http://clinker.isagroup.es/nexus/content/repositories/snapshots</url>
+            <snapshots><enabled>true</enabled></snapshots>
+            <releases><enabled>false</enabled></releases>
+        </repository>
 	</repositories>
 
 	<url>http://www.isa.us.es/cristal</url>
