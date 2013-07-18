@@ -71,12 +71,12 @@
 		<snapshotRepository>
 			<id>es.us.isa.snapshots</id>
 			<name>ISA group Snapshots</name>
-			<url>http://clinker.isa.us.es/nexus/content/repositories/snapshots</url>
+			<url>http://clinker.isagroup.es/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>		
 		<repository>
 			<id>es.us.isa.releases</id>
 			<name>ISA group Releases</name>
-			<url>http://clinker.isa.us.es/nexus/content/repositories/releases</url>
+			<url>http://clinker.isagroup.es/nexus/content/repositories/releases</url>
 		</repository>
 	</distributionManagement>
 
@@ -84,7 +84,7 @@
 		<repository>
 			<id>es.us.isa</id>
 			<name>ISA group</name>
-			<url>http://clinker.isa.us.es/nexus/content/groups/public</url>
+			<url>http://clinker.isagroup.es/nexus/content/groups/public</url>
 		</repository>
 	</repositories>
 
