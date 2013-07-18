@@ -1,0 +1,45 @@
+package es.us.isa.cristal.owl.mappers.ral;
+
+import es.us.isa.cristal.BPEngine;
+import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.owl.mappers.ral.constraints.IdConstraintMapper;
+import es.us.isa.cristal.owl.mappers.ral.constraints.PositionOfConstraintMapper;
+import es.us.isa.cristal.owl.mappers.ral.constraints.runtime.RTActivityConstraintMapper;
+import es.us.isa.cristal.owl.mappers.ral.constraints.runtime.RTDataConstraintMapper;
+import es.us.isa.cristal.owl.mappers.ral.expr.*;
+import es.us.isa.cristal.owl.mappers.ral.expr.runtime.RTNegativeExprMapper;
+import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
+
+/**
+ * User: resinas
+ * Date: 02/07/13
+ * Time: 18:06
+ */
+public class RTOwlRalMapper extends OwlRalMapper {
+
+    public RTOwlRalMapper(IdMapper mapper, BPEngine engine, RALOntologyManager manager) {
+        super(new RTConstraintMapper(mapper), engine);
+
+        addMapper(new PersonExprMapper(constraintMapper));
+        addMapper(new GroupResourceExprMapper(constraintMapper));
+        addMapper(new CommonalityExprMapper(constraintMapper));
+        addMapper(new CapabilityExprMapper(constraintMapper));
+        addMapper(new IsAssignmentExprMapper(this, engine));
+        addMapper(new ReportExprMapper(constraintMapper));
+        addMapper(new DelegateExprMapper(constraintMapper));
+        addMapper(new CompoundExprMapper(this));
+
+        addMapper(new RTNegativeExprMapper(this, mapper, manager));
+    }
+
+    public static class RTConstraintMapper extends OwlConstraintMapper  {
+        public RTConstraintMapper(IdMapper idMapper) {
+            super(idMapper);
+
+            addMapper(new IdConstraintMapper(idMapper));
+            addMapper(new PositionOfConstraintMapper(this));
+            addMapper(new RTDataConstraintMapper());
+            addMapper(new RTActivityConstraintMapper(idMapper));
+        }
+    }
+}
