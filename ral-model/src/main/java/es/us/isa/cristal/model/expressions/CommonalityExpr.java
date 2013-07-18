@@ -2,7 +2,9 @@ package es.us.isa.cristal.model.expressions;
 
 import es.us.isa.cristal.model.CommonalityAmount;
 import es.us.isa.cristal.model.GroupResourceType;
+import es.us.isa.cristal.model.constraints.Constraint;
 import es.us.isa.cristal.model.constraints.PersonConstraint;
+import es.us.isa.cristal.model.constraints.RuntimeConstraint;
 
 /**
  * Las personas que comparter todos o algunos recursos (posición, role o unidad) con otras. 
@@ -73,4 +75,13 @@ public class CommonalityExpr extends RALExpr {
 		return this.personConstraint;
 	}
 
+    @Override
+    public boolean hasRuntimeConstraint() {
+        return personConstraint instanceof RuntimeConstraint;
+    }
+
+    @Override
+    public Constraint[] getConstraints() {
+        return new Constraint[]{personConstraint};
+    }
 }

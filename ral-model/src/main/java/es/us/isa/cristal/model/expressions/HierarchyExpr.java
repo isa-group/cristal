@@ -1,7 +1,9 @@
 package es.us.isa.cristal.model.expressions;
 
 import es.us.isa.cristal.model.HierarchyDirection;
+import es.us.isa.cristal.model.constraints.Constraint;
 import es.us.isa.cristal.model.constraints.PositionConstraint;
+import es.us.isa.cristal.model.constraints.RuntimeConstraint;
 
 /**
  * User: resinas
@@ -26,4 +28,14 @@ public abstract class HierarchyExpr extends RALExpr {
 
 		return this.positionConstraint;
 	}
+
+    @Override
+    public boolean hasRuntimeConstraint() {
+        return positionConstraint instanceof RuntimeConstraint;
+    }
+
+    @Override
+    public Constraint[] getConstraints() {
+        return new Constraint[]{positionConstraint};
+    }
 }

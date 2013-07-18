@@ -1,27 +1,28 @@
 package es.us.isa.cristal.analyser;
 
-import java.util.List;
+import es.us.isa.cristal.model.TaskDuty;
 
+import java.util.Set;
+
+/**
+ * User: resinas
+ * Date: 18/07/13
+ * Time: 13:24
+ */
 public interface RALAnalyser {
-	
-	// obtiene los usuarios candidatos para una instancia de proceso y una actividad dadas
-	List<String> getCandidateUsers(String processInstanceId, String activityId);
+    Set<String> potentialParticipants(String activityName, TaskDuty duty);
 
-	// Is there any person that could be allocated to all the activities of an instance of the BP? 
-	List<String> SomePersonToAllActivities(String processInstanceId, List<String> activities);
-	
-	// Have activity A and B the same potential performers?
-	Boolean SamePotentialPerformers(String processInstanceId, String activityIdA, String activityIdB);
-	
-	// Can all the potential performers of an activity A be allocated also to activity B?
-	Boolean AllPerformersAllocatedAtB(String processInstanceId, String activityIdA, String activityIdB);
-	
-	// Is there anybody in the company that never participates in the BP?
-	List<String> SomePersonNeverParticipating(String processInstanceId, List<String> activities);
-	
-	// Is there anybody necessary in the BP?
-	List<String> SomebodyIndispensable(String processInstanceId, List<String> activities);
+    Set<String> potentialActivities(String personName, TaskDuty duty);
 
-	List<String> AllActivitiesByPerson(String processInstanceId, String personId, List<String> activities);
-	
+    boolean basicConsistency(String activity, TaskDuty duty);
+
+    Set<String> nonParticipants(Iterable<String> activities, TaskDuty duty);
+
+    Set<String> permanentParticipants(Iterable<String> activities, TaskDuty duty);
+
+    Set<String> criticalActivities(Iterable<String> activities, TaskDuty duty);
+
+    Set<String> criticalParticipants(Iterable<String> activities, TaskDuty duty);
+
+    Set<String> indispensableParticipants(Iterable<String> activities, TaskDuty duty);
 }

@@ -1,7 +1,9 @@
 package es.us.isa.cristal.model.expressions;
 
 import es.us.isa.cristal.model.GroupResourceType;
+import es.us.isa.cristal.model.constraints.Constraint;
 import es.us.isa.cristal.model.constraints.GroupResourceConstraint;
+import es.us.isa.cristal.model.constraints.RuntimeConstraint;
 
 /**
  * Hace referencia a las personas que utilizan un recurso. Expresión RAL "HAS groupResourceType groupResourceConstraint"
@@ -57,4 +59,13 @@ public class GroupResourceExpr extends RALExpr {
 	}
 
 
+    @Override
+    public boolean hasRuntimeConstraint() {
+        return groupResourceConstraint instanceof RuntimeConstraint;
+    }
+
+    @Override
+    public Constraint[] getConstraints() {
+        return new Constraint[]{groupResourceConstraint};
+    }
 }

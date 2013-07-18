@@ -1,7 +1,7 @@
 package es.us.isa.cristal.neo4j.queries;
 
+import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.resolver.BPEngine;
 import es.us.isa.cristal.resolver.ConstraintResolver;
 
 import java.util.HashMap;

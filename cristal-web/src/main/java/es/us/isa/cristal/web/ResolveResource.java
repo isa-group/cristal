@@ -2,6 +2,7 @@ package es.us.isa.cristal.web;
 
 import com.google.common.io.Files;
 import es.isa.puri.Ranking;
+import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.parser.RALParser;
@@ -9,7 +10,6 @@ import es.us.isa.cristal.pba.PBAResolver;
 import es.us.isa.cristal.pba.rankers.BPHistory;
 import es.us.isa.cristal.pba.rankers.Person;
 import es.us.isa.cristal.pba.rankers.TaskEngine;
-import es.us.isa.cristal.resolver.BPEngine;
 import es.us.isa.cristal.resolver.RALResolver;
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.graphdb.GraphDatabaseService;

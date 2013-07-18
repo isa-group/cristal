@@ -1,5 +1,6 @@
 package es.us.isa.cristal.resolver;
 
+import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.constraints.ActivityConstraint;
 import es.us.isa.cristal.model.constraints.Constraint;
 import es.us.isa.cristal.model.constraints.DataConstraint;

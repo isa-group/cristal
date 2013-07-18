@@ -1,5 +1,7 @@
 package es.us.isa.cristal.model.expressions;
 
+import es.us.isa.cristal.model.constraints.Constraint;
+
 public class NegativeExpr extends RALExpr {
 
 	/**
@@ -20,4 +22,13 @@ public class NegativeExpr extends RALExpr {
 		return this.exprObject;
 	}
 
+    @Override
+    public boolean hasRuntimeConstraint() {
+        return exprObject.hasRuntimeConstraint();
+    }
+
+    @Override
+    public Constraint[] getConstraints() {
+        return exprObject.getConstraints();
+    }
 }

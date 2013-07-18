@@ -117,5 +117,6 @@
         <module>ral-model</module>
         <module>ral-neo4j</module>
         <module>preferences-rankers</module>
+        <module>ral-owl-analyser</module>
     </modules>
 </project>

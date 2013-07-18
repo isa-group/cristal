@@ -58,7 +58,7 @@ exprSimple returns [RALExpr value] :
   'IS' ( e1=personConstraint {$value = new PersonExpr($e1.value);}
          | 'ASSIGNMENT IN ACTIVITY' activityName {$value = new IsAssignmentExpr($activityName.text); }
          | depth 'REPORTED BY' e2=positionConstraint {$value = new ReportExpr($depth.value, $e2.value, HierarchyDirection.INVERSE);} )
-  | 'HAS' ( groupResourceType e3=groupResourceConstraint {$value = new GroupResourceExpr($groupResourceType.value, $e3.value);}
+  | 'HAS' ( groupResourceType e3=groupResourceConstraint {$e3.value.setGroupResourceType($groupResourceType.value); $value = new GroupResourceExpr($groupResourceType.value, $e3.value);}
   			| 'CAPABILITY' capabilityConstraint {$value = new CapabilityExpr($capabilityConstraint.text);} )
   | 'SHARES' amount groupResourceType 'WITH' e1=personConstraint {$value = new CommonalityExpr(CommonalityAmount.valueOf($amount.text), $groupResourceType.value, $e1.value);}
   | 'REPORTS TO' e2=positionConstraint depth {$value = new ReportExpr($depth.value, $e2.value, HierarchyDirection.DIRECT);}

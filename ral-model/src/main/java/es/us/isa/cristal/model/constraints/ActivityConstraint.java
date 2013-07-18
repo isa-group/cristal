@@ -5,7 +5,7 @@ package es.us.isa.cristal.model.constraints;
  * Date: 24/02/13
  * Time: 20:02
  */
-public abstract class ActivityConstraint implements Constraint {
+public abstract class ActivityConstraint implements RuntimeConstraint {
 
     private String activityName;
 

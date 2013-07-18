@@ -1,4 +1,4 @@
-package es.us.isa.cristal.resolver;
+package es.us.isa.cristal;
 
 import es.us.isa.cristal.model.expressions.RALExpr;
 

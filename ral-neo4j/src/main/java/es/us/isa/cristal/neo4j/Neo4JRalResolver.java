@@ -1,8 +1,8 @@
 package es.us.isa.cristal.neo4j;
 
+import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.queries.Neo4jQueryBuilder;
-import es.us.isa.cristal.resolver.BPEngine;
 import es.us.isa.cristal.resolver.RALResolver;
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.cypher.ExecutionResult;

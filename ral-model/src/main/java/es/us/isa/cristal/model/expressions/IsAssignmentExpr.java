@@ -1,5 +1,7 @@
 package es.us.isa.cristal.model.expressions;
 
+import es.us.isa.cristal.model.constraints.Constraint;
+
 /**
  * Hace referencia a las personas que están asignadas a una actividad. Expresión RAL "IS ASSIGNMENT IN ACTIVITY activityName"
  * 
@@ -21,9 +23,7 @@ public class IsAssignmentExpr extends RALExpr {
 	 * @param activityName Identificador de la actividad
 	 */
 	public IsAssignmentExpr(String activityName) {
-		
 		super();
-		
 		this.activityName = activityName;
 	}
 	
@@ -34,7 +34,16 @@ public class IsAssignmentExpr extends RALExpr {
 	 * @return Valor de la propiedad
 	 */
 	public String getActivityName() {
-		
 		return this.activityName;
 	}
+
+    @Override
+    public boolean hasRuntimeConstraint() {
+        return false;
+    }
+
+    @Override
+    public Constraint[] getConstraints() {
+        return new Constraint[]{};
+    }
 }

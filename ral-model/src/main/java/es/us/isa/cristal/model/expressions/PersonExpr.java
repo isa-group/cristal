@@ -1,6 +1,8 @@
 package es.us.isa.cristal.model.expressions;
 
+import es.us.isa.cristal.model.constraints.Constraint;
 import es.us.isa.cristal.model.constraints.PersonConstraint;
+import es.us.isa.cristal.model.constraints.RuntimeConstraint;
 
 /**
  * Hace referencia a personas por su identificador. Expresión RAL "IS personConstraint"
@@ -40,4 +42,13 @@ public class PersonExpr extends RALExpr {
 		return this.personConstraint;
 	}
 
+    @Override
+    public boolean hasRuntimeConstraint() {
+        return personConstraint instanceof RuntimeConstraint;
+    }
+
+    @Override
+    public Constraint[] getConstraints() {
+        return new Constraint[]{personConstraint};
+    }
 }

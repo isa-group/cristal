@@ -1,5 +1,6 @@
 package es.us.isa.cristal.resolver;
 
+import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.parser.RALParser;
 
