@@ -15,7 +15,7 @@
         <repository>
             <id>semweb4j-repo</id>
             <name>Semweb4j.org maven repo</name>
-            <url>http://semweb4j.org/repo/</url>
+            <url>http://mavenrepo.fzi.de/semweb4j.org/repo/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
