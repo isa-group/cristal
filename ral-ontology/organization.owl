@@ -135,6 +135,7 @@
     <!-- http://www.isa.us.es/cristal/organization.owl#isMemberOf -->
 
     <owl:ObjectProperty rdf:about="&organization;isMemberOf">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
         <rdfs:range rdf:resource="&organization;OrganizationalUnit"/>
         <rdfs:domain rdf:resource="&organization;Position"/>
     </owl:ObjectProperty>

@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY AbstractBP "http://www.isa.us.es/ontologies/AbstractBP.owl#" >
+    <!ENTITY AbstractBP-relationships "http://www.isa.us.es/ontologies/AbstractBP-relationships.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.isa.us.es/cristal/bp-attend-conference.owl#"
+     xml:base="http://www.isa.us.es/cristal/bp-attend-conference.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:AbstractBP="http://www.isa.us.es/ontologies/AbstractBP.owl#"
+     xmlns:AbstractBP-relationships="http://www.isa.us.es/ontologies/AbstractBP-relationships.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl">
+        <owl:imports rdf:resource="http://www.isa.us.es/ontologies/AbstractBP-relationships.owl"/>
+        <owl:imports rdf:resource="http://www.isa.us.es/ontologies/AbstractBP.owl"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-attend-conference.owl#AttendConference -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#AttendConference">
+        <rdf:type rdf:resource="&AbstractBP;Process"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization"/>
+        <AbstractBP-relationships:weakOrder rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/bp-attend-conference.owl#SubmitCameraReady -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#SubmitCameraReady">
+        <rdf:type rdf:resource="&AbstractBP;Activity"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization"/>
+        <AbstractBP-relationships:mandatory rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:Class>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="&AbstractBP-relationships;weakOrder"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:hasValue rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#SubmitCameraReady"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <owl:oneOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
+        </owl:oneOf>
+    </owl:Class>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#AttendConference"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#CheckResponse"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#FillTravelAuthorization"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#SendTravelAuthorization"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#SignTravelAuthorization"/>
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#SubmitCameraReady"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1785) http://owlapi.sourceforge.net -->
+

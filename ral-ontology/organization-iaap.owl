@@ -17,7 +17,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:organization-iaap="http://www.isa.us.es/cristal/organization-iaap.owl#">
-    <Ontology rdf:about="http://www.isa.us.es/cristal/organization-iaap.owl#">
+    <Ontology rdf:about="http://www.isa.us.es/cristal/organization-iaap.owl">
         <imports rdf:resource="http://www.isa.us.es/cristal/organization.owl"/>
     </Ontology>
     
