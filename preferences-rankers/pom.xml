@@ -15,7 +15,7 @@
         <repository>
             <id>semweb4j-repo</id>
             <name>Semweb4j.org maven repo</name>
-            <url>http://mavenrepo.fzi.de/semweb4j.org/repo/</url>
+            <url>http://semweb4j.org/repo/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -36,8 +36,8 @@
 
         <dependency>
             <groupId>org.semweb4j</groupId>
-            <artifactId>rdf2go.impl.sesame23</artifactId>
-            <version>4.7.2</version>
+            <artifactId>rdf2go.impl.sesame</artifactId>
+            <version>4.8.2</version>
         </dependency>
     </dependencies>
 
