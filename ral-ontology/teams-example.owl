@@ -1,0 +1,512 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY teams "http://www.isa.us.es/cristal/teams.owl#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY organization "http://www.isa.us.es/cristal/organization.owl#" >
+    <!ENTITY organization-iaap "http://www.isa.us.es/cristal/organization-iaap.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.isa.us.es/cristal/teams-example.owl#"
+     xml:base="http://www.isa.us.es/cristal/teams-example.owl"
+     xmlns:teams="http://www.isa.us.es/cristal/teams.owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:organization="http://www.isa.us.es/cristal/organization.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:organization-iaap="http://www.isa.us.es/cristal/organization-iaap.owl#">
+    <owl:Ontology rdf:about="http://www.isa.us.es/cristal/teams-example.owl">
+        <owl:imports rdf:resource="http://www.isa.us.es/cristal/organization-iaap.owl"/>
+        <owl:imports rdf:resource="http://www.isa.us.es/cristal/teams.owl"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#hasDeveloper -->
+
+    <owl:ObjectProperty rdf:about="http://www.isa.us.es/cristal/teams-example.owl#hasDeveloper">
+        <rdfs:subPropertyOf rdf:resource="&teams;hasMember"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#hasProductOwner -->
+
+    <owl:ObjectProperty rdf:about="http://www.isa.us.es/cristal/teams-example.owl#hasProductOwner">
+        <rdfs:subPropertyOf rdf:resource="&teams;hasMember"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#hasScrumMaster -->
+
+    <owl:ObjectProperty rdf:about="http://www.isa.us.es/cristal/teams-example.owl#hasScrumMaster">
+        <rdfs:subPropertyOf rdf:resource="&teams;hasMember"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#F1 -->
+
+    <owl:Class rdf:about="&teams;F1">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="&teams;hasMember"/>
+                                <owl:someValuesFrom>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="&organization;hasDegree"/>
+                                        <owl:hasValue rdf:resource="&organization-iaap;ComputerScience"/>
+                                    </owl:Restriction>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&teams;hasMember"/>
+                        <owl:someValuesFrom>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="&organization;hasDegree"/>
+                                <owl:hasValue rdf:resource="&organization-iaap;TechnicalEngineering"/>
+                            </owl:Restriction>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&teams;Team"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#TeamMember -->
+
+    <rdf:Description rdf:about="&teams;TeamMember">
+        <owl:hasKey rdf:parseType="Collection">
+            <rdf:Description rdf:about="&teams;isPerson"/>
+            <rdf:Description rdf:about="&teams;ofTeam"/>
+        </owl:hasKey>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#alexInT1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#alexInT1">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <teams:isPerson rdf:resource="&organization-iaap;Alex"/>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:ofTeam rdf:resource="&teams;t1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#annaInT1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#annaInT1">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <teams:isPerson rdf:resource="&organization-iaap;Anna"/>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:ofTeam rdf:resource="&teams;t1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#assistant -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#assistant">
+        <rdf:type rdf:resource="&teams;TeamRoleType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#carolInT1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#carolInT1">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <teams:isPerson rdf:resource="&organization-iaap;Carol"/>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:ofTeam rdf:resource="&teams;t1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#chrisInT1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#chrisInT1">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <teams:isPerson rdf:resource="&organization-iaap;Chris"/>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#productOwner"/>
+        <teams:ofTeam rdf:resource="&teams;t1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#coordinator -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#coordinator">
+        <rdf:type rdf:resource="&teams;TeamRoleType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#danielInT1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#danielInT1">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <teams:isPerson rdf:resource="&organization-iaap;Daniel"/>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#scrumMaster"/>
+        <teams:ofTeam rdf:resource="&teams;t1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#davidInT3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#davidInT3">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&teams;playRole"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:ofTeam rdf:resource="&teams;t3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#developer -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#developer">
+        <rdf:type rdf:resource="&teams;TeamRoleType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#dianaInT3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#dianaInT3">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&teams;playRole"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#productOwner"/>
+        <teams:ofTeam rdf:resource="&teams;t3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#doctor -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#doctor">
+        <rdf:type rdf:resource="&teams;TeamRoleType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#lydiaInT2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#lydiaInT2">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&teams;playRole"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:ofTeam rdf:resource="&teams;t2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#marioInT2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#marioInT2">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&teams;playRole"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:cardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#productOwner"/>
+        <teams:ofTeam rdf:resource="&teams;t2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#nurse -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#nurse">
+        <rdf:type rdf:resource="&teams;TeamRoleType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#productOwner -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#productOwner">
+        <rdf:type rdf:resource="&teams;TeamRoleType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#samuelInT2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#samuelInT2">
+        <rdf:type rdf:resource="&teams;TeamMember"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&teams;playRole"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <teams:playRole rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#productOwner"/>
+        <teams:ofTeam rdf:resource="&teams;t2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#scrumMaster -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#scrumMaster">
+        <rdf:type rdf:resource="&teams;TeamRoleType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#scrumTeam -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#scrumTeam">
+        <rdf:type rdf:resource="&teams;TeamType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#surgical -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#surgical">
+        <rdf:type rdf:resource="&teams;TeamType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams-example.owl#t4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.isa.us.es/cristal/teams-example.owl#t4">
+        <rdf:type rdf:resource="&teams;Team"/>
+        <rdf:type>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasDeveloper"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasProductOwner"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&teams;hasMember"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdf:type>
+        <hasDeveloper rdf:resource="&organization-iaap;Mario"/>
+        <hasProductOwner rdf:resource="&organization-iaap;Mario"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#t1 -->
+
+    <owl:NamedIndividual rdf:about="&teams;t1">
+        <rdf:type rdf:resource="&teams;Team"/>
+        <rdf:type>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasDeveloper"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasProductOwner"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasScrumMaster"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&teams;hasMember"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">5</owl:cardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&teams;roleType"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:cardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <hasDeveloper rdf:resource="&organization-iaap;Alex"/>
+        <hasDeveloper rdf:resource="&organization-iaap;Anna"/>
+        <hasDeveloper rdf:resource="&organization-iaap;Carol"/>
+        <hasProductOwner rdf:resource="&organization-iaap;Chris"/>
+        <hasScrumMaster rdf:resource="&organization-iaap;Daniel"/>
+        <teams:hasCreator rdf:resource="&organization-iaap;Lydia"/>
+        <teams:roleType rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:roleType rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#productOwner"/>
+        <teams:roleType rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#scrumMaster"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#t2 -->
+
+    <owl:NamedIndividual rdf:about="&teams;t2">
+        <rdf:type rdf:resource="&teams;Team"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&teams;roleType"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:cardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasDeveloper"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasProductOwner"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&teams;hasMember"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:cardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdf:type>
+        <hasDeveloper rdf:resource="&organization-iaap;Lydia"/>
+        <teams:hasCreator rdf:resource="&organization-iaap;Lydia"/>
+        <hasDeveloper rdf:resource="&organization-iaap;Mario"/>
+        <hasProductOwner rdf:resource="&organization-iaap;Samuel"/>
+        <teams:roleType rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:roleType rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#productOwner"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#t3 -->
+
+    <owl:NamedIndividual rdf:about="&teams;t3">
+        <rdf:type rdf:resource="&teams;Team"/>
+        <rdf:type>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasDeveloper"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#hasProductOwner"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&teams;hasMember"/>
+                        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:cardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&teams;roleType"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:cardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <hasDeveloper rdf:resource="&organization-iaap;David"/>
+        <hasProductOwner rdf:resource="&organization-iaap;Diana"/>
+        <teams:hasCreator rdf:resource="&organization-iaap;Samuel"/>
+        <teams:roleType rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#developer"/>
+        <teams:roleType rdf:resource="http://www.isa.us.es/cristal/teams-example.owl#productOwner"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDifferent"/>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="&teams;t1"/>
+            <rdf:Description rdf:about="&teams;t2"/>
+            <rdf:Description rdf:about="&teams;t3"/>
+        </owl:distinctMembers>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1785) http://owlapi.sourceforge.net -->
+

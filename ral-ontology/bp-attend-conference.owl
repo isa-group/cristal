@@ -160,6 +160,21 @@
             <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
         </owl:oneOf>
     </owl:Class>
+    <owl:Class>
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="&AbstractBP-relationships;weakOrder"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:hasValue rdf:resource="http://www.isa.us.es/cristal/bp-attend-conference.owl#RegisterAtConference"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <owl:oneOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.isa.us.es/cristal/bp-attend-conference.owl#MakeReservations"/>
+        </owl:oneOf>
+    </owl:Class>
     <rdf:Description>
         <rdf:type rdf:resource="&owl;AllDifferent"/>
         <owl:distinctMembers rdf:parseType="Collection">

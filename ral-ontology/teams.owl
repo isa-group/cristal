@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY teams "http://www.isa.us.es/cristal/teams.owl#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY organization "http://www.isa.us.es/cristal/organization.owl#" >
+    <!ENTITY AbstractBP "http://www.isa.us.es/ontologies/AbstractBP.owl#" >
+    <!ENTITY organization-iaap "http://www.isa.us.es/cristal/organization-iaap.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.isa.us.es/cristal/teams.owl#"
+     xml:base="http://www.isa.us.es/cristal/teams.owl"
+     xmlns:teams="http://www.isa.us.es/cristal/teams.owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:organization="http://www.isa.us.es/cristal/organization.owl#"
+     xmlns:AbstractBP="http://www.isa.us.es/ontologies/AbstractBP.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:organization-iaap="http://www.isa.us.es/cristal/organization-iaap.owl#">
+    <owl:Ontology rdf:about="http://www.isa.us.es/cristal/teams.owl">
+        <owl:imports rdf:resource="http://www.isa.us.es/cristal/organization.owl"/>
+        <owl:imports rdf:resource="http://www.isa.us.es/ontologies/AbstractBP.owl"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#ai -->
+
+    <owl:ObjectProperty rdf:about="&teams;ai">
+        <rdfs:domain rdf:resource="&teams;ActivityInstanceScope"/>
+        <rdfs:range rdf:resource="&AbstractBP;ActivityInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#formedWithin -->
+
+    <owl:ObjectProperty rdf:about="&teams;formedWithin">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&teams;Scope"/>
+        <rdfs:domain rdf:resource="&teams;TemporaryTeam"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#hasCreator -->
+
+    <owl:ObjectProperty rdf:about="&teams;hasCreator">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&organization;Person"/>
+        <rdfs:domain rdf:resource="&teams;Team"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#hasMember -->
+
+    <owl:ObjectProperty rdf:about="&teams;hasMember">
+        <rdfs:range rdf:resource="&organization;Person"/>
+        <rdfs:domain rdf:resource="&teams;Team"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#hasRoleType -->
+
+    <owl:ObjectProperty rdf:about="&teams;hasRoleType">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&teams;TeamRole"/>
+        <rdfs:range rdf:resource="&teams;TeamRoleType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#hasType -->
+
+    <owl:ObjectProperty rdf:about="&teams;hasType">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&teams;Team"/>
+        <rdfs:range rdf:resource="&teams;TeamType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#isPerson -->
+
+    <owl:ObjectProperty rdf:about="&teams;isPerson">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&organization;Person"/>
+        <rdfs:domain rdf:resource="&teams;TeamMember"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#ofTeam -->
+
+    <owl:ObjectProperty rdf:about="&teams;ofTeam">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&teams;Team"/>
+        <rdfs:domain rdf:resource="&teams;TeamMember"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#pi -->
+
+    <owl:ObjectProperty rdf:about="&teams;pi">
+        <rdfs:domain rdf:resource="&teams;ProcessInstanceScope"/>
+        <rdfs:range rdf:resource="&AbstractBP;ProcessInstance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#playRole -->
+
+    <owl:ObjectProperty rdf:about="&teams;playRole">
+        <rdfs:domain rdf:resource="&teams;TeamMember"/>
+        <rdfs:range rdf:resource="&teams;TeamRoleType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#plays -->
+
+    <owl:ObjectProperty rdf:about="&teams;plays">
+        <rdfs:domain rdf:resource="&organization;Person"/>
+        <rdfs:range rdf:resource="&teams;TeamRole"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#roleType -->
+
+    <owl:ObjectProperty rdf:about="&teams;roleType">
+        <rdfs:domain rdf:resource="&teams;Team"/>
+        <rdfs:range rdf:resource="&teams;TeamRoleType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#teamRoles -->
+
+    <owl:ObjectProperty rdf:about="&teams;teamRoles">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description>
+                <owl:inverseOf rdf:resource="&teams;ofTeam"/>
+            </rdf:Description>
+            <rdf:Description rdf:about="&teams;playRole"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#within -->
+
+    <owl:ObjectProperty rdf:about="&teams;within">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&teams;Team"/>
+        <rdfs:domain rdf:resource="&teams;TeamRole"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#endDate -->
+
+    <owl:DatatypeProperty rdf:about="&teams;endDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&teams;TemporalScope"/>
+        <rdfs:range rdf:resource="&xsd;dateTimeStamp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#startDate -->
+
+    <owl:DatatypeProperty rdf:about="&teams;startDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&teams;TemporalScope"/>
+        <rdfs:range rdf:resource="&xsd;dateTimeStamp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#ActivityInstanceScope -->
+
+    <owl:Class rdf:about="&teams;ActivityInstanceScope">
+        <rdfs:subClassOf rdf:resource="&teams;Scope"/>
+        <owl:hasKey rdf:parseType="Collection">
+            <rdf:Description rdf:about="&teams;ai"/>
+        </owl:hasKey>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#PermanentTeam -->
+
+    <owl:Class rdf:about="&teams;PermanentTeam">
+        <rdfs:subClassOf rdf:resource="&teams;Team"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#ProcessInstanceScope -->
+
+    <owl:Class rdf:about="&teams;ProcessInstanceScope">
+        <rdfs:subClassOf rdf:resource="&teams;Scope"/>
+        <owl:hasKey rdf:parseType="Collection">
+            <rdf:Description rdf:about="&teams;pi"/>
+        </owl:hasKey>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#Scope -->
+
+    <owl:Class rdf:about="&teams;Scope"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#Team -->
+
+    <owl:Class rdf:about="&teams;Team">
+        <owl:disjointUnionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="&teams;PermanentTeam"/>
+            <rdf:Description rdf:about="&teams;TemporaryTeam"/>
+        </owl:disjointUnionOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#TeamMember -->
+
+    <owl:Class rdf:about="&teams;TeamMember"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#TeamRole -->
+
+    <owl:Class rdf:about="&teams;TeamRole">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&teams;hasRoleType"/>
+                        <owl:someValuesFrom rdf:resource="&teams;TeamRoleType"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&teams;within"/>
+                        <owl:someValuesFrom rdf:resource="&teams;Team"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <owl:hasKey rdf:parseType="Collection">
+            <rdf:Description rdf:about="&teams;hasRoleType"/>
+            <rdf:Description rdf:about="&teams;within"/>
+        </owl:hasKey>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#TeamRoleType -->
+
+    <owl:Class rdf:about="&teams;TeamRoleType"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#TeamType -->
+
+    <owl:Class rdf:about="&teams;TeamType"/>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#TemporalScope -->
+
+    <owl:Class rdf:about="&teams;TemporalScope">
+        <rdfs:subClassOf rdf:resource="&teams;Scope"/>
+        <owl:hasKey rdf:parseType="Collection">
+            <rdf:Description rdf:about="&teams;endDate"/>
+            <rdf:Description rdf:about="&teams;startDate"/>
+        </owl:hasKey>
+    </owl:Class>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/teams.owl#TemporaryTeam -->
+
+    <owl:Class rdf:about="&teams;TemporaryTeam">
+        <rdfs:subClassOf rdf:resource="&teams;Team"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization;Capability"/>
+            <rdf:Description rdf:about="&organization;OrganizationalUnit"/>
+            <rdf:Description rdf:about="&organization;Person"/>
+            <rdf:Description rdf:about="&organization;Position"/>
+            <rdf:Description rdf:about="&organization;Role"/>
+            <rdf:Description rdf:about="&teams;Team"/>
+            <rdf:Description rdf:about="&teams;TeamType"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&teams;ActivityInstanceScope"/>
+            <rdf:Description rdf:about="&teams;ProcessInstanceScope"/>
+            <rdf:Description rdf:about="&teams;TemporalScope"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization;Capability"/>
+            <rdf:Description rdf:about="&organization;OrganizationalUnit"/>
+            <rdf:Description rdf:about="&organization;Person"/>
+            <rdf:Description rdf:about="&organization;Position"/>
+            <rdf:Description rdf:about="&organization;Role"/>
+            <rdf:Description rdf:about="&teams;Team"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&organization;Capability"/>
+            <rdf:Description rdf:about="&organization;OrganizationalUnit"/>
+            <rdf:Description rdf:about="&organization;Person"/>
+            <rdf:Description rdf:about="&organization;Position"/>
+            <rdf:Description rdf:about="&organization;Role"/>
+            <rdf:Description rdf:about="&teams;Scope"/>
+            <rdf:Description rdf:about="&teams;Team"/>
+            <rdf:Description rdf:about="&teams;TeamRole"/>
+            <rdf:Description rdf:about="&teams;TeamRoleType"/>
+            <rdf:Description rdf:about="&teams;TeamType"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1785) http://owlapi.sourceforge.net -->
+

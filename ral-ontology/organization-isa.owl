@@ -1,0 +1,512 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY organization "http://www.isa.us.es/cristal/organization.owl#" >
+    <!ENTITY organization-isa "http://www.isa.us.es/cristal/organization-isa.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.isa.us.es/cristal/organization-isa.owl#"
+     xml:base="http://www.isa.us.es/cristal/organization-isa.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:organization="http://www.isa.us.es/cristal/organization.owl#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:organization-isa="http://www.isa.us.es/cristal/organization-isa.owl#">
+    <owl:Ontology rdf:about="http://www.isa.us.es/cristal/organization-isa.owl">
+        <owl:imports rdf:resource="http://www.isa.us.es/cristal/organization.owl"/>
+    </owl:Ontology>
+    
+
+
+
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#AccountAdministrator -->
+
+    <owl:Thing rdf:about="&organization-isa;AccountAdministrator">
+        <rdf:type rdf:resource="&organization;Role"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#AccountDelegate -->
+
+    <owl:Thing rdf:about="&organization-isa;AccountDelegate">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;reportsTo"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;participatesIn"/>
+                <owl:onClass rdf:resource="&organization;Role"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;isMemberOf"/>
+                <owl:onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-isa;AccountAdministrator"/>
+        <organization:reportsTo rdf:resource="&organization-isa;ProjectCoordinator"/>
+        <organization:isMemberOf rdf:resource="&organization-isa;ProjectTHEOS"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Adela -->
+
+    <owl:Thing rdf:about="&organization-isa;Adela">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;occupies"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;hasDegree"/>
+                <owl:onClass rdf:resource="&organization;Degree"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-isa;ComputerScienceDegree"/>
+        <organization:occupies rdf:resource="&organization-isa;PhdStudent"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#AdministrativeAssistant -->
+
+    <owl:Thing rdf:about="&organization-isa;AdministrativeAssistant">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;isMemberOf"/>
+                <owl:onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;participatesIn"/>
+                <owl:onClass rdf:resource="&organization;Role"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;reportsTo"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-isa;Clerk"/>
+        <organization:reportsTo rdf:resource="&organization-isa;ProjectCoordinator"/>
+        <organization:isMemberOf rdf:resource="&organization-isa;ProjectTHEOS"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Ana -->
+
+    <owl:Thing rdf:about="&organization-isa;Ana">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;occupies"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:occupies rdf:resource="&organization-isa;AdministrativeAssistant"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Antonio -->
+
+    <owl:Thing rdf:about="&organization-isa;Antonio">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;hasDegree"/>
+                <owl:onClass rdf:resource="&organization;Degree"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;occupies"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-isa;ComputerScienceDegree"/>
+        <organization:occupies rdf:resource="&organization-isa;ProjectCoordinator"/>
+        <organization:occupies rdf:resource="&organization-isa;ResponsibleForWorkPackage"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Beatriz -->
+
+    <owl:Thing rdf:about="&organization-isa;Beatriz">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;occupies"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;hasDegree"/>
+                <owl:onClass rdf:resource="&organization;Degree"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:occupies rdf:resource="&organization-isa;AccountDelegate"/>
+        <organization:hasDegree rdf:resource="&organization-isa;ComputerScienceDegree"/>
+        <organization:occupies rdf:resource="&organization-isa;ResponsibleForWorkPackage"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Clerk -->
+
+    <owl:Thing rdf:about="&organization-isa;Clerk">
+        <rdf:type rdf:resource="&organization;Role"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#ComputerScienceDegree -->
+
+    <owl:Thing rdf:about="&organization-isa;ComputerScienceDegree">
+        <rdf:type rdf:resource="&organization;Degree"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Cristina -->
+
+    <owl:Thing rdf:about="&organization-isa;Cristina">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;hasDegree"/>
+                <owl:onClass rdf:resource="&organization;Degree"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;occupies"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-isa;ComputerScienceDegree"/>
+        <organization:occupies rdf:resource="&organization-isa;PhdStudent"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#DoctoralThesisAdvisor -->
+
+    <owl:Thing rdf:about="&organization-isa;DoctoralThesisAdvisor">
+        <rdf:type rdf:resource="&organization;Role"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Manuel -->
+
+    <owl:Thing rdf:about="&organization-isa;Manuel">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;occupies"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;hasDegree"/>
+                <owl:onClass rdf:resource="&organization;Degree"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-isa;ComputerScienceDegree"/>
+        <organization:occupies rdf:resource="&organization-isa;ResponsibleForWorkPackage"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#PhdStudent -->
+
+    <owl:Thing rdf:about="&organization-isa;PhdStudent">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;participatesIn"/>
+                <owl:onClass rdf:resource="&organization;Role"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;isMemberOf"/>
+                <owl:onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;reportsTo"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:isMemberOf rdf:resource="&organization-isa;ProjectTHEOS"/>
+        <organization:participatesIn rdf:resource="&organization-isa;ResearchAssistant"/>
+        <organization:reportsTo rdf:resource="&organization-isa;ResponsibleForWorkPackage"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#ProjectCoordinator -->
+
+    <owl:Thing rdf:about="&organization-isa;ProjectCoordinator">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;canDelegateWorkTo"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">5</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;participatesIn"/>
+                <owl:onClass rdf:resource="&organization;Role"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">5</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;isMemberOf"/>
+                <owl:onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-isa;AccountAdministrator"/>
+        <organization:canDelegateWorkTo rdf:resource="&organization-isa;AccountDelegate"/>
+        <organization:canDelegateWorkTo rdf:resource="&organization-isa;AdministrativeAssistant"/>
+        <organization:participatesIn rdf:resource="&organization-isa;DoctoralThesisAdvisor"/>
+        <organization:canDelegateWorkTo rdf:resource="&organization-isa;PhdStudent"/>
+        <organization:isMemberOf rdf:resource="&organization-isa;ProjectTHEOS"/>
+        <organization:participatesIn rdf:resource="&organization-isa;Researcher"/>
+        <organization:participatesIn rdf:resource="&organization-isa;ResourceManager"/>
+        <organization:participatesIn rdf:resource="&organization-isa;Responsible"/>
+        <organization:canDelegateWorkTo rdf:resource="&organization-isa;ResponsibleForWorkPackage"/>
+        <organization:canDelegateWorkTo rdf:resource="&organization-isa;SeniorTechnician"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#ProjectTHEOS -->
+
+    <owl:Thing rdf:about="&organization-isa;ProjectTHEOS">
+        <rdf:type rdf:resource="&organization;OrganizationalUnit"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#ResearchAssistant -->
+
+    <owl:Thing rdf:about="&organization-isa;ResearchAssistant">
+        <rdf:type rdf:resource="&organization;Role"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Researcher -->
+
+    <owl:Thing rdf:about="&organization-isa;Researcher">
+        <rdf:type rdf:resource="&organization;Role"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#ResourceManager -->
+
+    <owl:Thing rdf:about="&organization-isa;ResourceManager">
+        <rdf:type rdf:resource="&organization;Role"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Responsible -->
+
+    <owl:Thing rdf:about="&organization-isa;Responsible">
+        <rdf:type rdf:resource="&organization;Role"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#ResponsibleForWorkPackage -->
+
+    <owl:Thing rdf:about="&organization-isa;ResponsibleForWorkPackage">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;reportsTo"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;isMemberOf"/>
+                <owl:onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;participatesIn"/>
+                <owl:onClass rdf:resource="&organization;Role"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;canDelegateWorkTo"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:participatesIn rdf:resource="&organization-isa;DoctoralThesisAdvisor"/>
+        <organization:canDelegateWorkTo rdf:resource="&organization-isa;PhdStudent"/>
+        <organization:reportsTo rdf:resource="&organization-isa;ProjectCoordinator"/>
+        <organization:isMemberOf rdf:resource="&organization-isa;ProjectTHEOS"/>
+        <organization:participatesIn rdf:resource="&organization-isa;Researcher"/>
+        <organization:participatesIn rdf:resource="&organization-isa;Responsible"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#SeniorTechnician -->
+
+    <owl:Thing rdf:about="&organization-isa;SeniorTechnician">
+        <rdf:type rdf:resource="&organization;Position"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;isMemberOf"/>
+                <owl:onClass rdf:resource="&organization;OrganizationalUnit"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;reportsTo"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;participatesIn"/>
+                <owl:onClass rdf:resource="&organization;Role"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:reportsTo rdf:resource="&organization-isa;ProjectCoordinator"/>
+        <organization:isMemberOf rdf:resource="&organization-isa;ProjectTHEOS"/>
+        <organization:participatesIn rdf:resource="&organization-isa;Responsible"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.isa.us.es/cristal/organization-isa.owl#Sergio -->
+
+    <owl:Thing rdf:about="&organization-isa;Sergio">
+        <rdf:type rdf:resource="&organization;Person"/>
+        <rdf:type rdf:resource="&owl;NamedIndividual"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;occupies"/>
+                <owl:onClass rdf:resource="&organization;Position"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&organization;hasDegree"/>
+                <owl:onClass rdf:resource="&organization;Degree"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdf:type>
+        <organization:hasDegree rdf:resource="&organization-isa;ComputerScienceDegree"/>
+        <organization:occupies rdf:resource="&organization-isa;SeniorTechnician"/>
+    </owl:Thing>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1785) http://owlapi.sourceforge.net -->
+
