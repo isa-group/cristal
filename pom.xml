@@ -61,6 +61,16 @@
             </dependency>
             <dependency>
                 <groupId>es.us.isa.cristal</groupId>
+                <artifactId>ral-owl-analyser</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>ral-team</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
                 <artifactId>preferences-rankers</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -127,5 +137,6 @@
         <module>ral-neo4j</module>
         <module>preferences-rankers</module>
         <module>ral-owl-analyser</module>
+        <module>ral-team</module>
     </modules>
 </project>
