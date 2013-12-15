@@ -4,8 +4,8 @@ import org.semanticweb.owlapi.model.IRI;
 
 public class Definitions {
 
-    private static final String CRISTAL_URL = "http://www.isa.us.es/cristal/";
-	private static final String BP_URL = "http://www.isa.us.es/ontologies/";
+    public static final String CRISTAL_URL = "http://www.isa.us.es/cristal/";
+	public static final String BP_URL = "http://www.isa.us.es/ontologies/";
 	
 	public static final IRI ORGANIZATION_IRI = IRI.create(CRISTAL_URL + "organization.owl");
 	public static final IRI BPMN_IRI = IRI.create(BP_URL + "bpmn.owl");

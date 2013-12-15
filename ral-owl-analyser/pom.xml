@@ -12,10 +12,59 @@
 	    <version>1.0-SNAPSHOT</version>
 	</parent>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>es.us.isa.bpmn</groupId>
+                                    <artifactId>bp-ontology</artifactId>
+                                    <version>2.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>es.us.isa.cristal</groupId>
+                                    <artifactId>ral-ontology</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                            <includes>**/*.owl</includes>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 	<dependencies>
         <dependency>
             <groupId>es.us.isa.cristal</groupId>
             <artifactId>ral-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>es.us.isa.cristal</groupId>
+            <artifactId>ral-ontology</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>es.us.isa.bpmn</groupId>
+            <artifactId>bp-ontology</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -41,44 +90,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <!-- here the phase you need -->
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/classes/ontologies</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>../ral-ontology</directory>
-                                    <filtering>false</filtering>
-                                    <includes>
-                                        <include>**/*.owl</include>
-                                    </includes>
-                                </resource>
-                                <resource>
-                                    <directory>../bpm-isa-common/bp-ontology</directory>
-                                    <filtering>false</filtering>
-                                    <includes>
-                                        <include>**/*.owl</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 	<repositories>
 		<repository>

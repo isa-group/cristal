@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 /**
@@ -96,14 +97,17 @@ public class RALOntologyManager {
 
         CommonBaseIRIMapper ralOntologyMapper = null;
         try {
-            ralOntologyMapper = new CommonBaseIRIMapper(IRI.create(getClass().getResource("/ontologies/")));
-
+            ralOntologyMapper = new CommonBaseIRIMapper(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/")));
             ralOntologyMapper.addMapping(Definitions.ORGANIZATION_IRI, "organization.owl");
-            ralOntologyMapper.addMapping(Definitions.BPMN_IRI, "bpmn.owl");
-            ralOntologyMapper.addMapping(Definitions.BPRELATIONSHIPS_IRI, "AbstractBP-relationships.owl");
-            ralOntologyMapper.addMapping(Definitions.BP_IRI, "AbstractBP.owl");
+
+            URL resource = getClass().getResource("/es/us/isa/bpmn/ontologies/");
+            CommonBaseIRIMapper bpmnOntologyMapper = new CommonBaseIRIMapper(IRI.create(resource));
+            bpmnOntologyMapper.addMapping(Definitions.BPMN_IRI, "bpmn.owl");
+            bpmnOntologyMapper.addMapping(Definitions.BPRELATIONSHIPS_IRI, "AbstractBP-relationships.owl");
+            bpmnOntologyMapper.addMapping(Definitions.BP_IRI, "AbstractBP.owl");
 
             manager.addIRIMapper(ralOntologyMapper);
+            manager.addIRIMapper(bpmnOntologyMapper);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

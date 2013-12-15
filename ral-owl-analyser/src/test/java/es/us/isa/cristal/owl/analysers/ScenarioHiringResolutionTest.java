@@ -54,7 +54,7 @@ public class ScenarioHiringResolutionTest {
 
     private OWLOntologyIRIMapper createIRIMapper() throws URISyntaxException {
         CommonBaseIRIMapper ralOntologyMapper;
-        ralOntologyMapper = new CommonBaseIRIMapper(IRI.create(getClass().getResource("/ontologies/")));
+        ralOntologyMapper = new CommonBaseIRIMapper(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/")));
 
         ralOntologyMapper.addMapping(BP_HIRING_RESOLUTION_LOG_IRI, "bp-hiring-resolution-log.owl");
         ralOntologyMapper.addMapping(BP_HIRING_RESOLUTION_IRI, "bp-hiring-resolution.owl");

@@ -87,7 +87,7 @@ public class AttendConferenceScenario {
 
     private OWLOntologyIRIMapper createIRIMapper() throws URISyntaxException {
         CommonBaseIRIMapper ralOntologyMapper;
-        ralOntologyMapper = new CommonBaseIRIMapper(IRI.create(getClass().getResource("/ontologies/")));
+        ralOntologyMapper = new CommonBaseIRIMapper(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/")));
 
         ralOntologyMapper.addMapping(BP_ATTEND_CONFERENCE_IRI, "bp-attend-conference.owl");
         ralOntologyMapper.addMapping(ORGANIZATION_ISA_IRI, "organization-isa.owl");
