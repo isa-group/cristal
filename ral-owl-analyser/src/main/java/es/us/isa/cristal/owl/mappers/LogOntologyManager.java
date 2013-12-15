@@ -54,6 +54,15 @@ public class LogOntologyManager {
         manager.addAxiom(ont, factory.getOWLObjectPropertyAssertionAxiom(prop, source, target));
     }
 
+    public void noInversePropertyAssertion(String property, OWLNamedIndividual source) {
+        OWLObjectPropertyExpression invp = factory.getOWLObjectProperty(property, prefix).getInverseProperty();
+        OWLClass empty = factory.getOWLNothing();
+        OWLClassExpression indiv = factory.getOWLObjectOneOf(source);
+        OWLClassExpression propertyOfSource = factory.getOWLObjectSomeValuesFrom(invp, indiv);
+        OWLAxiom equiv = factory.getOWLSubClassOfAxiom(propertyOfSource, empty);
+        manager.addAxiom(ont, equiv);
+    }
+
 
     public void classAssertion(String type, OWLNamedIndividual instance) {
         OWLClass typeInstance = factory.getOWLClass(type, prefix);

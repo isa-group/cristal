@@ -100,6 +100,8 @@ public class RTAssignmentOntology extends AssignmentOntology {
                 logManager.classAssertion(ACTIVITYINSTANCE, fakeInstance);
                 logManager.propertyAssertion(ISOFTYPE, fakeInstance, a);
                 logManager.propertyAssertion(HASACTIVITYINSTANCE, processInstance, fakeInstance);
+                logManager.noInversePropertyAssertion(HASSTATE, fakeInstance);
+
 
                 Map<TaskDuty, RALExpr> assignments = assignment.getByTaskDuty(activityName);
                 for (TaskDuty t : assignments.keySet()) {
@@ -116,17 +118,23 @@ public class RTAssignmentOntology extends AssignmentOntology {
 
     private void closeLogOntology() {
         engine = ralOntologyManager.createDLQueryEngine(ontology);
-        String instancesExpressionString = "inverse(" + HASACTIVITYINSTANCE + ") value " + currentInstance;
+        closer("inverse(" + HASACTIVITYINSTANCE + ") value " + currentInstance);
+    }
+
+    private void closer(String instancesExpressionString) {
         Set<OWLNamedIndividual> result = engine.getInstances(instancesExpressionString, false);
 
-        LogMapper m = new LogMapper();
-        Set<String> names = new HashSet<String>();
-        for (OWLNamedIndividual i : result) {
-            names.add(m.map(i.getIRI().getFragment()));
-        }
+        if (!result.isEmpty()) {
+            LogMapper m = new LogMapper();
+            Set<String> names = new HashSet<String>();
+            for (OWLNamedIndividual i : result) {
+                names.add(m.map(i.getIRI().getFragment()));
+            }
 
-        String axiom = "{" + DLHelper.joinWith(names, ",") + "} EquivalentTo: (inverse(" + HASACTIVITYINSTANCE + ") value "+ currentInstance + ")";
-        addAxiom(axiom);
+            String axiom = "{" + DLHelper.joinWith(names, ",") + "} EquivalentTo: ("+instancesExpressionString + ")";
+            log.info("Closing with:" + axiom);
+            addAxiom(axiom);
+        }
     }
 
     private Iterable<? extends OWLNamedIndividual> activityInstancesThatHaveBeenAllocated() {

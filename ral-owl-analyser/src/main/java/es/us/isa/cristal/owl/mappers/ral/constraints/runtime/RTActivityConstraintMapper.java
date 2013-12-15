@@ -33,6 +33,6 @@ public class RTActivityConstraintMapper implements ConstraintMapper {
         String currentInstance = new LogMapper().map(pid.toString());
         String activity = idMapper.mapActivity(c.getActivityName());
 
-        return POTRESPONSIBLE + " some ( inverse("+HASACTIVITYINSTANCE+") value "+ currentInstance + " AND " + ISOFTYPE + " value " + activity + ")";
+        return POTRESPONSIBLE + " some ( inverse("+HASACTIVITYINSTANCE+") value "+ currentInstance + " AND " + ISOFTYPE + " value " + activity  +  ")";
     }
 }

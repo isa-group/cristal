@@ -50,11 +50,11 @@ public class RTNegativeExprMapper implements ExprMapper {
 
             List<PersonWhoDidActivityConstraint> constraints = filterACConstraint(e.getConstraints());
             for (PersonWhoDidActivityConstraint c : constraints) {
-                if (activityAlreadyAllocatedAndNotInLoop(c.getActivityName(), pid)) {
+//                if (activityAlreadyAllocatedAndNotInLoop(c.getActivityName(), pid)) {
                     String activity = idMapper.mapActivity(c.getActivityName());
                     String currentInstance = new LogMapper().map(pid.toString());
                     map =  PERSON + " AND not(inverse("+HASRESPONSIBLE + ") some ( inverse("+HASACTIVITYINSTANCE+") value "+ currentInstance + " AND " + ISOFTYPE + " value " + activity + " AND "+ HASSTATE +" some " + AFTERALLOCATION + "))";
-                }
+//                }
             }
 
         }

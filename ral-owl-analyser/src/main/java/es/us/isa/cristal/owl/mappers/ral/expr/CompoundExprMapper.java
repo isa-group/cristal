@@ -27,6 +27,6 @@ public class CompoundExprMapper implements ExprMapper {
     public String map(RALExpr expr, Object pid) {
         CompoundExpr e = (CompoundExpr) expr;
         String composer = e instanceof AndExpr ? "and" : "or";
-        return "(" + mapper.map(expr, pid) + ") " + composer + "(" + mapper.map(expr, pid) + ")";
+        return "(" + mapper.map(e.getObjectExprLeft(), pid) + ") " + composer + "(" + mapper.map(e.getObjectExprRight(), pid) + ")";
     }
 }
