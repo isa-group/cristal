@@ -1,7 +1,8 @@
-package es.us.isa.cristal.owl.mappers;
+package es.us.isa.cristal.owl.ontologyhandlers;
 
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.Definitions;
+import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.InstanceTaskDutyMapper;
 import org.semanticweb.owlapi.model.*;
@@ -11,24 +12,17 @@ import org.semanticweb.owlapi.model.*;
  * Date: 12/07/13
  * Time: 11:35
  */
-public class LogOntologyManager {
-    private OWLOntology ont;
+public class LogOntologyHandler extends OntologyHandler {
     private IdMapper mapper;
     private OWLOntologyManager manager;
-    private PrefixManager prefix;
     private OWLDataFactory factory;
 
 
-    public LogOntologyManager(OWLOntology logOntology, IdMapper mapper, PrefixManager prefix) {
-        this.ont = logOntology;
+    public LogOntologyHandler(OntologyHandler logOntology, IdMapper mapper) {
+        super(logOntology.getOntology(), logOntology.getPrefixManager());
         this.mapper = mapper;
-        this.manager = logOntology.getOWLOntologyManager();
+        this.manager = ontology.getOWLOntologyManager();
         this.factory = manager.getOWLDataFactory();
-        this.prefix = prefix;
-    }
-
-    public OWLOntology getOntology() {
-        return ont;
     }
 
     public ProcessInstance processInstance(String processName, String pid) {
@@ -44,34 +38,34 @@ public class LogOntologyManager {
     }
 
     public String getTypeOf(OWLNamedIndividual activityInstance) {
-        OWLObjectProperty isOfType = factory.getOWLObjectProperty(Definitions.ISOFTYPE, prefix);
-        OWLNamedIndividual i = activityInstance.getObjectPropertyValues(isOfType, ont).iterator().next().asOWLNamedIndividual();
+        OWLObjectProperty isOfType = factory.getOWLObjectProperty(Definitions.ISOFTYPE, prefixManager);
+        OWLNamedIndividual i = activityInstance.getObjectPropertyValues(isOfType, ontology).iterator().next().asOWLNamedIndividual();
         return i.getIRI().getFragment();
     }
 
     public void propertyAssertion(String property, OWLNamedIndividual source, OWLNamedIndividual target) {
-        OWLObjectProperty prop = factory.getOWLObjectProperty(property, prefix);
-        manager.addAxiom(ont, factory.getOWLObjectPropertyAssertionAxiom(prop, source, target));
+        OWLObjectProperty prop = factory.getOWLObjectProperty(property, prefixManager);
+        manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(prop, source, target));
     }
 
     public void noInversePropertyAssertion(String property, OWLNamedIndividual source) {
-        OWLObjectPropertyExpression invp = factory.getOWLObjectProperty(property, prefix).getInverseProperty();
+        OWLObjectPropertyExpression invp = factory.getOWLObjectProperty(property, prefixManager).getInverseProperty();
         OWLClass empty = factory.getOWLNothing();
         OWLClassExpression indiv = factory.getOWLObjectOneOf(source);
         OWLClassExpression propertyOfSource = factory.getOWLObjectSomeValuesFrom(invp, indiv);
         OWLAxiom equiv = factory.getOWLSubClassOfAxiom(propertyOfSource, empty);
-        manager.addAxiom(ont, equiv);
+        manager.addAxiom(ontology, equiv);
     }
 
 
     public void classAssertion(String type, OWLNamedIndividual instance) {
-        OWLClass typeInstance = factory.getOWLClass(type, prefix);
+        OWLClass typeInstance = factory.getOWLClass(type, prefixManager);
         OWLAxiom classAssertion = factory.getOWLClassAssertionAxiom(typeInstance, instance);
-        manager.addAxiom(ont, classAssertion);
+        manager.addAxiom(ontology, classAssertion);
     }
 
     private IRI getLogIri(String pid) {
-        IRI ontologyIRI = ont.getOntologyID().getOntologyIRI();
+        IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
         return IRI.create(ontologyIRI + "#" + pid);
     }
 
@@ -80,7 +74,7 @@ public class LogOntologyManager {
     }
 
     public OWLNamedIndividual individual(String name) {
-        return factory.getOWLNamedIndividual(name, prefix);
+        return factory.getOWLNamedIndividual(name, prefixManager);
     }
 
     private void activityState(String activityName, String aid, String pid, ActivityState state) {

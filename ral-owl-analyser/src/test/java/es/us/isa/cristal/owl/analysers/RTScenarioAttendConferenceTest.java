@@ -1,10 +1,11 @@
 package es.us.isa.cristal.owl.analysers;
 
+import es.us.isa.cristal.ResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.AttendConferenceScenario;
 import es.us.isa.cristal.owl.RALOntologyManager;
-import es.us.isa.cristal.owl.mappers.LogOntologyManager;
+import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import es.us.isa.cristal.parser.RALParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,17 +31,19 @@ public class RTScenarioAttendConferenceTest {
         manager = new AttendConferenceScenario().getRalOntologyManager();
         pid = "ac1";
 
-        manager.addParticipant("SubmitCameraReady", RALParser.parse("HAS POSITION PhdStudent"));
-        manager.addParticipant("FillTravelAuthorization", RALParser.parse("REPORTS TO POSITION ProjectCoordinator"));
-        manager.addParticipant("MakeReservations", RALParser.parse("HAS ROLE Clerk"));
-        manager.addParticipant("RegisterAtConference", RALParser.parse("IS PERSON WHO DID ACTIVITY SubmitCameraReady"));
+        ResourceAssignment assignment = new ResourceAssignment().
+                add("SubmitCameraReady", RALParser.parse("HAS POSITION PhdStudent")).
+                add("FillTravelAuthorization", RALParser.parse("REPORTS TO POSITION ProjectCoordinator")).
+                add("MakeReservations", RALParser.parse("HAS ROLE Clerk")).
+                add("RegisterAtConference", RALParser.parse("IS PERSON WHO DID ACTIVITY SubmitCameraReady"));
 
+        manager.loadResourceAssignment(assignment);
     }
 
     private void loadPredefinedLog() {
         manager.logProcessInstance("AttendConference", pid)
-                .activity("SubmitCameraReady", "scr1", LogOntologyManager.ActivityState.COMPLETED, "Adela")
-                .activity("FillTravelAuthorization", "fta1", LogOntologyManager.ActivityState.READY);
+                .activity("SubmitCameraReady", "scr1", LogOntologyHandler.ActivityState.COMPLETED, "Adela")
+                .activity("FillTravelAuthorization", "fta1", LogOntologyHandler.ActivityState.READY);
     }
 
     @Test
@@ -79,7 +82,7 @@ public class RTScenarioAttendConferenceTest {
     @Test
     public void shouldGetPotentialPerformersOfRegisterWithoutLog() {
         manager.logProcessInstance("AttendConference", pid)
-                .activity("SubmitCameraReady", "scr1", LogOntologyManager.ActivityState.READY);
+                .activity("SubmitCameraReady", "scr1", LogOntologyHandler.ActivityState.READY);
 
         RALAnalyser analyser = manager.createRunTimeAnalyser(pid);
         Set<String> registerAtConference = analyser.potentialParticipants("RegisterAtConference", TaskDuty.PARTICIPANT);
@@ -148,7 +151,7 @@ public class RTScenarioAttendConferenceTest {
     @Test
     public void shouldCheckConsistencyOf() {
         manager = new AttendConferenceScenario().getRalOntologyManager();
-        manager.addParticipant("SendTravelAuthorization", RALParser.parse("REPORTS TO POSITION AdministrativeAssistant DIRECTLY"), TaskDuty.RESPONSIBLE);
+        manager.loadResourceAssignment(new ResourceAssignment().add("SendTravelAuthorization", TaskDuty.RESPONSIBLE, RALParser.parse("REPORTS TO POSITION AdministrativeAssistant DIRECTLY")));
         loadPredefinedLog();
 
         RALAnalyser analyser = manager.createRunTimeAnalyser(pid);

@@ -1,11 +1,11 @@
-package es.us.isa.cristal.owl.assignments;
+package es.us.isa.cristal.owl.ontologyhandlers;
 
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.ResourceAssignment;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.DLQueryEngine;
-import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.analysers.DTRALAnalyser;
 import es.us.isa.cristal.owl.mappers.ral.DTOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
@@ -22,8 +22,8 @@ public class DTAssignmentOntology extends AssignmentOntology {
     private OwlRalMapper owlRalMapper;
     private IdMapper idMapper;
 
-    public DTAssignmentOntology(RALOntologyManager ralOntologyManager, String assignmentIRI, IdMapper idMapper, BPEngine engine) {
-        super(ralOntologyManager, assignmentIRI);
+    public DTAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
+        super(ontologyHandler);
         this.idMapper = idMapper;
         owlRalMapper = new DTOwlRalMapper(idMapper, engine);
     }
@@ -43,7 +43,7 @@ public class DTAssignmentOntology extends AssignmentOntology {
     }
 
     public DTRALAnalyser createAnalyser() {
-        DLQueryEngine engine = ralOntologyManager.createDLQueryEngine(ontology);
+        DLQueryEngine engine = createDLQueryEngine();
         DTRALAnalyser analyser = new DTRALAnalyser(engine, idMapper);
         return analyser;
     }

@@ -1,11 +1,10 @@
-package es.us.isa.cristal.owl.assignments;
+package es.us.isa.cristal.owl.ontologyhandlers;
 
 import es.us.isa.cristal.ResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.owl.DLQueryParser;
-import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.owl.OntologyHandler;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 import java.util.logging.Logger;
 
@@ -14,22 +13,20 @@ import java.util.logging.Logger;
 * Date: 13/07/13
 * Time: 10:58
 */
-public abstract class AssignmentOntology {
+public abstract class AssignmentOntology extends OntologyHandler {
 
     private static final Logger log = Logger.getLogger(AssignmentOntology.class.getName());
 
-    protected OWLOntology ontology;
-    protected RALOntologyManager ralOntologyManager;
     private DLQueryParser parser;
 
-    public AssignmentOntology(RALOntologyManager ralOntologyManager, String assignmentIRI) {
-        this.ralOntologyManager = ralOntologyManager;
-        ontology = ralOntologyManager.createOntology(assignmentIRI);
+    public AssignmentOntology(OntologyHandler ontologyHandler) {
+        super(ontologyHandler.getOntology(), ontologyHandler.getPrefixManager());
+        ontology = ontologyHandler.getOntology();
     }
 
     protected OWLAxiom addAxiom(String ax) {
         if (parser == null)
-            parser = ralOntologyManager.createDLQueryParser(ontology);
+            parser = createDLQueryParser();
 
         log.info("AddPerformer: " + ax);
 
@@ -37,10 +34,6 @@ public abstract class AssignmentOntology {
         ontology.getOWLOntologyManager().addAxiom(ontology, axiom);
 
         return axiom;
-    }
-
-    public OWLOntology getOntology() {
-        return ontology;
     }
 
     public abstract void buildOntology(ResourceAssignment assignment);

@@ -3,22 +3,19 @@ package es.us.isa.cristal.owl;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.Organization;
 import es.us.isa.cristal.ResourceAssignment;
-import es.us.isa.cristal.model.TaskDuty;
-import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.analysers.DTRALAnalyser;
 import es.us.isa.cristal.owl.analysers.RTRALAnalyser;
-import es.us.isa.cristal.owl.assignments.AssignmentOntology;
-import es.us.isa.cristal.owl.assignments.DTAssignmentOntology;
-import es.us.isa.cristal.owl.assignments.RTAssignmentOntology;
-import es.us.isa.cristal.owl.mappers.LogOntologyManager;
+import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
+import es.us.isa.cristal.owl.ontologyhandlers.DTAssignmentOntology;
+import es.us.isa.cristal.owl.ontologyhandlers.RTAssignmentOntology;
+import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import es.us.isa.cristal.owl.mappers.OrganizationOWLMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
-import org.semanticweb.HermiT.Reasoner;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -46,51 +43,95 @@ public class RALOntologyManager {
     private final BPEngine engine;
     private OntologyNamespaces namespaces;
 
-    private OWLOntology processOntology;
     private IRI processIRI;
-    private OWLOntology organizationOntology;
     private IRI organizationIRI;
 
-    private LogOntologyManager logOntologyManager;
+    private LogOntologyHandler logOntologyHandler;
     private AssignmentOntology dtAssignment;
     private AssignmentOntology rtAssignment;
 
     private ResourceAssignment assignment;
 
-
-    public OWLOntologyManager getManager() {
-        return manager;
-    }
-
-    public LogOntologyManager getLogOntologyManager() {
-        return logOntologyManager;
-    }
-
     public RALOntologyManager(OntologyNamespaces namespaces, BPEngine engine) {
         this.engine = engine;
-        assignment = new ResourceAssignment();
         this.namespaces = namespaces;
         idMapper = new IdMapper(namespaces);
 
-
         manager = createOntologyManager();
-        prefixManager = createPrefixManager();
+        loadCoreOntologies();
 
+        prefixManager = createPrefixManager(namespaces);
     }
 
-    private DefaultPrefixManager createPrefixManager() {
-        DefaultPrefixManager prefixManager = new DefaultPrefixManager();
-        prefixManager.setPrefix(Definitions.ABSTRACTBP, Definitions.BP_IRI.toString()+"#");
-        prefixManager.setPrefix(Definitions.BPRELATIONSHIPS, Definitions.BPRELATIONSHIPS_IRI.toString() + "#");
-        prefixManager.setPrefix(Definitions.ORGANIZATION, Definitions.ORGANIZATION_IRI.toString() + "#");
-        prefixManager.setPrefix(Definitions.BPMN, Definitions.BPMN_IRI.toString() + "#");
-        prefixManager.setPrefix(namespaces.getPerson().getPrefix()+":", namespaces.getPerson().getNamespace()+"#");
-        prefixManager.setPrefix(namespaces.getGroup().getPrefix()+":", namespaces.getGroup().getNamespace()+"#");
-        prefixManager.setPrefix(namespaces.getActivity().getPrefix() + ":", namespaces.getActivity().getNamespace() + "#");
-        prefixManager.setPrefix(LOG, LOG_IRI + "#");
 
-        return prefixManager;
+    // Loaders -------------------------------------
+
+    public OWLOntology loadProcessOntology(IRI documentIRI) {
+
+        this.processIRI = IRI.create(this.namespaces.getActivity().getNamespace());
+        return loadOntology(processIRI, documentIRI);
     }
+
+    public OWLOntology loadOrganizationOntology(IRI documentIRI) {
+        organizationIRI = IRI.create(this.namespaces.getGroup().getNamespace());
+        return loadOntology(organizationIRI, documentIRI);
+    }
+
+    public OWLOntology loadOrganizationOntology(Organization org) {
+        organizationIRI = IRI.create(this.namespaces.getGroup().getNamespace());
+
+        OntologyHandler orgOntologyHandler = createOntology(organizationIRI, Definitions.ORGANIZATION_IRI);
+
+        OrganizationOWLMapper orgMapper = new OrganizationOWLMapper(orgOntologyHandler, idMapper);
+        orgMapper.map(org);
+
+        return orgOntologyHandler.getOntology();
+    }
+
+    public void loadResourceAssignment(ResourceAssignment assignment) {
+        this.assignment = assignment;
+    }
+
+    public LogOntologyHandler.ProcessInstance logProcessInstance(String processName, String pid) {
+        return getLogOntologyHandler().processInstance(processName, pid);
+    }
+
+    // Getters and creators ----------------------------------------
+
+    public LogOntologyHandler getLogOntologyHandler() {
+        if (logOntologyHandler == null) {
+            logOntologyHandler = new LogOntologyHandler(createImportAllOntology(LOG_IRI), idMapper);
+        }
+        return logOntologyHandler;
+    }
+
+    public AssignmentOntology getRuntimeAssignmentOntology(String pid) {
+        if (rtAssignment != null)
+            manager.removeOntology(rtAssignment.getOntology());
+
+        rtAssignment = new RTAssignmentOntology(createImportAllOntology(RTASSIGNMENT_IRI + "-" + pid), pid, getLogOntologyHandler(), idMapper, engine);
+        rtAssignment.buildOntology(assignment);
+
+        return rtAssignment;
+    }
+
+    public AssignmentOntology getDesignTimeAssignmentOntology() {
+        if (dtAssignment == null) {
+            dtAssignment = new DTAssignmentOntology(createImportAllOntology(DTASSIGNMENT_IRI), idMapper, engine);
+            dtAssignment.buildOntology(assignment);
+        }
+        return dtAssignment;
+    }
+
+    public DTRALAnalyser createDesignTimeAnalyser() {
+        return (DTRALAnalyser) getDesignTimeAssignmentOntology().createAnalyser();
+    }
+
+    public RTRALAnalyser createRunTimeAnalyser(String pid) {
+        return (RTRALAnalyser) getRuntimeAssignmentOntology(pid).createAnalyser();
+    }
+
+    // Private methods ---------------------------------
 
     private OWLOntologyManager createOntologyManager() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -109,166 +150,91 @@ public class RALOntologyManager {
             manager.addIRIMapper(ralOntologyMapper);
             manager.addIRIMapper(bpmnOntologyMapper);
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Could not load core organization and process ontologies", e);
         }
 
         return manager;
     }
 
-    public void init(OntologyNamespaces namespaces, OWLOntologyIRIMapper mapper) {
-        this.namespaces = namespaces;
-        idMapper = new IdMapper(namespaces);
+    private DefaultPrefixManager createPrefixManager(OntologyNamespaces namespaces) {
+        DefaultPrefixManager prefixManager = new DefaultPrefixManager();
+        prefixManager.setPrefix(Definitions.ORGANIZATION, Definitions.ORGANIZATION_IRI.toString() + "#");
 
-        addIRIMapper(mapper);
+        prefixManager.setPrefix(Definitions.ABSTRACTBP, Definitions.BP_IRI.toString()+"#");
+        prefixManager.setPrefix(Definitions.BPRELATIONSHIPS, Definitions.BPRELATIONSHIPS_IRI.toString() + "#");
+        prefixManager.setPrefix(Definitions.BPMN, Definitions.BPMN_IRI.toString() + "#");
+        prefixManager.setPrefix(LOG, LOG_IRI + "#");
 
-        loadProcessOntology(IRI.create(namespaces.getActivity().getNamespace()));
-        loadOrganizationOntology(IRI.create(namespaces.getGroup().getNamespace()));
+        prefixManager.setPrefix(namespaces.getPerson().getPrefix()+":", namespaces.getPerson().getNamespace()+"#");
+        prefixManager.setPrefix(namespaces.getGroup().getPrefix()+":", namespaces.getGroup().getNamespace()+"#");
+        prefixManager.setPrefix(namespaces.getActivity().getPrefix() + ":", namespaces.getActivity().getNamespace() + "#");
 
-        logOntologyManager = new LogOntologyManager(createOntology(LOG_IRI), idMapper, prefixManager);
+        return prefixManager;
     }
 
-    public void init(Organization org, OntologyNamespaces namespaces, OWLOntologyIRIMapper mapper) {
-        this.namespaces = namespaces;
-        idMapper = new IdMapper(namespaces);
-
-        addIRIMapper(mapper);
-
-        loadProcessOntology(IRI.create(namespaces.getActivity().getNamespace()));
-        buildOrganizationOntology(org);
-
-        logOntologyManager = new LogOntologyManager(createOntology(LOG_IRI), idMapper, prefixManager);
-    }
-
-    private void buildOrganizationOntology(Organization org) {
-        organizationIRI = IRI.create(this.namespaces.getGroup().getNamespace());
-        OWLOntology orgOntology = null;
-        try {
-            orgOntology = manager.createOntology(organizationIRI);
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
-
+    private void loadCoreOntologies() {
         if (manager.getOntology(Definitions.ORGANIZATION_IRI) == null) {
             try {
                 manager.loadOntology(Definitions.ORGANIZATION_IRI);
             } catch (OWLOntologyCreationException e) {
-                throw new RuntimeException("Could not load bpmn ontology");
+                throw new RuntimeException("Could not load bpmn ontology", e);
             }
-        }
-
-        manager.applyChange(new AddImport(orgOntology, manager.getOWLDataFactory().getOWLImportsDeclaration(Definitions.ORGANIZATION_IRI)));
-
-        OrganizationOWLMapper orgMapper = new OrganizationOWLMapper(org, orgOntology, createDLQueryParser(orgOntology), idMapper, prefixManager);
-        orgMapper.map();
-    }
-
-    public void addIRIMapper(OWLOntologyIRIMapper mapper) {
-        manager.addIRIMapper(mapper);
-    }
-
-    private OWLOntology loadProcessOntology(IRI ontologyIRI) {
-        try {
-            processIRI = ontologyIRI;
-            processOntology = manager.loadOntology(ontologyIRI);
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
-
-        return processOntology;
-    }
-
-    private OWLOntology loadOrganizationOntology(IRI ontologyIRI) {
-        try {
-            organizationIRI = ontologyIRI;
-            organizationOntology = manager.loadOntology(ontologyIRI);
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
-        }
-
-        return organizationOntology;
-    }
-
-
-    public void addParticipant(String activityName, RALExpr expr) {
-        addParticipant(activityName, expr, TaskDuty.RESPONSIBLE);
-    }
-
-    public void addParticipant(String activityName, RALExpr expr, TaskDuty duty) {
-        assignment.add(activityName, duty, expr);
-    }
-
-    public LogOntologyManager.ProcessInstance logProcessInstance(String processName, String pid) {
-        return logOntologyManager.processInstance(processName, pid);
-    }
-
-    public DTRALAnalyser createDesignTimeAnalyser() {
-        if (dtAssignment == null) {
-            dtAssignment = new DTAssignmentOntology(this, DTASSIGNMENT_IRI, idMapper, engine);
-            dtAssignment.buildOntology(assignment);
-        }
-        return (DTRALAnalyser) dtAssignment.createAnalyser();
-    }
-
-    public RTRALAnalyser createRunTimeAnalyser(String pid) {
-        if (rtAssignment != null)
-            manager.removeOntology(rtAssignment.getOntology());
-
-        rtAssignment = new RTAssignmentOntology(this, pid, RTASSIGNMENT_IRI + "-" + pid, logOntologyManager, idMapper, engine);
-        rtAssignment.buildOntology(assignment);
-
-        return (RTRALAnalyser) rtAssignment.createAnalyser();
-    }
-
-    public OWLOntology getDesignTimeOntology() {
-        return dtAssignment.getOntology();
-    }
-
-    public OWLOntology getLogOntology() {
-        return logOntologyManager.getOntology();
-    }
-
-    public OWLOntology getRunTimeOntology() {
-        return rtAssignment.getOntology();
-    }
-
-
-    public DLQueryParser createDLQueryParser(OWLOntology ontology) {
-        return new DLQueryParser(ontology, prefixManager);
-    }
-
-    public DLQueryEngine createDLQueryEngine(OWLOntology ontology) {
-        return new DLQueryEngine(createReasoner(ontology), prefixManager);
-    }
-
-    public OWLOntology createOntology(String ontologyIRI) {
-        OWLOntology ontology;
-
-        try {
-            ontology = manager.createOntology(IRI.create(ontologyIRI));
-        } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
         }
 
         if (manager.getOntology(Definitions.BPMN_IRI) == null) {
             try {
                 manager.loadOntology(Definitions.BPMN_IRI);
             } catch (OWLOntologyCreationException e) {
-                throw new RuntimeException("Could not load bpmn ontology");
+                throw new RuntimeException("Could not load bpmn ontology", e);
             }
         }
 
-        manager.applyChange(new AddImport(ontology, manager.getOWLDataFactory().getOWLImportsDeclaration(organizationIRI)));
-        manager.applyChange(new AddImport(ontology, manager.getOWLDataFactory().getOWLImportsDeclaration(processIRI)));
-        manager.applyChange(new AddImport(ontology, manager.getOWLDataFactory().getOWLImportsDeclaration(Definitions.BPMN_IRI)));
+        if (manager.getOntology(Definitions.BPRELATIONSHIPS_IRI) == null) {
+            try {
+                manager.loadOntology(Definitions.BPRELATIONSHIPS_IRI);
+            } catch (OWLOntologyCreationException e) {
+                throw new RuntimeException("Could not load BP Relationships ontology", e);
+            }
+        }
+    }
 
+
+    private OWLOntology loadOntology(IRI ontologyIRI, IRI documentIRI) {
+        OWLOntology ontology;
+        try {
+            manager.addIRIMapper(new SimpleIRIMapper(ontologyIRI, documentIRI));
+            ontology = manager.loadOntology(ontologyIRI);
+        } catch (OWLOntologyCreationException e) {
+            throw new RuntimeException(e);
+        }
 
         return ontology;
     }
 
-    public OWLReasoner createReasoner(OWLOntology ontology) {
-        Reasoner.ReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
-        OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
-        return reasoner;
+    private OntologyHandler createOntology(IRI ontologyIRI, IRI... importIRIs) {
+
+        OWLOntology ontology = null;
+        try {
+            ontology = manager.createOntology(ontologyIRI);
+        } catch (OWLOntologyCreationException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (IRI importIRI : importIRIs) {
+            manager.applyChange(new AddImport(ontology, manager.getOWLDataFactory().getOWLImportsDeclaration(importIRI)));
+        }
+
+        return new OntologyHandler(ontology, prefixManager);
     }
+
+
+    private OntologyHandler createImportAllOntology(String ontologyIRI) {
+        if (processIRI == null || organizationIRI == null) {
+            throw new IllegalStateException("Process and organization ontologies should be loaded before");
+        }
+
+        return createOntology(IRI.create(ontologyIRI), organizationIRI, processIRI, Definitions.BPMN_IRI);
+    }
+
 
 }

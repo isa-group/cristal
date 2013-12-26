@@ -37,14 +37,13 @@ public class AttendConferenceScenario {
         ralOntologyManager = new RALOntologyManager(namespaces, bpEngine);
 
         try {
-            ralOntologyManager.init(createOrganization(), namespaces, createIRIMapper());
+            ralOntologyManager.loadOrganizationOntology(createOrganization());
+            IRI processDocumentIRI = IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/bp-attend-conference.owl"));
+            ralOntologyManager.loadProcessOntology(processDocumentIRI);
         } catch (URISyntaxException e) {
             // The ontology manager will try to get the ontologies from the web
             e.printStackTrace();
         }
-
-
-
     }
 
     private Organization createOrganization() {
@@ -83,15 +82,6 @@ public class AttendConferenceScenario {
         namespaces.setGroup("organization-isa", ORGANIZATION_ISA_IRI.toString());
         namespaces.setActivity("bp-attend-conference", BP_ATTEND_CONFERENCE_IRI.toString());
         return namespaces;
-    }
-
-    private OWLOntologyIRIMapper createIRIMapper() throws URISyntaxException {
-        CommonBaseIRIMapper ralOntologyMapper;
-        ralOntologyMapper = new CommonBaseIRIMapper(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/")));
-
-        ralOntologyMapper.addMapping(BP_ATTEND_CONFERENCE_IRI, "bp-attend-conference.owl");
-        ralOntologyMapper.addMapping(ORGANIZATION_ISA_IRI, "organization-isa.owl");
-        return ralOntologyMapper;
     }
 
     public RALOntologyManager getRalOntologyManager() {

@@ -1,11 +1,11 @@
-package es.us.isa.cristal.owl.mappers;
+package es.us.isa.cristal.owl.ontologyhandlers;
 
 import es.us.isa.cristal.owl.*;
+import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -19,7 +19,7 @@ import java.util.Set;
  * Date: 13/07/13
  * Time: 13:29
  */
-public class LogOntologyManagerTest {
+public class LogOntologyHandlerTest {
 
     private AttendConferenceScenario scenario;
     private RALOntologyManager manager;
@@ -33,12 +33,12 @@ public class LogOntologyManagerTest {
     @Test
     public void shouldCreateActivityInstances() {
         manager.logProcessInstance("AttendConference", "ac1")
-                .activity("SubmitCameraReady", "scr1", LogOntologyManager.ActivityState.COMPLETED, "Adela")
-                .activity("CheckResponse", "cr1", LogOntologyManager.ActivityState.ALLOCATED);
+                .activity("SubmitCameraReady", "scr1", LogOntologyHandler.ActivityState.COMPLETED, "Adela")
+                .activity("CheckResponse", "cr1", LogOntologyHandler.ActivityState.ALLOCATED);
 
-
-        OWLOntology logOntology = manager.getManager().getOntology(IRI.create(RALOntologyManager.LOG_IRI));
-        DLQueryEngine engine = manager.createDLQueryEngine(logOntology);
+        LogOntologyHandler handler = manager.getLogOntologyHandler();
+        OWLOntology logOntology = handler.getOntology();
+        DLQueryEngine engine = handler.createDLQueryEngine();
 
         Set<OWLNamedIndividual> individuals = engine.getInstances("inverse(" + Definitions.HASACTIVITYINSTANCE + ") value log:ac1", false);
 
@@ -46,7 +46,7 @@ public class LogOntologyManagerTest {
         Assert.assertEquals(new HashSet<String>(Arrays.asList("scr1", "cr1")), OntologyTestUtils.toFragments(individuals));
 
         try {
-            manager.getManager().saveOntology(logOntology, new StreamDocumentTarget(System.out));
+            logOntology.getOWLOntologyManager().saveOntology(logOntology, new StreamDocumentTarget(System.out));
         } catch (OWLOntologyStorageException e) {
             e.printStackTrace();
         }

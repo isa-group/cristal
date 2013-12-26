@@ -5,7 +5,7 @@ import es.us.isa.cristal.model.constraints.PersonWhoDidActivityConstraint;
 import es.us.isa.cristal.model.expressions.NegativeExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.DLQueryEngine;
-import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import es.us.isa.cristal.owl.mappers.ral.ExprMapper;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
@@ -26,13 +26,13 @@ import static es.us.isa.cristal.owl.Definitions.*;
  */
 public class RTNegativeExprMapper implements ExprMapper {
     private OwlRalMapper mapper;
-    private RALOntologyManager manager;
+    private LogOntologyHandler logOntologyHandler;
     private IdMapper idMapper;
 
-    public RTNegativeExprMapper(OwlRalMapper mapper, IdMapper idMapper, RALOntologyManager manager) {
+    public RTNegativeExprMapper(OwlRalMapper mapper, IdMapper idMapper, LogOntologyHandler logOntologyHandler) {
         this.mapper = mapper;
         this.idMapper = idMapper;
-        this.manager = manager;
+        this.logOntologyHandler = logOntologyHandler;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class RTNegativeExprMapper implements ExprMapper {
     private boolean activityAlreadyAllocatedAndNotInLoop(String activityName, Object pid) {
         String activity = idMapper.mapActivity(activityName);
         String currentInstance = new LogMapper().map(pid.toString());
-        DLQueryEngine engine = manager.createDLQueryEngine(manager.getLogOntology());
+        DLQueryEngine engine = logOntologyHandler.createDLQueryEngine();
 
         String activitiesNotInLoop = "not(" + WEAKORDER + " some Self)";
         String activitiesAlreadyStarted = "inverse(" + ISOFTYPE + ") some (inverse (" + HASACTIVITYINSTANCE + ") value " + currentInstance + " and " + HASSTATE + " some " + AFTERALLOCATION + ")";

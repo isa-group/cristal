@@ -3,6 +3,7 @@ package es.us.isa.cristal.owl.mappers;
 import es.us.isa.cristal.Organization;
 import es.us.isa.cristal.owl.DLQueryParser;
 import es.us.isa.cristal.owl.Definitions;
+import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import org.semanticweb.owlapi.model.*;
 
@@ -15,7 +16,6 @@ import java.util.*;
  */
 public class OrganizationOWLMapper {
 
-    private Organization org;
     private OWLOntology ontology;
     private DLQueryParser parser;
     private IdMapper mapper;
@@ -24,21 +24,16 @@ public class OrganizationOWLMapper {
     private OWLDataFactory factory;
 
 
-    public OrganizationOWLMapper(Organization org, OWLOntology ontology, DLQueryParser parser, IdMapper mapper, PrefixManager prefix) {
-        this.org = org;
-        this.ontology = ontology;
-        this.parser = parser;
+    public OrganizationOWLMapper(OntologyHandler ontologyHandler, IdMapper mapper) {
+        this.ontology = ontologyHandler.getOntology();
+        this.parser = ontologyHandler.createDLQueryParser();
+        this.prefix = ontologyHandler.getPrefixManager();
         this.mapper = mapper;
-        this.prefix = prefix;
         this.manager = ontology.getOWLOntologyManager();
         this.factory = manager.getOWLDataFactory();
     }
 
-    public OWLOntology getOntology() {
-        return ontology;
-    }
-
-    public void map() {
+    public void map(Organization org) {
         new UnitMapper().map(org.getUnits());
         new RoleMapper().map(org.getRoles());
         new PositionMapper().map(org.getPositions());

@@ -1,6 +1,7 @@
 package es.us.isa.cristal.owl.analysers;
 
 import es.us.isa.cristal.BPEngineMock;
+import es.us.isa.cristal.ResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.OntologyNamespaces;
@@ -38,34 +39,18 @@ public class ScenarioHiringResolutionTest {
     }
 
     @Before
-    public void setup() {
+    public void setup() throws URISyntaxException {
         namespaces = createOntologyNamespaces();
 
         manager = new RALOntologyManager(namespaces, new BPEngineMock());
-
-        try {
-            manager.init(namespaces, createIRIMapper());
-        } catch (URISyntaxException e) {
-            // The ontology manager will try to get the ontologies from the web
-            e.printStackTrace();
-        }
+        manager.loadOrganizationOntology(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/organization-iaap.owl")));
+        manager.loadProcessOntology(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/bp-hiring-resolution.owl")));
 
     }
-
-    private OWLOntologyIRIMapper createIRIMapper() throws URISyntaxException {
-        CommonBaseIRIMapper ralOntologyMapper;
-        ralOntologyMapper = new CommonBaseIRIMapper(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/")));
-
-        ralOntologyMapper.addMapping(BP_HIRING_RESOLUTION_LOG_IRI, "bp-hiring-resolution-log.owl");
-        ralOntologyMapper.addMapping(BP_HIRING_RESOLUTION_IRI, "bp-hiring-resolution.owl");
-        ralOntologyMapper.addMapping(ORGANIZATION_IAAP_IRI, "organization-iaap.owl");
-        return ralOntologyMapper;
-    }
-
 
     @Test
     public void shouldGetPotentialPerformersOfRequestReportConsultiveBoard() {
-        manager.addParticipant("RequestReportConsultiveBoard", RALParser.parse("HAS ROLE Accountable"));
+        manager.loadResourceAssignment(new ResourceAssignment().add("RequestReportConsultiveBoard", RALParser.parse("HAS ROLE Accountable")));
 
         RALAnalyser analyser = manager.createDesignTimeAnalyser();
         Set<String> requestReportConsultiveBoard = analyser.potentialParticipants("RequestReportConsultiveBoard", TaskDuty.PARTICIPANT);

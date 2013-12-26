@@ -1,4 +1,4 @@
-package es.us.isa.cristal.owl.assignments;
+package es.us.isa.cristal.owl.ontologyhandlers;
 
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.ResourceAssignment;
@@ -7,9 +7,8 @@ import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.DLHelper;
 import es.us.isa.cristal.owl.DLQueryEngine;
-import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.analysers.RTRALAnalyser;
-import es.us.isa.cristal.owl.mappers.LogOntologyManager;
 import es.us.isa.cristal.owl.mappers.ral.InstanceOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.RTOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
@@ -42,10 +41,10 @@ public class RTAssignmentOntology extends AssignmentOntology {
     private DLQueryEngine engine;
     private String pid;
     private String currentInstance;
-    private LogOntologyManager logManager;
+    private LogOntologyHandler logManager;
 
-    public RTAssignmentOntology(RALOntologyManager ralOntologyManager, String pid, String assignmentIRI, LogOntologyManager logManager, IdMapper idMapper, BPEngine bpEngine) {
-        super(ralOntologyManager, assignmentIRI);
+    public RTAssignmentOntology(OntologyHandler ontologyHandler, String pid, LogOntologyHandler logManager, IdMapper idMapper, BPEngine bpEngine) {
+        super(ontologyHandler);
         this.idMapper = idMapper;
         this.pid = pid;
         this.logManager = logManager;
@@ -55,9 +54,9 @@ public class RTAssignmentOntology extends AssignmentOntology {
 
         ontology.getOWLOntologyManager().applyChange(new AddImport(ontology, ontology.getOWLOntologyManager().getOWLDataFactory().getOWLImportsDeclaration(logManager.getOntology().getOntologyID().getOntologyIRI())));
 
-        rtOwlRalMapper = new RTOwlRalMapper(idMapper, bpEngine, ralOntologyManager);
+        rtOwlRalMapper = new RTOwlRalMapper(idMapper, bpEngine, logManager);
         instanceOwlRalMapper = new InstanceOwlRalMapper(idMapper, bpEngine);
-        engine = ralOntologyManager.createDLQueryEngine(ontology);
+        engine = ontologyHandler.createDLQueryEngine();
     }
 
     @Override
@@ -117,7 +116,7 @@ public class RTAssignmentOntology extends AssignmentOntology {
     }
 
     private void closeLogOntology() {
-        engine = ralOntologyManager.createDLQueryEngine(ontology);
+        engine = createDLQueryEngine();
         closer("inverse(" + HASACTIVITYINSTANCE + ") value " + currentInstance);
     }
 
@@ -186,7 +185,7 @@ public class RTAssignmentOntology extends AssignmentOntology {
 
     @Override
     public RALAnalyser createAnalyser() {
-        RTRALAnalyser analyser = new RTRALAnalyser(ralOntologyManager.createDLQueryEngine(ontology), idMapper, pid);
+        RTRALAnalyser analyser = new RTRALAnalyser(createDLQueryEngine(), idMapper, pid);
         return analyser;
     }
 

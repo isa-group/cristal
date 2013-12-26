@@ -19,6 +19,12 @@ public class IdMapper {
         this.activityPrefix = ontologyNamespaces.getActivity().getPrefix();
     }
 
+    public IdMapper(String personPrefix, String groupPrefix, String activityPrefix) {
+        this.personPrefix = personPrefix;
+        this.groupPrefix = groupPrefix;
+        this.activityPrefix = activityPrefix;
+    }
+
     public String mapPerson(String person) {
         return personPrefix + ":" + person;
     }

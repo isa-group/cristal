@@ -18,9 +18,10 @@ public class ResourceAssignment {
         assignments = new HashMap<Target, RALExpr>();
     }
 
-    public void add(String activity, TaskDuty duty, RALExpr expr) {
+    public ResourceAssignment add(String activity, TaskDuty duty, RALExpr expr) {
         Target t = new Target(activity, duty);
         assignments.put(t, expr);
+        return this;
     }
 
     public RALExpr get(String activity, TaskDuty duty) {
@@ -28,8 +29,9 @@ public class ResourceAssignment {
         return assignments.get(t);
     }
 
-    public void add(String activity, RALExpr expr) {
+    public ResourceAssignment add(String activity, RALExpr expr) {
         add(activity, TaskDuty.RESPONSIBLE, expr);
+        return this;
     }
 
     public Map<TaskDuty, RALExpr> getByTaskDuty(String activity) {

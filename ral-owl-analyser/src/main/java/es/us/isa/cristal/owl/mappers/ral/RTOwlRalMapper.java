@@ -1,7 +1,7 @@
 package es.us.isa.cristal.owl.mappers.ral;
 
 import es.us.isa.cristal.BPEngine;
-import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import es.us.isa.cristal.owl.mappers.ral.constraints.IdConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.constraints.PositionOfConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.constraints.runtime.RTActivityConstraintMapper;
@@ -17,7 +17,7 @@ import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
  */
 public class RTOwlRalMapper extends OwlRalMapper {
 
-    public RTOwlRalMapper(IdMapper mapper, BPEngine engine, RALOntologyManager manager) {
+    public RTOwlRalMapper(IdMapper mapper, BPEngine engine, LogOntologyHandler logOntologyHandler) {
         super(new RTConstraintMapper(mapper), engine);
 
         addMapper(new PersonExprMapper(constraintMapper));
@@ -29,7 +29,7 @@ public class RTOwlRalMapper extends OwlRalMapper {
         addMapper(new DelegateExprMapper(constraintMapper));
         addMapper(new CompoundExprMapper(this));
 
-        addMapper(new RTNegativeExprMapper(this, mapper, manager));
+        addMapper(new RTNegativeExprMapper(this, mapper, logOntologyHandler));
     }
 
     public static class RTConstraintMapper extends OwlConstraintMapper  {
