@@ -1,5 +1,8 @@
 package es.us.isa.cristal.resolver;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.parser.RALParser;
@@ -16,12 +19,17 @@ public class BPEngineMock implements BPEngine {
     }
 
     @Override
-    public String getActivityPerformer(Object pid, String activityName) {
-        return "Charles";
+    public List<String> getActivityPerformer(Object pid, String activityName) {
+        List<String> result = new LinkedList<String>();
+    	result.add("Charles");
+        return result;
     }
 
-    @Override
-    public RALExpr getResourceExpression(String activityName) {
-        return RALParser.parse("HAS ROLE Account Administrator");
-    }
+    
+
+	@Override
+	public RALExpr getResourceExpression(Object processDefinitionId,
+			String activityId) {
+		return RALParser.parse("HAS ROLE Account Administrator");
+	}
 }

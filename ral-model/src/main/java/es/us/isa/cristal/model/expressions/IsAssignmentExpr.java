@@ -16,15 +16,16 @@ public class IsAssignmentExpr extends RALExpr {
 	private static final long serialVersionUID = 2957284638582593646L;
 	// identificador de la actividad
 	protected String activityName;
-
+	protected String processDefinitionId;
 	/**
 	 * Constructor de la clase
 	 * 
 	 * @param activityName Identificador de la actividad
 	 */
-	public IsAssignmentExpr(String activityName) {
+	public IsAssignmentExpr(String processDefinitionId, String activityName) {
 		super();
 		this.activityName = activityName;
+		this.processDefinitionId = processDefinitionId;
 	}
 	
 	/**
@@ -36,8 +37,12 @@ public class IsAssignmentExpr extends RALExpr {
 	public String getActivityName() {
 		return this.activityName;
 	}
+	
+    public String getProcessDefinitionId() {
+		return processDefinitionId;
+	}
 
-    @Override
+	@Override
     public boolean hasRuntimeConstraint() {
         return false;
     }

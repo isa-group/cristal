@@ -25,7 +25,7 @@ public class IsAssignmentExprBuilder implements ExprBuilder {
     @Override
     public Query build(RALExpr expr, ConstraintResolver resolver) {
         IsAssignmentExpr assignmentExpr = (IsAssignmentExpr) expr;
-        RALExpr activityExpr = builder.getBpEngine().getResourceExpression(assignmentExpr.getActivityName());
+        RALExpr activityExpr = builder.getBpEngine().getResourceExpression(assignmentExpr.getProcessDefinitionId(),assignmentExpr.getActivityName());
 
         return builder.buildQuery(activityExpr, resolver);
     }
