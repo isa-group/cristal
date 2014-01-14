@@ -1,6 +1,7 @@
 package es.us.isa.cristal.pba.rankers;
 
 import com.google.common.collect.Sets;
+
 import es.isa.puri.Ranking;
 import es.isa.puri.RankingMechanism;
 import es.isa.puri.UnsupportedPreferenceTerm;
@@ -10,6 +11,7 @@ import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.parser.RALParser;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.neo4j.cypher.ExecutionEngine;
@@ -27,6 +29,7 @@ import org.openrdf.rdf2go.RepositoryModelFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -197,12 +200,12 @@ public class RALRankerTest {
         }
 
         @Override
-        public String getActivityPerformer(Object pid, String activityName) {
-            return "Charles";
+        public List<String> getActivityPerformer(Object pid, String activityName) {
+            return Arrays.asList("Charles");
         }
 
         @Override
-        public RALExpr getResourceExpression(String activityName) {
+        public RALExpr getResourceExpression(Object processDefinitionID, String activityName) {
             return RALParser.parse("HAS ROLE Account Administrator");
         }
     }
