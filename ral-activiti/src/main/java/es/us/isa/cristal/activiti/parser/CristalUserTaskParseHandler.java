@@ -26,11 +26,11 @@ public class CristalUserTaskParseHandler extends UserTaskParseHandler{
 		this.ralResolverMethodName = ralResolverMethodName;
 	}
 	
-	private String calculateFinalExpression(String name){
+	private String calculateFinalExpression(String processId, String name){
 		String result = name;
 		if(RalExpressionUtil.isRALExpression(name)){
 			String ralExp = RalExpressionUtil.extractRalExpression(name);
-			result = "${" + ralResolverServiceName + "." + ralResolverMethodName + "('" + ralExp + "')}";
+			result = "${" + ralResolverServiceName + "." + ralResolverMethodName + "('" + processId + "','" + ralExp + "')}";
 		}
 		return result;
 	}
@@ -41,7 +41,7 @@ public class CristalUserTaskParseHandler extends UserTaskParseHandler{
 	public TaskDefinition parseTaskDefinition(BpmnParse bpmnParse, UserTask userTask, String taskDefinitionKey, ProcessDefinitionEntity processDefinition) {
 	    TaskFormHandler taskFormHandler = new DefaultTaskFormHandler();
 	    taskFormHandler.parseConfiguration(userTask.getFormProperties(), userTask.getFormKey(), bpmnParse.getDeployment(), processDefinition);
-
+	    
 	    TaskDefinition taskDefinition = new TaskDefinition(taskFormHandler);
 
 	    taskDefinition.setKey(taskDefinitionKey);
@@ -57,7 +57,7 @@ public class CristalUserTaskParseHandler extends UserTaskParseHandler{
 	    }
 
 	    if (StringUtils.isNotEmpty(userTask.getAssignee())) {
-	      taskDefinition.setAssigneeExpression(expressionManager.createExpression(calculateFinalExpression(userTask.getAssignee())));
+	      taskDefinition.setAssigneeExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getId(), userTask.getAssignee())));
 	    }
 	    
 	    
@@ -66,10 +66,10 @@ public class CristalUserTaskParseHandler extends UserTaskParseHandler{
 	      taskDefinition.setOwnerExpression(expressionManager.createExpression(userTask.getOwner()));
 	    }
 	    for (String candidateUser : userTask.getCandidateUsers()) {
-	      taskDefinition.addCandidateUserIdExpression(expressionManager.createExpression(calculateFinalExpression(candidateUser)));
+	      taskDefinition.addCandidateUserIdExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getId(),candidateUser)));
 	    }
 	    for (String candidateGroup : userTask.getCandidateGroups()) {
-	      taskDefinition.addCandidateGroupIdExpression(expressionManager.createExpression(calculateFinalExpression(candidateGroup)));
+	      taskDefinition.addCandidateGroupIdExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getId(),candidateGroup)));
 	    }
 	    
 	    // Activiti custom extension

@@ -1,4 +1,4 @@
-package es.us.isa.cristal.activiti.model.gson;
+package es.us.isa.cristal.organization.model.gson;
 
 import java.util.List;
 

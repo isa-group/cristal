@@ -1,8 +1,8 @@
-package es.us.isa.cristal.activiti.model.gson;
+package es.us.isa.cristal.organization.model.gson;
 
-import es.us.isa.cristal.activiti.util.CypherUtil;
+import es.us.isa.cristal.organization.model.util.CypherUtil;
 
-public class Person implements CypherGenerator{
+public class Role implements CypherGenerator{
 	private String name;
 
 	/**
@@ -41,7 +41,7 @@ public class Person implements CypherGenerator{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Person other = (Person) obj;
+		Role other = (Role) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -51,10 +51,9 @@ public class Person implements CypherGenerator{
 	}
 
 	public String getCypherCreateQuery() {
-		
-		return "CREATE " + CypherUtil.getId(name) + " = { name : '" + name + "' }";
+		return "CREATE "+ CypherUtil.getId(name) +" = {role : '" + name + "'}";
 	}
-	
+
 	
 	
 	

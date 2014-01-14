@@ -1,4 +1,4 @@
-package es.us.isa.cristal.organization.generator;
+package es.us.isa.cristal.organization.gson.model;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

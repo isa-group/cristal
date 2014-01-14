@@ -1,15 +1,27 @@
-package es.us.isa.cristal.activiti.model.gson;
+package es.us.isa.cristal.organization.model.gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import es.us.isa.cristal.activiti.util.CypherUtil;
+import es.us.isa.cristal.organization.model.util.CypherUtil;
 
 public class Position implements CypherGenerator{
 	
+	private List<Position> delegates;
 	private List<Position> reportedBy;
 	private String name;
 	private List<String> roles;
 	private List<String> occupiedBy;
+	
+	
+	public Position(){
+		delegates = new ArrayList<Position>();
+		reportedBy = new ArrayList<Position>();
+		roles = new ArrayList<String>();
+		occupiedBy = new ArrayList<String>();
+		
+	}
+	
 	/**
 	 * @return the reportedBy
 	 */
@@ -57,6 +69,13 @@ public class Position implements CypherGenerator{
 	 */
 	public final void setOccupiedBy(List<String> occupiedBy) {
 		this.occupiedBy = occupiedBy;
+	}
+	
+	public List<Position> getDelegates() {
+		return delegates;
+	}
+	public void setDelegates(List<Position> delegates) {
+		this.delegates = delegates;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

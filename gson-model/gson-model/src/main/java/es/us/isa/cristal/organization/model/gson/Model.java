@@ -1,8 +1,8 @@
-package es.us.isa.cristal.activiti.model.gson;
+package es.us.isa.cristal.organization.model.gson;
 
 import java.util.List;
 
-import es.us.isa.cristal.activiti.util.CypherUtil;
+import es.us.isa.cristal.organization.model.util.CypherUtil;
 
 public class Model implements CypherGenerator{
 	private List<Person> persons;
@@ -119,6 +119,10 @@ public class Model implements CypherGenerator{
 				for(Position reporter: p.getReportedBy()){
 					result += CypherUtil.cypherCreateEdgeQuery(reporter.getName(), p.getName(), "[:REPORTS]") + " \n";
 				}
+				for(Position del: p.getDelegates()){
+					result += CypherUtil.cypherCreateEdgeQuery(p.getName(), del.getName(), "[:DELEGATES]") + " \n";
+				}
+				
 				
 			}
 		}

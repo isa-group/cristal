@@ -9,14 +9,12 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 import org.neo4j.kernel.impl.util.StringLogger;
 import org.springframework.stereotype.Service;
-
 import com.google.gson.Gson;
-
 import es.us.isa.cristal.activiti.ActivitiBPEngine;
-import es.us.isa.cristal.activiti.model.gson.Document;
 import es.us.isa.cristal.activiti.spring.service.RalResolverService;
 import es.us.isa.cristal.activiti.util.IOUtil;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
+import es.us.isa.cristal.organization.model.gson.Document;
 
 @Service("cristalRalResolverService")
 public class CristalRalResolverService implements RalResolverService {
@@ -27,7 +25,11 @@ public class CristalRalResolverService implements RalResolverService {
 
 	public CristalRalResolverService() {
 		bpengine = new ActivitiBPEngine();
-		String url = bpengine.getOrganizationDefinitionUrl("TestRALProcess:1:1108");
+		
+	}
+
+	public String resolveRalExpression(String processId, String expression) {
+		String url = bpengine.getOrganizationDefinitionUrl(processId);
 		try {
 			String content = IOUtil.getURLContent(url);
 			Gson gson = new Gson();
@@ -41,17 +43,12 @@ public class CristalRalResolverService implements RalResolverService {
 			.newGraphDatabase();
 			exengine = new ExecutionEngine( graphDb,StringLogger.logger(new File(System.getenv("TEMP") + File.separator + "neo4j-log.log")) );
 	        exengine.execute( query );
-
+	        bpengine.getResourceExpression(processId, "Approval task");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public String resolveRalExpression(String expression) {
-		System.out.println("### CristalRalResolverService invoked: "
-				+ expression);
-		bpengine.getResourceExpression("TestRALProcess:1:1108", "Approval task");
+		
 		return "dummyRalUser";
 
 	}

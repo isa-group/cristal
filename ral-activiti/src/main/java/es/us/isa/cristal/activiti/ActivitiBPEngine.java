@@ -74,6 +74,8 @@ public class ActivitiBPEngine implements BPEngine{
 					String ralExp = RalExpressionUtil.extractRalExpression(users);
 					result = RALParser.parse(ralExp);
 				}
+				//no need to continue iterating
+				break;
 			}
 		}
 		
