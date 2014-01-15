@@ -20,8 +20,12 @@ public class RandomFunction implements Function{
 
 	public Integer getResult() {
 		Random rnd = new Random();
-		int res = (Math.abs((rnd.nextInt())%(max-min)) + min);
-		return res;
+		if(max==min){
+			return max;
+		}else{
+			int res = (Math.abs((rnd.nextInt())%(max-min)) + min);
+			return res;
+		}
 		
 	}
 
