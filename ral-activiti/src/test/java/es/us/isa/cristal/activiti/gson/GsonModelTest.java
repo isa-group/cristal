@@ -8,8 +8,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.google.gson.Gson;
-
 import es.us.isa.cristal.activiti.util.IOUtil;
 import es.us.isa.cristal.organization.model.gson.Document;
 import es.us.isa.cristal.organization.model.gson.Model;
@@ -32,8 +30,8 @@ public class GsonModelTest {
 	@Test
 	public void importModelTest() throws IOException{
 		String organization = IOUtil.getURLContent("https://dl.dropboxusercontent.com/s/scvrx6cmuh3bce8/testOrganizationModel.json?dl=1");
-		Gson gson = new Gson();
-		Document doc = gson.fromJson(organization, Document.class);
+		
+		Document doc = Document.importFromJson(organization);
 		Document expectedDoc = buildExpectedDocument();
 		Assert.assertTrue(expectedDoc.equals(doc));
 	}

@@ -2,6 +2,8 @@ package es.us.isa.cristal.organization.model.gson;
 
 import java.util.List;
 
+import com.google.gson.Gson;
+
 public class Document implements CypherGenerator{
 	private List<String> shared;
 	private String modelId;
@@ -183,9 +185,16 @@ public class Document implements CypherGenerator{
 	}
 
 	
+	public String toJSON(){
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
 	
-	
-	
+	public static Document importFromJson(String json){
+		Gson gson = new Gson();
+		Document d = gson.fromJson(json, Document.class);
+		return d;
+	}
 	
 
 }
