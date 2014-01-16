@@ -3,6 +3,8 @@ package es.us.isa.cristal.organization.generator;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.us.isa.cristal.organization.generator.distributors.PositionDelegatesMultipleRandomDistributor;
+import es.us.isa.cristal.organization.generator.distributors.PositionReportsMultipleRandomDistributor;
 import es.us.isa.cristal.organization.model.gson.Model;
 import es.us.isa.cristal.organization.model.gson.Person;
 import es.us.isa.cristal.organization.model.gson.Position;
@@ -54,6 +56,10 @@ public class OrganizationGenerator {
 			units.add(generateUnit(i));
 		}
 		model.setUnits(units);
+		
+		((PositionReportsMultipleRandomDistributor) config.getPositionReportsDistributor()).setPositions(positions);
+		
+		((PositionDelegatesMultipleRandomDistributor) config.getPositionDelegatesDistributor()).setPositions(positions);
 		
 		config.getPersonPositionDistributor().distribute(persons, positions);
 		

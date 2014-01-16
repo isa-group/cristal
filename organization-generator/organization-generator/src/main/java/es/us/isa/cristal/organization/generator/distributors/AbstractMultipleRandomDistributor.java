@@ -28,7 +28,9 @@ public abstract class AbstractMultipleRandomDistributor<S,T> implements Distribu
 			Integer numberOfEntitiesToLink = relationDistributionFunction.getResult();
 			for(int i=0; i<numberOfEntitiesToLink; i++){
 				S entity = entitySelector.getIndividual(entities, getExclusions(entity2));
-				setRelation(entity, entity2);
+				if(entity!=null){
+					setRelation(entity, entity2);
+				}
 			}
 		}
 	}
