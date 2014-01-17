@@ -8,13 +8,15 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import es.us.isa.cristal.activiti.util.IOUtil;
+
+
 import es.us.isa.cristal.organization.model.gson.Document;
 import es.us.isa.cristal.organization.model.gson.Model;
 import es.us.isa.cristal.organization.model.gson.Person;
 import es.us.isa.cristal.organization.model.gson.Position;
 import es.us.isa.cristal.organization.model.gson.Role;
 import es.us.isa.cristal.organization.model.gson.Unit;
+import es.us.isa.cristal.organization.model.util.IOUtil;
 
 public class GsonModelTest {
 

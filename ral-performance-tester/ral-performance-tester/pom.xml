@@ -8,7 +8,6 @@
   <packaging>jar</packaging>
 
   <name>ral-performance-tester</name>
-  <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,8 +18,18 @@
   	  <groupId>es.us.isa.cristal</groupId>
       <artifactId>organization-generator</artifactId>
       <version>0.0.1-SNAPSHOT</version>
-  		
   	</dependency>
+  	<dependency>
+  	  <groupId>es.us.isa.cristal</groupId>
+      <artifactId>ral-neo4j</artifactId>
+      <version>1.0-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  	  <groupId>es.us.isa.cristal</groupId>
+      <artifactId>ral-model</artifactId>
+      <version>1.0-SNAPSHOT</version>
+  	</dependency>
+  	
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

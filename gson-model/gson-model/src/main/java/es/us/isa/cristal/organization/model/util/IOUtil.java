@@ -1,4 +1,4 @@
-package es.us.isa.cristal.activiti.util;
+package es.us.isa.cristal.organization.model.util;
 
 import java.io.IOException;
 import java.io.InputStream;

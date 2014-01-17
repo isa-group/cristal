@@ -109,27 +109,35 @@ public class Model implements CypherGenerator{
 			result += u.getCypherCreateQuery() + " \n";
 			for(Position p: u.getPositions()){
 				result += p.getCypherCreateQuery() + " \n";
-				result += CypherUtil.cypherCreateEdgeQuery(p.getName(), u.getName(), "[:UNIT]") + " \n";
-				for(String personName: p.getOccupiedBy()){
-					result += CypherUtil.cypherCreateEdgeQuery(personName, p.getName(), "[:POSITION]") + " \n";
-				}
-				for(String roleName: p.getRoles()){
-					result += CypherUtil.cypherCreateEdgeQuery(p.getName(), roleName, "[:ROLE]") + " \n";
-				}
-				for(Position reporter: p.getReportedBy()){
-					result += CypherUtil.cypherCreateEdgeQuery(reporter.getName(), p.getName(), "[:REPORTS]") + " \n";
-				}
-				for(Position del: p.getDelegates()){
-					result += CypherUtil.cypherCreateEdgeQuery(p.getName(), del.getName(), "[:DELEGATES]") + " \n";
-				}
-				
-				
-			}
+			}	
 		}
-		
+		for(Unit u: this.units){
+			result += processUnitRelations(u);
+		}
 		
 		return result;
 	}
 	
-	
+	private String processUnitRelations(Unit u){
+		String result = "";
+		for(Position p: u.getPositions()){
+			
+			result += CypherUtil.cypherCreateEdgeQuery(p.getName(), u.getName(), "[:UNIT]") + " \n";
+			for(String personName: p.getOccupiedBy()){
+				result += CypherUtil.cypherCreateEdgeQuery(personName, p.getName(), "[:POSITION]") + " \n";
+			}
+			for(String roleName: p.getRoles()){
+				result += CypherUtil.cypherCreateEdgeQuery(p.getName(), roleName, "[:ROLE]") + " \n";
+			}
+			for(Position reporter: p.getReportedBy()){
+				result += CypherUtil.cypherCreateEdgeQuery(reporter.getName(), p.getName(), "[:REPORTS]") + " \n";
+			}
+			for(Position del: p.getDelegates()){
+				result += CypherUtil.cypherCreateEdgeQuery(p.getName(), del.getName(), "[:DELEGATES]") + " \n";
+			}
+			
+			
+		}
+		return result;
+	}
 }

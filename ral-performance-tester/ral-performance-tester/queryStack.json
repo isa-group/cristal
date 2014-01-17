@@ -1,0 +1,13 @@
+{
+	export: "results.html",
+	modelWeight: 20,
+	processExpressionForEachIteration: true,
+	iterations: 5,
+	queryList: [
+			{ activity: "activity1", query: "HAS ROLE #RandomRole#" },
+			{ activity: "activity2", query: "REPORTS TO POSITION #RandomPosition#"},
+			{ activity: "activity3", query: "CAN DELEGATE WORK TO POSITION #RandomPosition#"},
+			{ activity: "activity3", query: "CAN HAVE WORK DELEGATED BY POSITION #RandomPosition#"}
+	]
+
+}

@@ -9,12 +9,12 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 import org.neo4j.kernel.impl.util.StringLogger;
 import org.springframework.stereotype.Service;
-import com.google.gson.Gson;
+
 import es.us.isa.cristal.activiti.ActivitiBPEngine;
 import es.us.isa.cristal.activiti.spring.service.RalResolverService;
-import es.us.isa.cristal.activiti.util.IOUtil;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.organization.model.gson.Document;
+import es.us.isa.cristal.organization.model.util.IOUtil;
 
 @Service("cristalRalResolverService")
 public class CristalRalResolverService implements RalResolverService {
@@ -32,8 +32,8 @@ public class CristalRalResolverService implements RalResolverService {
 		String url = bpengine.getOrganizationDefinitionUrl(processId);
 		try {
 			String content = IOUtil.getURLContent(url);
-			Gson gson = new Gson();
-			Document doc = gson.fromJson(content, Document.class);
+			
+			Document doc = Document.importFromJson(content);
 			String query = doc.getCypherCreateQuery();
 			
 			GraphDatabaseService graphDb = new GraphDatabaseFactory()
