@@ -38,19 +38,22 @@ public class App
     public static void main( String[] args ) throws FileNotFoundException
     {
         String path = "queryStack.json";
-    	
+        
+        System.out.println("Importing query stack...");
+        
         ExecutionData edata = ExecutionData.importFromJson(IOUtil.convertStreamToString(new FileInputStream(path)));
     	
     	ConfigurationFactory factory = new ConfigurationFactory();
 		OrganizationGenerator generator = new OrganizationGenerator(factory.getDefaultConfiguration(edata.getModelWeight()));
 		
+		System.out.println("Generating model...");
 		Model model = generator.generate();
 		
 		BPEngine engine = new MockBPEngine(model, edata.getActivityQueryMap());
     	
-		
 		String createQuery = model.getCypherCreateQuery();
-		System.out.println(createQuery);
+		
+		System.out.println("Starting Graph DB...");
 		GraphDatabaseService graphDb = new GraphDatabaseFactory()
 		.newEmbeddedDatabaseBuilder(System.getenv("TEMP") + File.separator + "neo4j-performance")
 		.setConfig(GraphDatabaseSettings.node_keys_indexable,"name, position, role, unit")
@@ -64,6 +67,7 @@ public class App
        
         QueryProcessor processor = new QueryProcessor();
         
+        System.out.println("Executing queries...");
         for(Query q: edata.getQueryList()){
         	
         	String expression = q.getQuery();
@@ -86,10 +90,17 @@ public class App
         	
         }
         
+        System.out.println("Queries execution finished...");
+        System.out.println("Shutting down Graph DB...");
+        
+        graphDb.shutdown();
+        
+        System.out.println("Exporting results...");
+		
         ExporterFactory exporterFactory = new ExporterFactory();
         exporterFactory.getExporter(edata.getExport()).export(edata.getExport(), edata, model);
         
-        
+        System.out.println("Results exported...");
         
     }
     

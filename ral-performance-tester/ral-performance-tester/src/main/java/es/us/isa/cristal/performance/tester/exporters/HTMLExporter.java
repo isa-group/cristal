@@ -11,7 +11,7 @@ public class HTMLExporter implements Exporter{
 
 	@Override
 	public void export(String filename, ExecutionData edata, Model model) {
-		System.out.println("Exporting results to HTML...");
+		
 		
 		String html = "<!doctype html> \n" +
 		"<html lang=\"en\"> \n" +
@@ -50,7 +50,6 @@ public class HTMLExporter implements Exporter{
 		
 		FileWriterUtil.writeStringToFile(filename, html);
 		
-		System.out.println("Results exported...");
 	}
 
 	@Override
