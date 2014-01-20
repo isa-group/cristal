@@ -57,7 +57,7 @@ public class CristalUserTaskParseHandler extends UserTaskParseHandler{
 	    }
 
 	    if (StringUtils.isNotEmpty(userTask.getAssignee())) {
-	      taskDefinition.setAssigneeExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getId(), userTask.getAssignee())));
+	      taskDefinition.setAssigneeExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getKey(), userTask.getAssignee())));
 	    }
 	    
 	    
@@ -66,10 +66,10 @@ public class CristalUserTaskParseHandler extends UserTaskParseHandler{
 	      taskDefinition.setOwnerExpression(expressionManager.createExpression(userTask.getOwner()));
 	    }
 	    for (String candidateUser : userTask.getCandidateUsers()) {
-	      taskDefinition.addCandidateUserIdExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getId(),candidateUser)));
+	      taskDefinition.addCandidateUserIdExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getKey(),candidateUser)));
 	    }
 	    for (String candidateGroup : userTask.getCandidateGroups()) {
-	      taskDefinition.addCandidateGroupIdExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getId(),candidateGroup)));
+	      taskDefinition.addCandidateGroupIdExpression(expressionManager.createExpression(calculateFinalExpression(processDefinition.getKey(),candidateGroup)));
 	    }
 	    
 	    // Activiti custom extension

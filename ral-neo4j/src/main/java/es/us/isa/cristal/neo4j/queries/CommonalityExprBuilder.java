@@ -25,7 +25,7 @@ public class CommonalityExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
         CommonalityExpr commonalityExpr = (CommonalityExpr) expr;
         String p = builder.getVarName("p");
         String g = builder.getVarName("g");

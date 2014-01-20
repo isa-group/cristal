@@ -10,5 +10,5 @@ import es.us.isa.cristal.resolver.ConstraintResolver;
  */
 public interface ExprBuilder {
     public Class<? extends RALExpr> getExprType();
-    public Query build(RALExpr expr, ConstraintResolver resolver);
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId);
 }

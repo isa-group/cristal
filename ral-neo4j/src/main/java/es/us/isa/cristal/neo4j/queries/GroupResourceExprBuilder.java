@@ -24,7 +24,7 @@ public class GroupResourceExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
         GroupResourceExpr group = (GroupResourceExpr) expr;
         String varName = builder.getVarName("group");
         String name = getNameFor(group.getGroupResourceType());

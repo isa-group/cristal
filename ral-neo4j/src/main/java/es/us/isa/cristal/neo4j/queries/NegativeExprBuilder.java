@@ -23,9 +23,9 @@ public class NegativeExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
         NegativeExpr negativeExpr = (NegativeExpr) expr;
-        Query q = builder.buildQuery(negativeExpr.getExprObject(), resolver);
+        Query q = builder.buildQuery(negativeExpr.getExprObject(), resolver, processId);
 
         return Query.start(q.getStart())
                 .match(q.getMatch())

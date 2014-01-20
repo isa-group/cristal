@@ -24,7 +24,7 @@ public class ReportExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
         ReportExpr report = (ReportExpr) expr;
         String pos = builder.getVarName("pos");
 

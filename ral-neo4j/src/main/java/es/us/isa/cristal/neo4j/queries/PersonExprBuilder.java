@@ -16,7 +16,7 @@ public class PersonExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
         PersonExpr p = (PersonExpr) expr;
 
 //        StringBuilder sb = new StringBuilder();

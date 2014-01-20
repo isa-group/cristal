@@ -16,7 +16,7 @@ public class CapabilityExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
         CapabilityExpr cap = (CapabilityExpr) expr;
         return Query.start().where("has(person." + cap.getCapabilityName() + ")").build();
     }

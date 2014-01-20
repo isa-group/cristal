@@ -23,10 +23,10 @@ public class OrExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
         OrExpr and = (OrExpr) expr;
-        Query left = builder.buildQuery(and.getObjectExprLeft(), resolver);
-        Query right = builder.buildQuery(and.getObjectExprRight(), resolver);
+        Query left = builder.buildQuery(and.getObjectExprLeft(), resolver, processId);
+        Query right = builder.buildQuery(and.getObjectExprRight(), resolver, processId);
 
         return Query.start(left.getStart(), right.getStart())
                 .match(left.getMatch(), right.getMatch())

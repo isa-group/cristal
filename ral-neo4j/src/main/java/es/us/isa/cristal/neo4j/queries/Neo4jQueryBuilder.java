@@ -37,7 +37,7 @@ public class Neo4jQueryBuilder {
 
     public String build(RALExpr expr, Object pid) {
         ConstraintResolver resolver = new ConstraintResolver(bpEngine, pid);
-        Query q = buildQuery(expr, resolver);
+        Query q = buildQuery(expr, resolver, pid);
         StringBuilder sb = new StringBuilder("START person=node:node_auto_index('name:*')");
         if (q.getStart() != null && ! q.getStart().isEmpty())
             sb.append(", ").append(q.getStart());
@@ -69,12 +69,12 @@ public class Neo4jQueryBuilder {
     }
 
 
-    protected Query buildQuery(RALExpr expr, ConstraintResolver resolver) {
+    protected Query buildQuery(RALExpr expr, ConstraintResolver resolver, Object pid) {
         ExprBuilder builder = builderMap.get(expr.getClass());
         if (builder == null) {
             throw new RuntimeException("RAL Expression not supported: " + expr.getClass());
         }
 
-        return builder.build(expr, resolver);
+        return builder.build(expr, resolver, pid);
     }
 }

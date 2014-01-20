@@ -24,7 +24,7 @@ public class DelegateExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
         DelegateExpr delegate = (DelegateExpr) expr;
         String pos = builder.getVarName("pos");
 

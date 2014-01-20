@@ -32,4 +32,16 @@ public class BPEngineMock implements BPEngine {
 			String activityId) {
 		return RALParser.parse("HAS ROLE Account Administrator");
 	}
+
+	@Override
+	public RALExpr getResourceExpressionByProcessDefinitionId(
+			Object processDefinitionId, String activityId) {
+		return RALParser.parse("HAS ROLE Account Administrator");
+	}
+
+	@Override
+	public RALExpr getResourceExpressionByProcessInstanceId(
+			Object processInstanceId, String activityId) {
+		return RALParser.parse("HAS ROLE Account Administrator");
+	}
 }

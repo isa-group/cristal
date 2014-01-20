@@ -1,9 +1,13 @@
 package es.us.isa.cristal.activiti;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.ExtensionAttribute;
+import org.activiti.bpmn.model.ExtensionElement;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.ProcessEngines;
@@ -55,14 +59,35 @@ public class ActivitiBPEngine implements BPEngine{
 		return result;
 	}
 
-	public RALExpr getResourceExpression(Object processDefinitionId, String activityName) {
+	
+
+	public String getOrganizationDefinitionUrl(Object processDefinitionId){
+		
+		String result = null;
+		org.activiti.bpmn.model.Process process = getProcessFromDefinitionKey(processDefinitionId);
+		
+		if(!process.getAttributes().containsKey("organization")){
+			throw new RuntimeException("Organization attribute not found. Check the process has the organization attribute setted. Example: <process id=\"processId\" ral:organization=\"type URL here\"");
+		}
+		for(ExtensionAttribute att: process.getAttributes().get("organization")){
+			if(att.getName().equals("organization")){
+				result = att.getValue();
+			}
+		}
+		
+		return result;
+		
+	}
+
+	public RALExpr getResourceExpressionByProcessDefinitionId(
+			Object processDefinitionId, String activityName) {
 		RALExpr result = null;
-		BpmnModel bp = ProcessEngines.getDefaultProcessEngine().getRepositoryService().getBpmnModel((String) processDefinitionId);
 		
 		//assumption: only one main process per bpmn20.xml file.
-		org.activiti.bpmn.model.Process process = bp.getProcesses().get(0);
+		org.activiti.bpmn.model.Process process = getProcessFromDefinitionKey(processDefinitionId);
 		
 		for(FlowElement element: process.getFlowElements()){
+			
 			if(element.getName().equals(activityName)){
 				//the list of users must have only 1 position: the RAL expression.
 				//if you want to allow defining users combining RAL with other possibilities like
@@ -70,6 +95,7 @@ public class ActivitiBPEngine implements BPEngine{
 				//inside the users list, and design a strategy to combine both possibilities.
 				
 				String users = ((UserTask) element).getCandidateUsers().get(0);
+				
 				if(RalExpressionUtil.isRALExpression(users)){
 					String ralExp = RalExpressionUtil.extractRalExpression(users);
 					result = RALParser.parse(ralExp);
@@ -80,21 +106,49 @@ public class ActivitiBPEngine implements BPEngine{
 		}
 		
 		return result;
-	
 	}
 
-	public String getOrganizationDefinitionUrl(Object processDefinitionId){
-		String result = null;
-		BpmnModel bp = ProcessEngines.getDefaultProcessEngine().getRepositoryService().getBpmnModel((String) processDefinitionId);
-		
-		//assumption: only one main process per bpmn20.xml file.
-		org.activiti.bpmn.model.Process process = bp.getProcesses().get(0);
-		
-		result = "https://www.dropbox.com/s/scvrx6cmuh3bce8/testOrganizationModel.json";
-		
-		return result;
-		
+	public RALExpr getResourceExpressionByProcessInstanceId(Object processInstanceId, String activityName) {
+		String defKey = this.extractDefinitionKeyFromInstanceId((String) processInstanceId);
+		return getResourceExpressionByProcessDefinitionId(defKey,activityName);
 	}
 	
+	
+	private org.activiti.bpmn.model.Process getProcessFromDefinitionKey(Object processDefinitionId){
+		
+		String processDeploymentId = ProcessEngines.getDefaultProcessEngine().getRepositoryService().createProcessDefinitionQuery().processDefinitionKey((String) processDefinitionId).orderByDeploymentId().desc().list().get(0).getId();
+		
+		
+		BpmnModel bp = ProcessEngines.getDefaultProcessEngine().getRepositoryService().getBpmnModel(processDeploymentId);
+		//assumption: only one main process per bpmn20.xml file.
+		org.activiti.bpmn.model.Process process = bp.getProcesses().get(0);
+		return process;
+	}
+
+	public RALExpr getResourceExpression(Object processId, String activityId) {
+		if(isInstanceId((String) processId)) {
+			return getResourceExpressionByProcessInstanceId(processId, activityId);
+		}else{
+			return getResourceExpressionByProcessDefinitionId(processId, activityId);
+		}
+	}
+	
+	private boolean isInstanceId(String processId){
+		boolean res = false;
+    	List<String> parts = Arrays.asList(processId.split(":",2));
+    	if(parts.size()==2){
+    		res = parts.get(1).matches("[0-9]+:[0-9]+");
+    	}
+		return res;
+	}
+	
+	private String extractDefinitionKeyFromInstanceId(String processId){
+		String result = processId;
+		if(isInstanceId(processId)){
+			result = processId.split(":",2)[0];
+		}
+		return result;
+    	
+	}
 	
 }

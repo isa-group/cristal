@@ -34,5 +34,21 @@ public interface BPEngine {
      * @param activityId Activity Identifier
      * @return the RAL expression used to calculate candidates to perform the activity
      */
-    RALExpr getResourceExpression(Object processDefinitionId, String activityId);
+    RALExpr getResourceExpression(Object processId, String activityId);
+    
+    /**
+     * 
+     * @param processDefinitionId The id defined in the process
+     * @param activityId Activity Identifier
+     * @return the RAL expression used to calculate candidates to perform the activity
+     */
+    RALExpr getResourceExpressionByProcessDefinitionId(Object processDefinitionId, String activityId);
+    
+    /**
+     * 
+     * @param processInstanceId The id defined in the process
+     * @param activityId Activity Identifier
+     * @return the RAL expression used to calculate candidates to perform the activity
+     */
+    RALExpr getResourceExpressionByProcessInstanceId(Object processInstanceId, String activityId);
 }
