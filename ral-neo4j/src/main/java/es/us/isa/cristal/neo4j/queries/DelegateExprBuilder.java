@@ -3,7 +3,6 @@ package es.us.isa.cristal.neo4j.queries;
 import es.us.isa.cristal.model.HierarchyDirection;
 import es.us.isa.cristal.model.expressions.DelegateExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.resolver.ConstraintResolver;
 
 /**
  * User: resinas
@@ -24,7 +23,7 @@ public class DelegateExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
+    public Query build(RALExpr expr, Object processId) {
         DelegateExpr delegate = (DelegateExpr) expr;
         String pos = builder.getVarName("pos");
 

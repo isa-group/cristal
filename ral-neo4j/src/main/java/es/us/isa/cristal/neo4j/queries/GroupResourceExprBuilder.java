@@ -13,9 +13,11 @@ import es.us.isa.cristal.resolver.ConstraintResolver;
 public class GroupResourceExprBuilder implements ExprBuilder {
 
     private Neo4jQueryBuilder builder;
-
-    public GroupResourceExprBuilder(Neo4jQueryBuilder builder) {
+    private ConstraintResolver resolver;
+    
+    public GroupResourceExprBuilder(Neo4jQueryBuilder builder, ConstraintResolver resolver) {
         this.builder = builder;
+        this.resolver = resolver;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class GroupResourceExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
+    public Query build(RALExpr expr, Object processId) {
         GroupResourceExpr group = (GroupResourceExpr) expr;
         String varName = builder.getVarName("group");
         String name = getNameFor(group.getGroupResourceType());
@@ -37,7 +39,7 @@ public class GroupResourceExprBuilder implements ExprBuilder {
 //        sb.append(" MATCH "+match);
 //        sb.append(" RETURN person.name");
 
-        return Query.start(varName+" = node:node_auto_index("+name+"='"+ resolver.resolve(group.getGroupResourceConstraint())+"')")
+        return Query.start(varName+" = node:node_auto_index("+name+"='"+ resolver.resolve(group.getGroupResourceConstraint(), processId)+"')")
                 .where(match).build();
 
     }

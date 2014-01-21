@@ -2,7 +2,6 @@ package es.us.isa.cristal.neo4j.queries;
 
 import es.us.isa.cristal.model.expressions.NegativeExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.resolver.ConstraintResolver;
 
 /**
  * User: resinas
@@ -23,9 +22,9 @@ public class NegativeExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
+    public Query build(RALExpr expr, Object processId) {
         NegativeExpr negativeExpr = (NegativeExpr) expr;
-        Query q = builder.buildQuery(negativeExpr.getExprObject(), resolver, processId);
+        Query q = builder.buildQuery(negativeExpr.getExprObject(), processId);
 
         return Query.start(q.getStart())
                 .match(q.getMatch())

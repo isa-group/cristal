@@ -2,7 +2,6 @@ package es.us.isa.cristal.neo4j.queries;
 
 import es.us.isa.cristal.model.expressions.OrExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.resolver.ConstraintResolver;
 
 /**
  * User: resinas
@@ -23,10 +22,10 @@ public class OrExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
+    public Query build(RALExpr expr, Object processId) {
         OrExpr and = (OrExpr) expr;
-        Query left = builder.buildQuery(and.getObjectExprLeft(), resolver, processId);
-        Query right = builder.buildQuery(and.getObjectExprRight(), resolver, processId);
+        Query left = builder.buildQuery(and.getObjectExprLeft(), processId);
+        Query right = builder.buildQuery(and.getObjectExprRight(), processId);
 
         return Query.start(left.getStart(), right.getStart())
                 .match(left.getMatch(), right.getMatch())

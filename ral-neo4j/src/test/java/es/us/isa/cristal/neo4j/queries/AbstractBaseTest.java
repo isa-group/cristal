@@ -1,7 +1,10 @@
 package es.us.isa.cristal.neo4j.queries;
 
+import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.resolver.BPEngineMock;
+import es.us.isa.cristal.resolver.ConstraintResolver;
+
 import org.junit.Before;
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.cypher.ExecutionResult;
@@ -114,7 +117,8 @@ public abstract class AbstractBaseTest {
     }
 
     protected ExecutionResult doQuery(RALExpr expr) {
-        Neo4jQueryBuilder builder = new Neo4jQueryBuilder(new BPEngineMock());
+    	BPEngine mock = new BPEngineMock();
+        Neo4jQueryBuilder builder = new Neo4jQueryBuilder(mock, new ConstraintResolver(mock));
         String query = builder.build(expr, 0L);
         System.out.println(query);
         return engine.execute(query);

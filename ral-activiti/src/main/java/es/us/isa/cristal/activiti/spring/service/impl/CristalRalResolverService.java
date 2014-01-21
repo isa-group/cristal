@@ -17,10 +17,12 @@ import org.springframework.stereotype.Service;
 import es.us.isa.cristal.activiti.ActivitiBPEngine;
 import es.us.isa.cristal.activiti.spring.service.RalResolverService;
 import es.us.isa.cristal.model.expressions.RALExpr;
+import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.neo4j.queries.Neo4jQueryBuilder;
 import es.us.isa.cristal.organization.model.gson.Document;
 import es.us.isa.cristal.organization.model.util.IOUtil;
 import es.us.isa.cristal.parser.RALParser;
+import es.us.isa.cristal.resolver.ConstraintResolver;
 
 @Service("cristalRalResolverService")
 public class CristalRalResolverService implements RalResolverService {
@@ -33,10 +35,11 @@ public class CristalRalResolverService implements RalResolverService {
 	public CristalRalResolverService() {
 		bpengine = new ActivitiBPEngine();
 		execEngines = new HashMap<String, ExecutionEngine>();
-		builder = new Neo4jQueryBuilder(bpengine);
+		builder = new Neo4jQueryBuilder(bpengine, new ConstraintResolver(bpengine));
 	}
 
 	public String resolveRalExpression(String processId, String expression) {
+		
 		String result = "";
 		String url = bpengine.getOrganizationDefinitionUrl(processId);
 		try {

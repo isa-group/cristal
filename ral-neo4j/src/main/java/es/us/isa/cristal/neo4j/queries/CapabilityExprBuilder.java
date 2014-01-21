@@ -2,7 +2,6 @@ package es.us.isa.cristal.neo4j.queries;
 
 import es.us.isa.cristal.model.expressions.CapabilityExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.resolver.ConstraintResolver;
 
 /**
  * User: resinas
@@ -16,7 +15,7 @@ public class CapabilityExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver, Object processId) {
+    public Query build(RALExpr expr, Object processId) {
         CapabilityExpr cap = (CapabilityExpr) expr;
         return Query.start().where("has(person." + cap.getCapabilityName() + ")").build();
     }

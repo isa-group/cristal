@@ -15,14 +15,14 @@ import es.us.isa.cristal.model.constraints.IdConstraint;
  */
 public class ConstraintResolver {
     private BPEngine engine;
-    private Object pid;
 
-    public ConstraintResolver(BPEngine eng, Object pid) {
+
+    public ConstraintResolver(BPEngine eng) {
         this.engine = eng;
-        this.pid = pid;
+
     }
 
-    public String resolve(Constraint c) {
+    public String resolve(Constraint c, Object pid) {
         String result;
 
         if (c instanceof IdConstraint) {
