@@ -40,5 +40,18 @@ public class MockBPEngine implements BPEngine{
 			String activityId) {
 		return RALParser.parse(map.get(activityId).getQuery());
 	}
+
+	@Override
+	public RALExpr getResourceExpressionByProcessDefinitionId(
+			Object processDefinitionId, String activityId) {
+		
+		return getResourceExpression(processDefinitionId, activityId);
+	}
+
+	@Override
+	public RALExpr getResourceExpressionByProcessInstanceId(
+			Object processInstanceId, String activityId) {
+		return getResourceExpression(processInstanceId, activityId);
+	}
 	
 }

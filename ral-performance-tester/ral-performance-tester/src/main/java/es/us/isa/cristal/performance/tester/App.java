@@ -27,6 +27,7 @@ import es.us.isa.cristal.performance.tester.meters.Meter;
 import es.us.isa.cristal.performance.tester.meters.TimeMeter;
 import es.us.isa.cristal.performance.tester.util.MockBPEngine;
 import es.us.isa.cristal.performance.tester.util.QueryProcessor;
+import es.us.isa.cristal.resolver.ConstraintResolver;
 
 
 /**
@@ -63,7 +64,7 @@ public class App
 		ExecutionEngine exengine = new ExecutionEngine( graphDb,StringLogger.logger(new File(System.getenv("TEMP") + File.separator + "neo4j-log.log")) );
         exengine.execute( createQuery );
        
-        Neo4jQueryBuilder builder = new Neo4jQueryBuilder(engine);
+        Neo4jQueryBuilder builder = new Neo4jQueryBuilder(engine, new ConstraintResolver(engine));
        
         QueryProcessor processor = new QueryProcessor();
         

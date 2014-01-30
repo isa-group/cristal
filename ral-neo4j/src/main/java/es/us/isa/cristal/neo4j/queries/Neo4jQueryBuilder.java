@@ -24,13 +24,13 @@ public class Neo4jQueryBuilder {
         builderMap = new HashMap<Class<? extends RALExpr>, ExprBuilder>();
         this.bpEngine = bpEngine;
         this.resolver = resolver;
-        addQueryBuilder(new PersonExprBuilder(this.resolver));
-        addQueryBuilder(new GroupResourceExprBuilder(this, this.resolver));
+        addQueryBuilder(new PersonExprBuilder(resolver));
+        addQueryBuilder(new GroupResourceExprBuilder(this, resolver));
         addQueryBuilder(new NegativeExprBuilder(this));
         addQueryBuilder(new AndExprBuilder(this));
         addQueryBuilder(new OrExprBuilder(this));
         addQueryBuilder(new CapabilityExprBuilder());
-        addQueryBuilder(new CommonalityExprBuilder(this, this.resolver));
+        addQueryBuilder(new CommonalityExprBuilder(this, resolver));
         addQueryBuilder(new DelegateExprBuilder(this));
         addQueryBuilder(new ReportExprBuilder(this));
         addQueryBuilder(new IsAssignmentExprBuilder(this));
