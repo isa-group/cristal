@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import es.us.isa.cristal.activiti.ActivitiBPEngine;
 import es.us.isa.cristal.activiti.spring.service.RalResolverService;
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.neo4j.queries.Neo4jQueryBuilder;
 import es.us.isa.cristal.organization.model.gson.Document;
 import es.us.isa.cristal.organization.model.util.IOUtil;

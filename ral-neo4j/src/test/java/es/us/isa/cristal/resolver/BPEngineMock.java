@@ -3,6 +3,7 @@ package es.us.isa.cristal.resolver;
 import java.util.LinkedList;
 import java.util.List;
 
+import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.parser.RALParser;
@@ -43,5 +44,10 @@ public class BPEngineMock implements BPEngine {
 	public RALExpr getResourceExpressionByProcessInstanceId(
 			Object processInstanceId, String activityId) {
 		return RALParser.parse("HAS ROLE Account Administrator");
+	}
+
+	@Override
+	public Bpmn20ModelHandler getBpmnModel(Object processId) {
+		return null;
 	}
 }

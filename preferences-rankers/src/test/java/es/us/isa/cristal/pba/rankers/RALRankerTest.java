@@ -7,6 +7,7 @@ import es.isa.puri.RankingMechanism;
 import es.isa.puri.UnsupportedPreferenceTerm;
 import es.isa.puri.model.FavoritesPreference;
 import es.isa.puri.model.PreferenceTerm;
+import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
@@ -219,6 +220,11 @@ public class RALRankerTest {
 		public RALExpr getResourceExpressionByProcessInstanceId(
 				Object processInstanceId, String activityId) {
 			return RALParser.parse("HAS ROLE Account Administrator");
+		}
+
+		@Override
+		public Bpmn20ModelHandler getBpmnModel(Object processId) {
+			return null;
 		}
     }
 }

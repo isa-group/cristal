@@ -2,6 +2,7 @@ package es.us.isa.cristal;
 
 import java.util.List;
 
+import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
 import es.us.isa.cristal.model.expressions.RALExpr;
 
 /**
@@ -51,4 +52,13 @@ public interface BPEngine {
      * @return the RAL expression used to calculate candidates to perform the activity
      */
     RALExpr getResourceExpressionByProcessInstanceId(Object processInstanceId, String activityId);
+    
+    
+    /**
+     * 
+     * @param processId The id of the process
+     * @return The Model of the Bpmn
+     */
+    Bpmn20ModelHandler getBpmnModel(Object processId);
+
 }

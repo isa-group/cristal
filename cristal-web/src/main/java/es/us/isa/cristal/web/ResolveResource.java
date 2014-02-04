@@ -3,6 +3,7 @@ package es.us.isa.cristal.web;
 import com.google.common.io.Files;
 
 import es.isa.puri.Ranking;
+import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
@@ -227,6 +228,11 @@ public class ResolveResource {
 		public RALExpr getResourceExpressionByProcessInstanceId(
 				Object processInstanceId, String activityId) {
 			return RALParser.parse("HAS ROLE Account Administrator");
+		}
+
+		@Override
+		public Bpmn20ModelHandler getBpmnModel(Object processId) {
+			return null;
 		}
     }
 

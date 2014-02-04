@@ -17,7 +17,7 @@ public class CustomUserTaskXMLConverter extends UserTaskXMLConverter {
 
 	public void init() {
 		//force to load BpmnXMLConverter.
-		BpmnXMLConverter x = new BpmnXMLConverter();
+		new BpmnXMLConverter();
 		BpmnXMLConverter.addConverter(CustomUserTaskXMLConverter.getXMLType(), CustomUserTaskXMLConverter.getBpmnElementType(), CustomUserTaskXMLConverter.class);
 	}
 

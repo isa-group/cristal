@@ -1,18 +1,19 @@
 package es.us.isa.cristal.activiti;
 
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ExtensionAttribute;
-import org.activiti.bpmn.model.ExtensionElement;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.history.HistoricTaskInstance;
 
+import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
+import es.us.isa.bpmn.handler.Bpmn20ModelHandlerImpl;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.activiti.util.RalExpressionUtil;
 import es.us.isa.cristal.model.expressions.RALExpr;
@@ -116,8 +117,7 @@ public class ActivitiBPEngine implements BPEngine{
 	
 	private org.activiti.bpmn.model.Process getProcessFromDefinitionKey(Object processDefinitionId){
 		
-		String processDeploymentId = ProcessEngines.getDefaultProcessEngine().getRepositoryService().createProcessDefinitionQuery().processDefinitionKey((String) processDefinitionId).orderByDeploymentId().desc().list().get(0).getId();
-		
+		String processDeploymentId = getDeploymentId((String) processDefinitionId);
 		
 		BpmnModel bp = ProcessEngines.getDefaultProcessEngine().getRepositoryService().getBpmnModel(processDeploymentId);
 		//assumption: only one main process per bpmn20.xml file.
@@ -150,5 +150,33 @@ public class ActivitiBPEngine implements BPEngine{
 		return result;
     	
 	}
+
+	private String getDeploymentId(String definitionKey){
+		return ProcessEngines.getDefaultProcessEngine().getRepositoryService().createProcessDefinitionQuery().processDefinitionKey(definitionKey).orderByDeploymentId().desc().list().get(0).getId();
+	}
+	
+	@Override
+	public Bpmn20ModelHandler getBpmnModel(Object processId) {
+		String pid;
+		if(isInstanceId((String) processId)) {
+			pid=this.extractDefinitionKeyFromInstanceId((String) processId);
+		}else{
+			pid = (String) processId;
+		}
+
+		InputStream is = ProcessEngines.getDefaultProcessEngine().getRepositoryService().getProcessModel(pid);
+		
+		Bpmn20ModelHandler bpmn = new Bpmn20ModelHandlerImpl();
+		try {
+			bpmn.load(is);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return bpmn;
+	}
+	
+	
+	
 	
 }
