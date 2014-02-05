@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+  expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Cool Processes"
+  xmlns:ral="http://www.isa.us.es/cristal/BpmnOrganizationImportSchema"
+  xsi:schemalocation="http://www.isa.us.es/cristal/BpmnOrganizationImportSchema http://localhost/BpmnOrganizationImportSchema.xsd"
+  >
+  
+ 
+  
+  <process id="TestRALProcess" name="TestRalProcess" ral:organization="https://dl.dropboxusercontent.com/s/scvrx6cmuh3bce8/testOrganizationModel.json?dl=1" >
+
+    <documentation>This is a simple approval process.</documentation>
+    
+    <startEvent id="startevent2" name="Start">
+    </startEvent>
+    
+    <userTask id="usertask2" name="Approval task" >
+      <documentation>Approval request</documentation>
+      <extensionElements>
+         <activiti:formProperty id="approved" name="Decision" type="enum"
+          required="true">
+          <activiti:value id="true" name="Approve" />
+          <activiti:value id="false" name="Reject" />
+        </activiti:formProperty>
+        <activiti:formProperty id="motivation" name="Motivation" type="string" required="true" />
+      </extensionElements>
+	  <potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression language="RAL">
+					HAS ROLE PhDStudent
+					</formalExpression>
+				</resourceAssignmentExpression>
+	  </potentialOwner>
+    </userTask>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow3" name="" sourceRef="startevent2" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow4" name="" sourceRef="usertask2" targetRef="usertask3"></sequenceFlow>
+    
+    <userTask id="usertask3" name="Check outcome" activiti:candidateUsers="RAL(Expression 2)">
+      <documentation textFormat="text/plain">Task completed: ${(approved.equals('true')) ? 'Approved.' : 'Rejected!'}</documentation>
+      <extensionElements>
+         <activiti:formProperty id="motivation" name="Motivation" type="string" writable="false" />
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow5" name="" sourceRef="usertask3" targetRef="endevent2"></sequenceFlow>
+  </process>
+
+</definitions>
