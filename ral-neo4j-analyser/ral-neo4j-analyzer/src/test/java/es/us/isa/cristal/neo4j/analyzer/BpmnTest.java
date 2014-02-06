@@ -1,27 +1,99 @@
 package es.us.isa.cristal.neo4j.analyzer;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.TaskDuty;
+import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.neo4j.analyzer.operations.MandatoryActivitiesOP;
 
-public class BpmnTest {
+public class BpmnTest extends AbstractBaseTest{
 
 	BPEngine engine;
+	
+	Neo4JRalResolver resolver;
 	
 	@Before
 	public void loadBpEngine(){
 		engine = new BPEngineMock(); 
+		resolver = new Neo4JRalResolver(engine, this.getExecutionEngine());
+		
 	}
 	
 	@Test
 	public void testMandatory(){
-		MandatoryActivitiesOP ope = new MandatoryActivitiesOP(engine, null,null, null, TaskDuty.RESPONSIBLE);
-		ope.execute();
-		Assert.assertTrue(false);
+		Set<String> expected = new HashSet<String>();
+		expected.add("Approval task");
+		expected.add("Check outcome");
+		MandatoryActivitiesOP ope = new MandatoryActivitiesOP(engine, resolver,"test.bpmn20.xml", null, TaskDuty.RESPONSIBLE);
+		Set<String> result = ope.execute();
+		System.out.println("RESULT: " + result);
+		
+		Assert.assertTrue(expected.equals(result));
+	}
+	
+	@Test
+	public void testMandatory2(){
+		Set<String> expected = new HashSet<String>();
+		expected.add("C");
+		expected.add("K");
+		MandatoryActivitiesOP ope = new MandatoryActivitiesOP(engine, resolver,"test2.bpmn20.xml", null, TaskDuty.RESPONSIBLE);
+		Set<String> result = ope.execute();
+		System.out.println("RESULT: " + result);
+		
+		Assert.assertTrue(expected.equals(result));
+	}
+	
+	
+	@Test
+	public void testMandatory3(){
+		Set<String> expected = new HashSet<String>();
+		expected.add("C");
+		expected.add("K");
+		MandatoryActivitiesOP ope = new MandatoryActivitiesOP(engine, resolver,"test3.bpmn20.xml", null, TaskDuty.RESPONSIBLE);
+		Set<String> result = ope.execute();
+		System.out.println("RESULT: " + result);
+		
+		Assert.assertTrue(expected.equals(result));
+	}
+	
+	@Test
+	public void testMandatory4(){
+		Set<String> expected = new HashSet<String>();
+		expected.add("C");
+		expected.add("F");
+		expected.add("G");
+		expected.add("H");
+		expected.add("I");
+		expected.add("J");
+		expected.add("K");
+		MandatoryActivitiesOP ope = new MandatoryActivitiesOP(engine, resolver,"test4.bpmn20.xml", null, TaskDuty.RESPONSIBLE);
+		Set<String> result = ope.execute();
+		System.out.println("RESULT: " + result);
+		
+		Assert.assertTrue(expected.equals(result));
+	}
+	
+	@Test
+	public void testMandatory5(){
+		Set<String> expected = new HashSet<String>();
+		expected.add("C");
+		expected.add("F");
+		expected.add("G");
+		expected.add("H");
+		expected.add("I");
+		expected.add("J");
+		expected.add("K");
+		MandatoryActivitiesOP ope = new MandatoryActivitiesOP(engine, resolver,"test5.bpmn20.xml", null, TaskDuty.RESPONSIBLE);
+		Set<String> result = ope.execute();
+		System.out.println("RESULT: " + result);
+		
+		Assert.assertTrue(expected.equals(result));
 	}
 	
 }

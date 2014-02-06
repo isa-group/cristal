@@ -1,7 +1,6 @@
 package es.us.isa.cristal.neo4j.analyzer;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +44,7 @@ public class BPEngineMock implements BPEngine{
 	public Bpmn20ModelHandler getBpmnModel(Object processId){
 		Bpmn20ModelHandler res  = new Bpmn20ModelHandlerImpl();
 		try {
-			InputStream is = new FileInputStream("test.bpmn20.xml");
+			InputStream is = new FileInputStream("bpmntest/" + processId.toString());
 			res.load(is);
 		} catch (Exception e) {
 			e.printStackTrace();
