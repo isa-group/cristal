@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.organization.generator.selectors.RandomSelector;
@@ -52,6 +53,12 @@ public class MockBPEngine implements BPEngine{
 	public RALExpr getResourceExpressionByProcessInstanceId(
 			Object processInstanceId, String activityId) {
 		return getResourceExpression(processInstanceId, activityId);
+	}
+
+	@Override
+	public Bpmn20ModelHandler getBpmnModel(Object processId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
