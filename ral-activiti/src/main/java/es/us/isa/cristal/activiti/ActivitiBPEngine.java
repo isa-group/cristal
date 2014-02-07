@@ -19,6 +19,11 @@ import es.us.isa.cristal.activiti.util.RalExpressionUtil;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.parser.RALParser;
 
+/**
+ * 
+ * @author Manuel Leon
+ *
+ */
 public class ActivitiBPEngine implements BPEngine{
 
 

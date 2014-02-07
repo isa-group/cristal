@@ -1,12 +1,14 @@
 package es.us.isa.cristal.owl.mappers.ral.expr;
 
-import es.us.isa.cristal.BPEngineMock;
+
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.OntologyNamespaces;
 import es.us.isa.cristal.owl.mappers.ral.InstanceOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.parser.RALParser;
+import es.us.isa.cristal.test.utils.bpEngine.MockBPEngine;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +32,7 @@ public class GroupResourceExprTest {
         namespaces.setPerson("organization-iaap", ORGANIZATION_IAAP_IRI.toString());
         namespaces.setGroup("organization-iaap", ORGANIZATION_IAAP_IRI.toString());
         namespaces.setActivity("bp-hiring-resolution", BP_HIRING_RESOLUTION_IRI.toString());
-        owlRalMapper = new InstanceOwlRalMapper(new IdMapper(namespaces), new BPEngineMock());
+        owlRalMapper = new InstanceOwlRalMapper(new IdMapper(namespaces), new MockBPEngine());
     }
 
     @Test

@@ -23,6 +23,11 @@ import es.us.isa.cristal.organization.model.util.IOUtil;
 import es.us.isa.cristal.parser.RALParser;
 import es.us.isa.cristal.resolver.ConstraintResolver;
 
+/**
+ * 
+ * @author Manuel Leon
+ *
+ */
 @Service("cristalRalResolverService")
 public class CristalRalResolverService implements RalResolverService {
 	

@@ -1,5 +1,10 @@
 package es.us.isa.cristal.activiti.util;
 
+/**
+ * 
+ * @author Manuel Leon
+ *
+ */
 public class RalExpressionUtil {
 	
 	public static final String RAL_PREFIX="RAL(";

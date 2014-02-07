@@ -13,6 +13,11 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.UserTask;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * 
+ * @author Manuel Leon
+ *
+ */
 public class CustomUserTaskXMLConverter extends UserTaskXMLConverter {
 
 	public void init() {

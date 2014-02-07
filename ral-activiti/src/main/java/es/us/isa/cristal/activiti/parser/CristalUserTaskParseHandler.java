@@ -13,6 +13,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import es.us.isa.cristal.activiti.util.RalExpressionUtil;
 
+/**
+ * 
+ * @author Manuel Leon
+ *
+ */
 public class CristalUserTaskParseHandler extends UserTaskParseHandler{
 	
 	private String ralResolverServiceName;

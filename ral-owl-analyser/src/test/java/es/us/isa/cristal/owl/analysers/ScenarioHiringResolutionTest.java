@@ -1,25 +1,26 @@
 package es.us.isa.cristal.owl.analysers;
 
-import es.us.isa.cristal.BPEngineMock;
-import es.us.isa.cristal.ResourceAssignment;
-import es.us.isa.cristal.analyser.RALAnalyser;
-import es.us.isa.cristal.model.TaskDuty;
-import es.us.isa.cristal.owl.OntologyNamespaces;
-import es.us.isa.cristal.owl.RALOntologyManager;
-import es.us.isa.cristal.parser.RALParser;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
+
+import static es.us.isa.cristal.owl.HiringResolutionScenario.BP_HIRING_RESOLUTION_IRI;
+import static es.us.isa.cristal.owl.HiringResolutionScenario.ORGANIZATION_IAAP_IRI;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static es.us.isa.cristal.owl.HiringResolutionScenario.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.semanticweb.owlapi.model.IRI;
+
+import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.analyser.RALAnalyser;
+import es.us.isa.cristal.model.TaskDuty;
+import es.us.isa.cristal.owl.OntologyNamespaces;
+import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.parser.RALParser;
+import es.us.isa.cristal.test.utils.bpEngine.MockBPEngine;
 
 /**
  * User: resinas
@@ -42,7 +43,7 @@ public class ScenarioHiringResolutionTest {
     public void setup() throws URISyntaxException {
         namespaces = createOntologyNamespaces();
 
-        manager = new RALOntologyManager(namespaces, new BPEngineMock());
+        manager = new RALOntologyManager(namespaces, new MockBPEngine());
         manager.loadOrganizationOntology(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/organization-iaap.owl")));
         manager.loadProcessOntology(IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/bp-hiring-resolution.owl")));
 

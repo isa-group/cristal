@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>cristal</artifactId>
 		<groupId>es.us.isa.cristal</groupId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -19,7 +19,11 @@
 			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>ral-model</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>es.us.isa.cristal</groupId>
+			<artifactId>cristal-test-utils</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j</artifactId>
