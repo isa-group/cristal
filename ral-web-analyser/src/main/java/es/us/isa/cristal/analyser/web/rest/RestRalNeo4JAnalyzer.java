@@ -53,7 +53,9 @@ public class RestRalNeo4JAnalyzer {
 	@ResponseBody
 	public Set<String> checkParticipantsForExpression(@RequestParam("expression") String expression, @PathVariable("processId") String processId,  @RequestParam("bpmn") String bpmnModelUrl, @RequestParam("organization") String organizationModelUrl, @PathVariable("activityName") String activityName, @PathVariable("duty") String duty) throws Exception {
 		RALAnalyser analyser = getAnalyser(processId, bpmnModelUrl, organizationModelUrl,expression);
-		return analyser.potentialParticipants(activityName, TaskDuty.valueOf(duty));
+		Set<String> result = analyser.potentialParticipants(activityName, TaskDuty.valueOf(duty));
+		System.out.println("REUSLT: " + result);
+		return result;
 	}
 
 	@RequestMapping(value = "/potential_activities/{processId}/{personName}/{duty}", method = RequestMethod.GET)
@@ -104,7 +106,7 @@ public class RestRalNeo4JAnalyzer {
 
 	
 
-	@RequestMapping(value = "/critical_participants/{processId}/{activities}/{duty}", method = RequestMethod.GET)
+	@RequestMapping(value = "/indispensable_participants/{processId}/{activities}/{duty}", method = RequestMethod.GET)
 	@ResponseBody
 	public Set<String> indispensableParticipants(@PathVariable("processId") String processId, @RequestParam("bpmn") String bpmnModelUrl, @RequestParam("organization") String organizationModelUrl, @PathVariable("activities") String activities, @PathVariable("duty") String duty) throws Exception {
 		RALAnalyser analyser = getAnalyser(processId, bpmnModelUrl, organizationModelUrl,null);
@@ -123,10 +125,10 @@ public class RestRalNeo4JAnalyzer {
 		return acts;
 	}
 	
-	@Cacheable(value = "defaultCache", key = "#processId.concat('-').concat(#bpmnModelUrl).concat('-').concat(organizationModelUrl).concat('-').concat(#ralExpr)")
+	@Cacheable(value = "defaultCache", key = "#processId.concat('-').concat(#bpmnModelUrl).concat('-').concat(#organizationModelUrl).concat('-').concat(#ralExpr)")
 	private RALAnalyser getAnalyser(String processId, String bpmnModelUrl, String organizationModelUrl, String ralExpr) throws Exception {
 		
-		System.out.println("CREATE NEW ANALYZER");
+		System.out.println("CREATE NEW ANALYZER:" + ralExpr);
 		
 		String organization = dataAccessService.getContentFromUrl(organizationModelUrl);
 		String bpmn = dataAccessService.getContentFromUrl(bpmnModelUrl);
@@ -146,6 +148,8 @@ public class RestRalNeo4JAnalyzer {
 		BPEngine bpEngine = new DesignTimeAnalyserBPEngine(bpmn, ralExpr);
 		Neo4jRALAnalyser analyzer = new Neo4jRALAnalyser(engine, bpEngine, processId);
 
+		
+		
 		return analyzer;
 	}
 	

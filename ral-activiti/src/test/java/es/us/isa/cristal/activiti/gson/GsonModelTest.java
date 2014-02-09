@@ -23,31 +23,16 @@ import es.us.isa.cristal.test.utils.graph.GraphUtil;
 public class GsonModelTest {
 
 	
-	@Test
-	public void getURLContentTest() throws IOException{
-		
-		String expectedResult ="{\"shared\":[\"mleonrivas@gmail.com\"],\"modelId\":\"TestModel\",\"revision\":0,\"model\":{\"roles\":[{\"name\":\"Programmer\"},{\"name\":\"Analyst\"},{\"name\":\"Product Owner\"},{\"name\":\"Scrum Master\"},{\"name\":\"Designer\"}],\"persons\":[{\"name\":\"Peter\"},{\"name\":\"John\"},{\"name\":\"Mary\"},{\"name\":\"Cathy\"},{\"name\":\"Albert\"}],\"units\":[{\"positions\":[{\"reportedBy\":[],\"name\":\"Junior Software Developer\",\"roles\":[\"Programmer\"],\"occupiedBy\":[\"Peter\"]},{\"reportedBy\":[],\"name\":\"Senior Software Developer\",\"roles\":[\"Programmer\",\"Analyst\"],\"occupiedBy\":[\"Mary\",\"Albert\"]},{\"reportedBy\":[],\"name\":\"Team Leader\",\"roles\":[\"Scrum Master\",\"Analyst\",\"Programmer\"],\"occupiedBy\":[\"Cathy\"]},{\"reportedBy\":[],\"name\":\"Project Director\",\"roles\":[\"Product Owner\"],\"occupiedBy\":[\"John\"]}],\"name\":\"Development\"}]},\"description\":\"\",\"name\":\"TestModel\",\"type\":\"Organization\",\"extensions\":{}}";
-		String result = IOUtil.getURLContent("https://dl.dropboxusercontent.com/s/scvrx6cmuh3bce8/testOrganizationModel.json?dl=1");
-		Assert.assertEquals(expectedResult,result);
-	}
 	
-	@Test
-	public void importModelTest() throws IOException{
-		String organization = IOUtil.getURLContent("https://dl.dropboxusercontent.com/s/scvrx6cmuh3bce8/testOrganizationModel.json?dl=1");
-		
-		Document doc = Document.importFromJson(organization);
-		Document expectedDoc = buildExpectedDocument();
-		Assert.assertTrue(expectedDoc.equals(doc));
-	}
+	
+	
 	
 	@Test
 	public void cypherCreateScript(){
 		Document doc = buildExpectedDocument();
 		String script = doc.getCypherCreateQuery().trim();
 		String expected = GraphUtil.DEVELOPMENT_UNIT_GRAPH;
-
 		
-		System.out.println(script);
 		Assert.assertEquals(expected,script);
 	}
 	

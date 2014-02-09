@@ -31,8 +31,11 @@
 		<dependency>
 			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>ral-model</artifactId>
-
-
+		</dependency>
+		<dependency>
+			<groupId>es.us.isa.cristal</groupId>
+			<artifactId>organization-gson-model</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>es.us.isa.cristal</groupId>

@@ -76,7 +76,12 @@ public class Unit implements CypherGenerator{
 	}
 	public String getCypherCreateQuery() {
 		
-		return "CREATE "+ CypherUtil.getId(name) +" = {unit : '" + name + "'}";
+		String query =  "CREATE "+ CypherUtil.getId(name) +" = {unit : '" + name + "'} ";
+		for(Position p: this.positions){
+			query+="\n" + p.getCypherCreateQuery();
+		}
+		
+		return query;
 	}
 	
 	

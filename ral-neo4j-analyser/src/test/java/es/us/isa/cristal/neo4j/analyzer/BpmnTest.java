@@ -98,4 +98,6 @@ public class BpmnTest{
 		Assert.assertTrue(expected.equals(result));
 	}
 	
+	
+	
 }

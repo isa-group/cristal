@@ -27,6 +27,10 @@
 			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>organization-gson-model</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>es.us.isa.cristal</groupId>
+			<artifactId>cristal-test-utils</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>

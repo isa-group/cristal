@@ -1,5 +1,6 @@
 package es.us.isa.cristal.organization.model.gson;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import es.us.isa.cristal.organization.model.util.CypherUtil;
@@ -106,38 +107,51 @@ public class Model implements CypherGenerator{
 			result += r.getCypherCreateQuery() + " \n";
 		}
 		for(Unit u: this.units){
-			result += u.getCypherCreateQuery() + " \n";
-			for(Position p: u.getPositions()){
-				result += p.getCypherCreateQuery() + " \n";
-			}	
+			result += u.getCypherCreateQuery() + "\n";
+			
 		}
+		
 		for(Unit u: this.units){
-			result += processUnitRelations(u);
+			result += processUnitRelations(u, null, new LinkedList<Position>());
 		}
 		
 		return result;
 	}
 	
-	private String processUnitRelations(Unit u){
+	private String processUnitRelations(Unit u, Position pos, List<Position> processed){
 		String result = "";
-		for(Position p: u.getPositions()){
-			
-			result += CypherUtil.cypherCreateEdgeQuery(p.getName(), u.getName(), "[:UNIT]") + " \n";
-			for(String personName: p.getOccupiedBy()){
-				result += CypherUtil.cypherCreateEdgeQuery(personName, p.getName(), "[:POSITION]") + " \n";
+		List<Position> toProcess;
+		if(pos==null){
+			toProcess = u.getPositions();
+		}else{
+			toProcess = new LinkedList<Position>();
+			toProcess.addAll(pos.getReportedBy());
+			toProcess.addAll(pos.getDelegates());
+		}
+		
+		for(Position p: toProcess){
+			if(!processed.contains(p)){
+				processed.add(p);
+				result += CypherUtil.cypherCreateEdgeQuery(p.getName(), u.getName(), "[:UNIT]") + " \n";
+				for(String personName: p.getOccupiedBy()){
+					result += CypherUtil.cypherCreateEdgeQuery(personName, p.getName(), "[:POSITION]") + " \n";
+				}
+				for(String roleName: p.getRoles()){
+					result += CypherUtil.cypherCreateEdgeQuery(p.getName(), roleName, "[:ROLE]") + " \n";
+				}
+				for(Position reporter: p.getReportedBy()){
+					result += CypherUtil.cypherCreateEdgeQuery(reporter.getName(), p.getName(), "[:REPORTS]") + " \n";
+				}
+				for(Position del: p.getDelegates()){
+					result += CypherUtil.cypherCreateEdgeQuery(p.getName(), del.getName(), "[:DELEGATES]") + " \n";
+				}
+				result += processUnitRelations(u, p, processed);
 			}
-			for(String roleName: p.getRoles()){
-				result += CypherUtil.cypherCreateEdgeQuery(p.getName(), roleName, "[:ROLE]") + " \n";
-			}
-			for(Position reporter: p.getReportedBy()){
-				result += CypherUtil.cypherCreateEdgeQuery(reporter.getName(), p.getName(), "[:REPORTS]") + " \n";
-			}
-			for(Position del: p.getDelegates()){
-				result += CypherUtil.cypherCreateEdgeQuery(p.getName(), del.getName(), "[:DELEGATES]") + " \n";
-			}
-			
 			
 		}
 		return result;
 	}
+	
+	
+	
 }

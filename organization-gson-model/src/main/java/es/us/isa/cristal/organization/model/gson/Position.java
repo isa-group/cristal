@@ -127,7 +127,14 @@ public class Position implements CypherGenerator{
 		return true;
 	}
 	public String getCypherCreateQuery() {
-		return "CREATE "+ CypherUtil.getId(name) +" = {position : '" + name + "' }";
+		
+		String query =  "CREATE "+ CypherUtil.getId(name) +" = {position : '" + name + "' } ";
+		for(Position p: this.reportedBy){
+			query+="\n" + p.getCypherCreateQuery();
+		}
+		
+		return query;
+		
 	}
 	
 	

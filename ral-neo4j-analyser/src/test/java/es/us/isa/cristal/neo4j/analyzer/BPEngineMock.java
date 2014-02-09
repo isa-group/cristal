@@ -11,6 +11,7 @@ import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
 import es.us.isa.bpmn.handler.Bpmn20ModelHandlerImpl;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
+import es.us.isa.cristal.parser.RALParser;
 
 public class BPEngineMock implements BPEngine{
 
@@ -27,19 +28,19 @@ public class BPEngineMock implements BPEngine{
 
 	@Override
 	public RALExpr getResourceExpression(Object processId, String activityId) {
-		return null;
+		return RALParser.parse("HAS ROLE Analyst");
 	}
 
 	@Override
 	public RALExpr getResourceExpressionByProcessDefinitionId(
 			Object processDefinitionId, String activityId) {
-		return null;
+		return RALParser.parse("HAS ROLE Analyst");
 	}
 
 	@Override
 	public RALExpr getResourceExpressionByProcessInstanceId(
 			Object processInstanceId, String activityId) {
-		return null;
+		return RALParser.parse("HAS ROLE Analyst");
 	}
 
 	@Override
