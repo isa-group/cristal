@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -100,7 +101,9 @@ public class RestRalNeo4JAnalyzer {
 	@ResponseBody
 	public Set<String> criticalParticipants(@PathVariable("processId") String processId, @RequestParam("bpmn") String bpmnModelUrl, @RequestParam("organization") String organizationModelUrl, @PathVariable("activities") String activities, @PathVariable("duty") String duty) throws Exception {
 		RALAnalyser analyser = getAnalyser(processId, bpmnModelUrl, organizationModelUrl,null);
+		System.out.println("----> ACTIVITIES: " + activities);
 		List<String> acts = getActivities(activities);
+		System.out.println("----> LIST ACTIVITIES: " + acts);
 		return analyser.criticalParticipants(acts, TaskDuty.valueOf(duty));
 	}
 
@@ -136,7 +139,7 @@ public class RestRalNeo4JAnalyzer {
 		Document doc = Document.importFromJson(organization);
 		ExecutionEngine engine;
 		
-		String dirName = System.getenv("TEMP") + File.separator + "neo4j-" + System.currentTimeMillis();
+		String dirName = System.getenv("TEMP") + File.separator + "neo4j-" + UUID.randomUUID().toString();
 		GraphDatabaseService graphDb = new GraphDatabaseFactory()
 		.newEmbeddedDatabaseBuilder(dirName)
 		.setConfig(GraphDatabaseSettings.node_keys_indexable,"name, position, role, unit")
