@@ -128,13 +128,13 @@ public class RestRalNeo4JAnalyzer {
 		return acts;
 	}
 	
-	@Cacheable(value = "defaultCache", key = "#processId.concat('-').concat(#bpmnModelUrl).concat('-').concat(#organizationModelUrl).concat('-').concat(#ralExpr)")
+	//@Cacheable(value = "defaultCache", key = "#processId.concat('-').concat(#bpmnModelUrl).concat('-').concat(#organizationModelUrl).concat('-').concat(#ralExpr)")
 	private RALAnalyser getAnalyser(String processId, String bpmnModelUrl, String organizationModelUrl, String ralExpr) throws Exception {
 		
-		System.out.println("CREATE NEW ANALYZER:" + ralExpr);
-		
-		String organization = dataAccessService.getContentFromUrl(organizationModelUrl);
-		String bpmn = dataAccessService.getContentFromUrl(bpmnModelUrl);
+		//System.out.println("CREATE NEW ANALYZER:" + ralExpr);
+		String key = ralExpr == null ? "assignment" : "analyser";
+		String organization = dataAccessService.getContentFromUrl(organizationModelUrl, "org");
+		String bpmn = dataAccessService.getContentFromUrl(bpmnModelUrl, key);
 
 		Document doc = Document.importFromJson(organization);
 		ExecutionEngine engine;

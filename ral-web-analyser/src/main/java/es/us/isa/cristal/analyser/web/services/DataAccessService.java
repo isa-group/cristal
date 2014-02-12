@@ -9,6 +9,6 @@ import java.io.IOException;
  */
 public interface DataAccessService {
 	
-	String getContentFromUrl(String url)  throws IOException;
+	String getContentFromUrl(String url, String key)  throws IOException;
 	
 }

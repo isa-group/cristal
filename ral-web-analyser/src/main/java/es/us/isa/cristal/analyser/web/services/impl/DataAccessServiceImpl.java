@@ -16,8 +16,8 @@ import es.us.isa.cristal.organization.model.util.IOUtil;
 @Service("cacheService")
 public class DataAccessServiceImpl implements DataAccessService {
 
-	@Cacheable(value = "defaultCache", key = "#url")
-	public String getContentFromUrl(String url)  throws IOException {
+	@Cacheable(value = "defaultCache", key = "#url.concat('/').concat(#key)")
+	public String getContentFromUrl(String url, String key)  throws IOException {
 		System.out.println("DENTRO DE GET CONTENT: " + url);
 		return IOUtil.getURLContent(url);
 	}
