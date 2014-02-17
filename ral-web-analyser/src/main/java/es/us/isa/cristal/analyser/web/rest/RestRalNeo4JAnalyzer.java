@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.analyser.web.services.DataAccessService;
-import es.us.isa.cristal.analyser.web.util.DesignTimeAnalyserBPEngine;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.neo4j.analyzer.Neo4jRALAnalyser;
+import es.us.isa.cristal.neo4j.analyzer.util.DesignTimeAnalyserBPEngine;
 import es.us.isa.cristal.organization.model.gson.Document;
 
 /**

@@ -1,4 +1,4 @@
-package es.us.isa.cristal.analyser.web.util;
+package es.us.isa.cristal.neo4j.analyzer.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
