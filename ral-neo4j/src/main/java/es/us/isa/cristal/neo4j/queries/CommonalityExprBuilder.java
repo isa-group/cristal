@@ -14,9 +14,12 @@ import es.us.isa.cristal.resolver.ConstraintResolver;
 public class CommonalityExprBuilder implements ExprBuilder {
 
     private Neo4jQueryBuilder builder;
-
-    public CommonalityExprBuilder(Neo4jQueryBuilder builder) {
+    private ConstraintResolver resolver;
+    
+    
+    public CommonalityExprBuilder(Neo4jQueryBuilder builder, ConstraintResolver resolver) {
         this.builder = builder;
+        this.resolver = resolver;
     }
 
     @Override
@@ -25,13 +28,13 @@ public class CommonalityExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, Object processId) {
         CommonalityExpr commonalityExpr = (CommonalityExpr) expr;
         String p = builder.getVarName("p");
         String g = builder.getVarName("g");
 
         Query.QueryBuilder queryBuilder =
-                Query.start(p + " = node:node_auto_index(name='" + resolver.resolve(commonalityExpr.getPersonConstraint()) + "')")
+                Query.start(p + " = node:node_auto_index(name='" + resolver.resolve(commonalityExpr.getPersonConstraint(), processId) + "')")
                         .match(getPatternFor(commonalityExpr.getGroupResourceType(), p, g));
 
         if(commonalityExpr.getAmount() == CommonalityAmount.SOME)

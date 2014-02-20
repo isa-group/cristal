@@ -21,19 +21,19 @@ public class RALTeamData extends RALTeamDefinitions {
     }
 
     public String inDataField(String data, String field) {
-        return core.teamID(bpEngine.getDataValue(pid, data, field));
+        return core.teamID((String) bpEngine.getDataValue(pid, data, field));
     }
 
     public String ofTypeInDataField(String data, String field) {
-        return core.ofType(bpEngine.getDataValue(pid, data, field));
+        return core.ofType((String) bpEngine.getDataValue(pid, data, field));
     }
 
     public String createdByPersonInDataField(String data, String field) {
-        return core.createdBy(bpEngine.getDataValue(pid, data, field));
+        return core.createdBy((String) bpEngine.getDataValue(pid, data, field));
     }
 
     public String containingTeamRoleTypeInDataField(String data, String field) {
-        return core.containing(bpEngine.getDataValue(pid, data, field));
+        return core.containing((String) bpEngine.getDataValue(pid, data, field));
     }
 
 }

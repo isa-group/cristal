@@ -1,18 +1,17 @@
 package es.us.isa.cristal.owl;
 
-import es.us.isa.cristal.BPEngine;
-import es.us.isa.cristal.BPEngineMock;
-import es.us.isa.cristal.Organization;
-import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
+import static es.us.isa.cristal.Organization.person;
+import static es.us.isa.cristal.Organization.pos;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
-import static es.us.isa.cristal.Organization.person;
-import static es.us.isa.cristal.Organization.pos;
+import org.semanticweb.owlapi.model.IRI;
+
+import es.us.isa.cristal.BPEngine;
+import es.us.isa.cristal.Organization;
+import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
+import es.us.isa.cristal.test.utils.bpEngine.MockBPEngine;
 
 /**
  * User: resinas
@@ -32,7 +31,7 @@ public class AttendConferenceScenario {
 
     public AttendConferenceScenario() {
         OntologyNamespaces namespaces = createOntologyNamespaces();
-        bpEngine = new BPEngineMock();
+        bpEngine = new MockBPEngine();
         idMapper = new IdMapper(namespaces);
         ralOntologyManager = new RALOntologyManager(namespaces, bpEngine);
 

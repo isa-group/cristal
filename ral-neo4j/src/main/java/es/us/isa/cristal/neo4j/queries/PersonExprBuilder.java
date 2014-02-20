@@ -15,8 +15,19 @@ public class PersonExprBuilder implements ExprBuilder {
         return PersonExpr.class;
     }
 
-    @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    private ConstraintResolver resolver;
+    
+    
+    
+    public PersonExprBuilder(ConstraintResolver resolver) {
+		super();
+		this.resolver = resolver;
+	}
+
+
+
+	@Override
+    public Query build(RALExpr expr, Object processId) {
         PersonExpr p = (PersonExpr) expr;
 
 //        StringBuilder sb = new StringBuilder();
@@ -26,7 +37,7 @@ public class PersonExprBuilder implements ExprBuilder {
 //        sb.append(resolver.resolve(p.getPersonConstraint()));
 //        sb.append("') RETURN person.name");
 
-        return Query.start().where("person.name='" + resolver.resolve(p.getPersonConstraint()) + "'").build();
+        return Query.start().where("person.name='" + resolver.resolve(p.getPersonConstraint(), processId) + "'").build();
 
     }
 }

@@ -3,7 +3,9 @@ package es.us.isa.cristal.neo4j;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.queries.Neo4jQueryBuilder;
+import es.us.isa.cristal.resolver.ConstraintResolver;
 import es.us.isa.cristal.resolver.RALResolver;
+
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.cypher.ExecutionResult;
 import org.neo4j.helpers.collection.IteratorUtil;
@@ -21,16 +23,17 @@ public class Neo4JRalResolver implements RALResolver {
 
     private BPEngine bpEngine;
     private ExecutionEngine neo4jEngine;
-
+    private ConstraintResolver resolver;
 
     public Neo4JRalResolver(BPEngine bpEngine, ExecutionEngine executionEngine) {
         this.bpEngine = bpEngine;
         this.neo4jEngine = executionEngine;
+        this.resolver = new ConstraintResolver(this.bpEngine);
     }
 
     @Override
     public Collection<String> resolve(RALExpr expr, Object pid) {
-        Neo4jQueryBuilder builder = new Neo4jQueryBuilder(bpEngine);
+        Neo4jQueryBuilder builder = new Neo4jQueryBuilder(bpEngine, resolver);
         String query = builder.build(expr, pid);
         ExecutionResult result = neo4jEngine.execute(query);
 

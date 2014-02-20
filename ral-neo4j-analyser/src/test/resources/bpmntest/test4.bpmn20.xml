@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" expressionLanguage="http://www.w3.org/1999/XPath" id="sid-2e1a4b5c-d501-48fd-8e63-bf4206f43aeb" targetNamespace="http://www.signavio.com/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <signal id="sid-1caa7aff-fe51-4bb1-9e6b-c741f94f8973"/>
+   <process id="sid-eaa89a2c-4497-4294-bdd8-0a028378a4ca" isExecutable="false">
+      <extensionElements>
+         <ppinot:ppiset xmlns:ppinot="http://www.isa.us.es/ppinot"/>
+      </extensionElements>
+      <startEvent id="start2" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+
+      </startEvent>
+      <task completionQuantity="1" id="A" isForCompensation="false" name="A" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+
+      </task>
+      <exclusiveGateway gatewayDirection="Converging" id="ex1" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+
+      </exclusiveGateway>
+      <task completionQuantity="1" id="B" isForCompensation="false" name="B" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+
+      </task>
+      <startEvent id="start1" isInterrupting="true" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+  
+         <signalEventDefinition id="sid-a6c02168-741d-4e22-b328-c00db595f92a" signalRef="sid-1caa7aff-fe51-4bb1-9e6b-c741f94f8973"/>
+      </startEvent>
+      <task completionQuantity="1" id="C" isForCompensation="false" name="C" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+
+      </task>
+      <exclusiveGateway gatewayDirection="Diverging" id="ex2" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+ 
+      </exclusiveGateway>
+      <task completionQuantity="1" id="D" isForCompensation="false" name="D" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+
+      </task>
+      <exclusiveGateway gatewayDirection="Converging" id="ex3" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+   
+      </exclusiveGateway>
+      <exclusiveGateway gatewayDirection="Converging" id="ex4" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+
+      </exclusiveGateway>
+      <task completionQuantity="1" id="E" isForCompensation="false" name="E" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+
+      </task>
+      <exclusiveGateway gatewayDirection="Diverging" id="ex5" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+     
+      </exclusiveGateway>
+      <task completionQuantity="1" id="I" isForCompensation="false" name="I" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+   
+      </task>
+      <task completionQuantity="1" id="H" isForCompensation="false" name="H" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+ 
+      </task>
+      <parallelGateway gatewayDirection="Diverging" id="parallel1" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+ 
+      </parallelGateway>
+      <task completionQuantity="1" id="F" isForCompensation="false" name="F" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+  
+      </task>
+      <parallelGateway gatewayDirection="Converging" id="parallel2" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+    
+      </parallelGateway>
+      <task completionQuantity="1" id="G" isForCompensation="false" name="G" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+   
+      </task>
+      <exclusiveGateway gatewayDirection="Converging" id="ex6" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+     
+      </exclusiveGateway>
+      <task completionQuantity="1" id="J" isForCompensation="false" name="J" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+        
+      </task>
+      <task completionQuantity="1" id="K" isForCompensation="false" name="K" startQuantity="1">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc"/>
+         </extensionElements>
+         
+      </task>
+      <endEvent id="end1" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+         </extensionElements>
+         
+      </endEvent>
+      <sequenceFlow id="sid-A69A0530-CB4A-46CB-8D3B-5C590C55EC04" name="" sourceRef="start2" targetRef="A"/>
+      <sequenceFlow id="sid-A15EBB75-D07E-4C28-B544-0D74B17BEF94" name="" sourceRef="A" targetRef="ex1"/>
+      <sequenceFlow id="sid-DABC0DB0-32A3-4CBB-AB41-F1DF9190DA6D" name="" sourceRef="ex1" targetRef="C"/>
+      <sequenceFlow id="sid-5AE34CA4-0648-4403-9C58-325F74F5F098" name="" sourceRef="start1" targetRef="B"/>
+      <sequenceFlow id="sid-C2646556-4F4F-4DB0-9379-8C2863ED5958" name="" sourceRef="B" targetRef="ex1"/>
+      <sequenceFlow id="sid-7189F643-9F53-4A16-82AD-50443EE0B496" name="" sourceRef="E" targetRef="ex4"/>
+      <sequenceFlow id="sid-E25863D6-D1B1-42B4-9CA6-7A1E2FDFE1B7" name="" sourceRef="H" targetRef="I"/>
+      <sequenceFlow id="sid-170969CC-136D-4B38-B5EC-7BCDD8DCAED1" name="" sourceRef="I" targetRef="ex5"/>
+      <sequenceFlow id="sid-17BAED33-C49B-4A71-B090-89D880DB4948" name="" sourceRef="ex5" targetRef="J"/>
+      <sequenceFlow id="sid-ED93A48C-0320-48FA-B26D-9EEBF91B30D4" name="" sourceRef="C" targetRef="ex2"/>
+      <sequenceFlow id="sid-F6172782-4799-482C-9CB7-62A47D98AAE6" name="" sourceRef="ex2" targetRef="D"/>
+      <sequenceFlow id="sid-7C6200A2-A209-4713-8143-2E605BC919D2" name="" sourceRef="J" targetRef="ex6"/>
+      <sequenceFlow id="sid-30F400C6-1A31-4317-93B2-5148E85495E2" name="" sourceRef="ex2" targetRef="E"/>
+      <sequenceFlow id="sid-6D08DEA8-8CF3-4C02-869C-D8FE3163F95B" name="" sourceRef="parallel1" targetRef="F"/>
+      <sequenceFlow id="sid-8F400723-937D-4EB9-B93A-40EF93CFE483" name="" sourceRef="F" targetRef="parallel2"/>
+      <sequenceFlow id="sid-5AC51CF8-9ABD-4A80-A8BA-D35D80E018E2" name="" sourceRef="parallel2" targetRef="ex6"/>
+      <sequenceFlow id="sid-B15D0909-2370-4C29-97C4-0D80C14F476F" name="" sourceRef="ex6" targetRef="K"/>
+      <sequenceFlow id="sid-43BE5E01-1EA2-4D0B-ADFA-C2C434E9BB5F" name="" sourceRef="K" targetRef="end1"/>
+      <sequenceFlow id="sid-B63D0EE8-8498-4138-86AF-1774E71BF27D" name="" sourceRef="ex5" targetRef="ex4"/>
+      <sequenceFlow id="sid-DE6432A5-5ED2-4DA4-A9CB-70A7AC835FE5" name="" sourceRef="parallel1" targetRef="G"/>
+      <sequenceFlow id="sid-E42CA025-25C2-473E-B2AB-1E8E6D2060D6" name="" sourceRef="D" targetRef="ex3"/>
+      <sequenceFlow id="sid-ECFB7D00-A448-4BF8-9021-3E1E08008C8D" name="" sourceRef="ex4" targetRef="ex3"/>
+      <sequenceFlow id="sid-E108E506-C3E5-4674-8CE2-9713055B3CBF" name="" sourceRef="ex3" targetRef="parallel1"/>
+      <sequenceFlow id="sid-8D817C16-C4FE-4C35-BB53-8029D9661603" name="" sourceRef="G" targetRef="parallel2"/>
+      <sequenceFlow id="sid-6E379C00-5120-44A9-B83E-CCD309501BA8" name="" sourceRef="parallel1" targetRef="H"/>
+   </process>
+
+</definitions>

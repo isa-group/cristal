@@ -7,7 +7,7 @@
 	<groupId>es.us.isa.cristal</groupId>
 	<artifactId>cristal</artifactId>
 
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -21,8 +21,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -79,6 +79,45 @@
                 <artifactId>preferences-rankers</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            
+            <!-- added in version 1.1 -->
+            
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>cristal-test-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>organization-gson-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>organization-generator</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>ral-performance-tester</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>ral-neo4j-analyser</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>ral-web-analyser</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.cristal</groupId>
+                <artifactId>ral-activiti</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+             
 		</dependencies>
 	</dependencyManagement>
 
@@ -136,6 +175,8 @@
 	</issueManagement>
 	
 	<modules>
+		<module>cristal-test-utils</module>
+		<module>organization-gson-model</module>
 		<module>raci2bpmn</module>
 		<module>cristal-web</module>
         <module>ral-model</module>
@@ -143,6 +184,14 @@
         <module>preferences-rankers</module>
         <module>ral-owl-analyser</module>
         <module>ral-ontology</module>
-        <module>ral-team</module>
+		<module>ral-team</module>
+		<!-- added to version 1.1 -->
+        
+		
+		<module>organization-generator</module>
+		<module>ral-performance-tester</module>
+		<module>ral-neo4j-analyser</module>
+		<module>ral-web-analyser</module>
+		<module>ral-activiti</module>
     </modules>
 </project>

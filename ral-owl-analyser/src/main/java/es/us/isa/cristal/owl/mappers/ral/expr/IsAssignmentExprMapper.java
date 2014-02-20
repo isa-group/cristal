@@ -29,7 +29,7 @@ public class IsAssignmentExprMapper implements ExprMapper {
     public String map(RALExpr expr, Object pid) {
         IsAssignmentExpr e = (IsAssignmentExpr) expr;
 
-        RALExpr activityExpr = engine.getResourceExpression(e.getActivityName());
+        RALExpr activityExpr = engine.getResourceExpression(pid, e.getActivityName());
 
         return ralMapper.map(activityExpr, pid);
     }

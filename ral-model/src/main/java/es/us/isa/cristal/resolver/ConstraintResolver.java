@@ -1,5 +1,7 @@
 package es.us.isa.cristal.resolver;
 
+import java.util.List;
+
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.constraints.ActivityConstraint;
 import es.us.isa.cristal.model.constraints.Constraint;
@@ -13,25 +15,33 @@ import es.us.isa.cristal.model.constraints.IdConstraint;
  */
 public class ConstraintResolver {
     private BPEngine engine;
-    private Object pid;
 
-    public ConstraintResolver(BPEngine eng, Object pid) {
+
+    public ConstraintResolver(BPEngine eng) {
         this.engine = eng;
-        this.pid = pid;
+
     }
 
-    public String resolve(Constraint c) {
+    public String resolve(Constraint c, Object pid) {
         String result;
 
         if (c instanceof IdConstraint) {
             result = ((IdConstraint) c).getId();
         }
         else if (c instanceof DataConstraint) {
+        	// added toString() invocation to force getting a string. 
+        	//TODO: is necessary to deal with objects?
             DataConstraint dc = (DataConstraint) c;
-            result = engine.getDataValue(pid, dc.getData(), dc.getField());
+            result = engine.getDataValue(pid, dc.getData(), dc.getField()).toString();
         }
         else if (c instanceof ActivityConstraint) {
-            result = engine.getActivityPerformer(pid, ((ActivityConstraint) c).getActivityName());
+        	//modified to return the first result of the list<String>
+        	//TODO: make a decision:
+        	//      1. build the correct result string based on the list of performers (build the query)
+        	//      2. change the resolve method to return a complex data structure which allows dealing
+        	//         with string, list<string> or different structures.
+            List<String> performers = engine.getActivityPerformer(pid, ((ActivityConstraint) c).getActivityName());
+            result = !performers.isEmpty() ? performers.get(0) : null;
         }
         else {
             throw new RuntimeException("Could not resolve the constraint");

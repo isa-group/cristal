@@ -17,18 +17,20 @@ public class Neo4jQueryBuilder {
     private Map<Class<? extends RALExpr>, ExprBuilder> builderMap;
     private int varCounter = 0;
     private BPEngine bpEngine;
-
-    public Neo4jQueryBuilder(BPEngine bpEngine) {
+    private ConstraintResolver resolver;
+    
+    
+    public Neo4jQueryBuilder(BPEngine bpEngine, ConstraintResolver resolver) {
         builderMap = new HashMap<Class<? extends RALExpr>, ExprBuilder>();
         this.bpEngine = bpEngine;
-
-        addQueryBuilder(new PersonExprBuilder());
-        addQueryBuilder(new GroupResourceExprBuilder(this));
+        this.resolver = resolver;
+        addQueryBuilder(new PersonExprBuilder(resolver));
+        addQueryBuilder(new GroupResourceExprBuilder(this, resolver));
         addQueryBuilder(new NegativeExprBuilder(this));
         addQueryBuilder(new AndExprBuilder(this));
         addQueryBuilder(new OrExprBuilder(this));
         addQueryBuilder(new CapabilityExprBuilder());
-        addQueryBuilder(new CommonalityExprBuilder(this));
+        addQueryBuilder(new CommonalityExprBuilder(this, resolver));
         addQueryBuilder(new DelegateExprBuilder(this));
         addQueryBuilder(new ReportExprBuilder(this));
         addQueryBuilder(new IsAssignmentExprBuilder(this));
@@ -36,8 +38,8 @@ public class Neo4jQueryBuilder {
     }
 
     public String build(RALExpr expr, Object pid) {
-        ConstraintResolver resolver = new ConstraintResolver(bpEngine, pid);
-        Query q = buildQuery(expr, resolver);
+        
+        Query q = buildQuery(expr, pid);
         StringBuilder sb = new StringBuilder("START person=node:node_auto_index('name:*')");
         if (q.getStart() != null && ! q.getStart().isEmpty())
             sb.append(", ").append(q.getStart());
@@ -68,13 +70,16 @@ public class Neo4jQueryBuilder {
         builderMap.put(b.getExprType(), b);
     }
 
-
-    protected Query buildQuery(RALExpr expr, ConstraintResolver resolver) {
+// quitar el pid del constraint resolver, que el constraint reolver recibael pid en elmetodo resolve
+// pasar a cada xxxxExprbuilder el constraint resolver en el constructor.
+//se quita el constraint resolver de losmetodos buildquery.
+    
+    protected Query buildQuery(RALExpr expr, Object pid) {
         ExprBuilder builder = builderMap.get(expr.getClass());
         if (builder == null) {
             throw new RuntimeException("RAL Expression not supported: " + expr.getClass());
         }
-
-        return builder.build(expr, resolver);
+        
+        return builder.build(expr, pid);
     }
 }

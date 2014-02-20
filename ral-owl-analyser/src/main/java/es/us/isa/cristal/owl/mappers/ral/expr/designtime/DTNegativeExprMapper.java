@@ -42,7 +42,7 @@ public class DTNegativeExprMapper implements ExprMapper {
 
             if (e.getExprObject() instanceof IsAssignmentExpr) {
                 IsAssignmentExpr isa = (IsAssignmentExpr) e.getExprObject();
-                RALExpr isaExpr = bpEngine.getResourceExpression(isa.getActivityName());
+                RALExpr isaExpr = bpEngine.getResourceExpression(pid, isa.getActivityName());
                 if (isaExpr.hasRuntimeConstraint()) {
                     map = PERSON;
                 }
