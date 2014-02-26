@@ -1,4 +1,4 @@
-package es.us.isa.cristal.owl.ontologyhandlers;
+package es.us.isa.cristal.owl.mappers.ral.runtime;
 
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.ResourceAssignment;
@@ -10,11 +10,11 @@ import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.analysers.RTRALAnalyser;
 import es.us.isa.cristal.owl.mappers.ral.InstanceOwlRalMapper;
-import es.us.isa.cristal.owl.mappers.ral.RTOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.InstanceTaskDutyMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.LogMapper;
-import es.us.isa.cristal.owl.mappers.ral.misc.RTTaskDutyMapper;
+import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
+import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 

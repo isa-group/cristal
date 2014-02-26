@@ -90,4 +90,6 @@ public class Definitions {
     public static final String ROLE = ORGANIZATION + "Role";
     public static final String UNIT = ORGANIZATION + "OrganizationalUnit";
 
+    public static final String ORGANIZATIONPEOPLE = ORGANIZATION + "OrganizationPeople";
+
 }

@@ -1,4 +1,4 @@
-package es.us.isa.cristal.owl.mappers.ral.constraints.runtime;
+package es.us.isa.cristal.owl.mappers.ral.runtime.constraints;
 
 import es.us.isa.cristal.model.constraints.ActivityConstraint;
 import es.us.isa.cristal.model.constraints.Constraint;

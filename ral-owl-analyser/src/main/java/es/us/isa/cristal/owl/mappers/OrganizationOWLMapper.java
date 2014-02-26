@@ -8,6 +8,7 @@ import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import org.semanticweb.owlapi.model.*;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * User: resinas
@@ -15,6 +16,8 @@ import java.util.*;
  * Time: 19:21
  */
 public class OrganizationOWLMapper {
+
+    private static final Logger log = Logger.getLogger(OrganizationOWLMapper.class.getName());
 
     private OWLOntology ontology;
     private DLQueryParser parser;
@@ -211,6 +214,18 @@ public class OrganizationOWLMapper {
             super.additionalInstanceMap(i, instance);
             String classExpression = "(inverse(" + Definitions.OCCUPIES + ") value " + mapper.mapGroup(i.getName()) + ")";
             addEquivAxiom(classExpression, i.getOccupies());
+        }
+
+        @Override
+        protected void additionalGlobalMap(List<Organization.Person> instanceNames, Set<OWLNamedIndividual> instances) {
+            super.additionalGlobalMap(instanceNames, instances);
+
+            OWLAxiom axiom = factory.getOWLEquivalentClassesAxiom(
+                    factory.getOWLClass(Definitions.ORGANIZATIONPEOPLE, prefix),
+                    factory.getOWLObjectOneOf(instances));
+            manager.addAxiom(ontology, axiom);
+
+            log.info("Adding organization people axiom: " + axiom);
         }
     }
 

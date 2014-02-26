@@ -1,7 +1,8 @@
-package es.us.isa.cristal.owl.mappers.ral.misc;
+package es.us.isa.cristal.owl.mappers.ral.runtime;
 
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.Definitions;
+import es.us.isa.cristal.owl.mappers.ral.misc.TaskDutyMapper;
 
 /**
  * User: resinas

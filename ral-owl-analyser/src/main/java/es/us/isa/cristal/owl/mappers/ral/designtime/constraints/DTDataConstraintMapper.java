@@ -1,4 +1,4 @@
-package es.us.isa.cristal.owl.mappers.ral.constraints.runtime;
+package es.us.isa.cristal.owl.mappers.ral.designtime.constraints;
 
 import es.us.isa.cristal.model.GroupResourceType;
 import es.us.isa.cristal.model.constraints.Constraint;
@@ -13,7 +13,7 @@ import es.us.isa.cristal.owl.mappers.ral.ConstraintMapper;
  * Date: 02/07/13
  * Time: 18:11
  */
-public class RTDataConstraintMapper implements ConstraintMapper {
+public class DTDataConstraintMapper implements ConstraintMapper {
 
     @Override
     public Class<? extends Constraint> getExprType() {

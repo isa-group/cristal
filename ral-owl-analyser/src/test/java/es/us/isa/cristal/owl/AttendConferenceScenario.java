@@ -23,7 +23,7 @@ public class AttendConferenceScenario {
 
     private static final String EXAMPLES_URL = "http://www.isa.us.es/cristal/";
 
-    public static final IRI ORGANIZATION_ISA_IRI = IRI.create(EXAMPLES_URL+"organization-isa.owl");
+    public static final IRI ORGANIZATION_ISA_IRI = IRI.create(EXAMPLES_URL+"orgisa.owl");
     public static final IRI BP_ATTEND_CONFERENCE_IRI = IRI.create(EXAMPLES_URL+"bp-attend-conference.owl");
 
     private BPEngine bpEngine;

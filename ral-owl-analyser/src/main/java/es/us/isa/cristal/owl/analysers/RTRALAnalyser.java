@@ -6,7 +6,7 @@ import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.Definitions;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.LogMapper;
-import es.us.isa.cristal.owl.mappers.ral.misc.RTTaskDutyMapper;
+import es.us.isa.cristal.owl.mappers.ral.runtime.RTTaskDutyMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.TaskDutyMapper;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 

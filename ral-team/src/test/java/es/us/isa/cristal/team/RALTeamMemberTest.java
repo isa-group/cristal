@@ -1,7 +1,7 @@
 package es.us.isa.cristal.team;
 
 import es.us.isa.cristal.owl.OntologyNamespaces;
-import es.us.isa.cristal.owl.mappers.ral.DTOwlRalMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtime.DTOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import org.junit.Before;
 import org.junit.Test;

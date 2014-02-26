@@ -36,16 +36,16 @@ public class DTScenarioAttendConferenceTest {
 
         manager.loadResourceAssignment(assignment);
 
-        manager.logProcessInstance("AttendConference", "ac1")
-                .activity("SubmitCameraReady", "scr1", LogOntologyHandler.ActivityState.COMPLETED, "Adela")
-                .activity("FillTravelAuthorization", "fta1", LogOntologyHandler.ActivityState.READY);
+//        manager.logProcessInstance("AttendConference", "ac1")
+//                .activity("SubmitCameraReady", "scr1", LogOntologyHandler.ActivityState.COMPLETED, "Adela")
+//                .activity("FillTravelAuthorization", "fta1", LogOntologyHandler.ActivityState.READY);
 
     }
 
     @Test
     public void shouldGetPotentialPerformersOfSubmitCameraReady() {
         RALAnalyser analyser = manager.createDesignTimeAnalyser();
-        Set<String> submitCameraReady = analyser.potentialParticipants("SubmitCameraReady", TaskDuty.PARTICIPANT);
+        Set<String> submitCameraReady = analyser.potentialParticipants("SubmitCameraReady", TaskDuty.RESPONSIBLE);
 
         Assert.assertEquals(new HashSet<String>(Arrays.asList("Cristina", "Adela")), submitCameraReady);
         System.out.println(submitCameraReady);
@@ -55,7 +55,7 @@ public class DTScenarioAttendConferenceTest {
     @Test
     public void shouldGetPotentialPerformersOfFill() {
         RALAnalyser analyser = manager.createDesignTimeAnalyser();
-        Set<String> submitCameraReady = analyser.potentialParticipants("FillTravelAuthorization", TaskDuty.PARTICIPANT);
+        Set<String> submitCameraReady = analyser.potentialParticipants("FillTravelAuthorization", TaskDuty.RESPONSIBLE);
 
         Assert.assertEquals(new HashSet<String>(Arrays.asList("Adela", "Sergio", "Antonio", "Manuel", "Beatriz", "Ana", "Cristina")), submitCameraReady);
         System.out.println(submitCameraReady);
@@ -103,7 +103,7 @@ public class DTScenarioAttendConferenceTest {
 
     @Test
     public void shouldCheckConsistencyOfSubmit() {
-        DTRALAnalyser analyser = manager.createDesignTimeAnalyser();
+        RALAnalyser analyser = manager.createDesignTimeAnalyser();
         boolean result = analyser.basicConsistency("SubmitCameraReady", TaskDuty.RESPONSIBLE);
 
         Assert.assertTrue(result);
@@ -116,7 +116,7 @@ public class DTScenarioAttendConferenceTest {
                 new ResourceAssignment().
                         add("SendTravelAuthorization", TaskDuty.RESPONSIBLE, RALParser.parse("REPORTS TO POSITION AdministrativeAssistant DIRECTLY")));
 
-        DTRALAnalyser analyser = manager.createDesignTimeAnalyser();
+        RALAnalyser analyser = manager.createDesignTimeAnalyser();
         boolean result = analyser.basicConsistency("SendTravelAuthorization", TaskDuty.RESPONSIBLE);
 
         Assert.assertFalse(result);

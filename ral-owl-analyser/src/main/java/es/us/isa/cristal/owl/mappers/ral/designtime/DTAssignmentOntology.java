@@ -1,4 +1,4 @@
-package es.us.isa.cristal.owl.ontologyhandlers;
+package es.us.isa.cristal.owl.mappers.ral.designtime;
 
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.ResourceAssignment;
@@ -7,10 +7,11 @@ import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.analysers.DTRALAnalyser;
-import es.us.isa.cristal.owl.mappers.ral.DTOwlRalMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtime.DTOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
-import es.us.isa.cristal.owl.mappers.ral.misc.DTTaskDutyMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtime.DTTaskDutyMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
+import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
 
 /**
 * User: resinas

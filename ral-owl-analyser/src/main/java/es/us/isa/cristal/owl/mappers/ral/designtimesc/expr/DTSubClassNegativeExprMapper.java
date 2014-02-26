@@ -1,6 +1,8 @@
-package es.us.isa.cristal.owl.mappers.ral.expr.designtime;
+package es.us.isa.cristal.owl.mappers.ral.designtimesc.expr;
 
 import es.us.isa.cristal.BPEngine;
+import es.us.isa.cristal.model.constraints.Constraint;
+import es.us.isa.cristal.model.constraints.DataConstraint;
 import es.us.isa.cristal.model.expressions.IsAssignmentExpr;
 import es.us.isa.cristal.model.expressions.NegativeExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
@@ -15,11 +17,11 @@ import static es.us.isa.cristal.owl.Definitions.PERSON;
  * Date: 04/07/13
  * Time: 16:35
  */
-public class DTNegativeExprMapper implements ExprMapper {
+public class DTSubClassNegativeExprMapper implements ExprMapper {
     private OwlRalMapper mapper;
     private BPEngine bpEngine;
 
-    public DTNegativeExprMapper(OwlRalMapper mapper, BPEngine bpEngine) {
+    public DTSubClassNegativeExprMapper(OwlRalMapper mapper, BPEngine bpEngine) {
         this.mapper = mapper;
         this.bpEngine = bpEngine;
     }
@@ -34,7 +36,7 @@ public class DTNegativeExprMapper implements ExprMapper {
         NegativeExpr e = (NegativeExpr) expr;
         String map;
 
-        if (e.hasRuntimeConstraint()){
+        if (hasData(e)){
             map = PERSON;
         }
         else{
@@ -43,12 +45,24 @@ public class DTNegativeExprMapper implements ExprMapper {
             if (e.getExprObject() instanceof IsAssignmentExpr) {
                 IsAssignmentExpr isa = (IsAssignmentExpr) e.getExprObject();
                 RALExpr isaExpr = bpEngine.getResourceExpression(isa.getActivityName());
-                if (isaExpr.hasRuntimeConstraint()) {
+                if (hasData(isaExpr)) {
                     map = PERSON;
                 }
             }
         }
 
         return map;
+    }
+
+    private boolean hasData(RALExpr e) {
+        boolean hasData = false;
+
+        for (Constraint c : e.getConstraints()) {
+            if (c instanceof DataConstraint) {
+                hasData = true;
+                break;
+            }
+        }
+        return hasData;
     }
 }

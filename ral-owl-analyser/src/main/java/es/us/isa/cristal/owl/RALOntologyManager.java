@@ -3,16 +3,16 @@ package es.us.isa.cristal.owl;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.Organization;
 import es.us.isa.cristal.ResourceAssignment;
-import es.us.isa.cristal.owl.analysers.DTRALAnalyser;
-import es.us.isa.cristal.owl.analysers.RTRALAnalyser;
-import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
-import es.us.isa.cristal.owl.ontologyhandlers.DTAssignmentOntology;
-import es.us.isa.cristal.owl.ontologyhandlers.RTAssignmentOntology;
-import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
+import es.us.isa.cristal.analyser.RALAnalyser;
+import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
+import es.us.isa.cristal.owl.mappers.ral.runtime.RTAssignmentOntology;
+import es.us.isa.cristal.owl.ontologyhandlers.*;
 import es.us.isa.cristal.owl.mappers.OrganizationOWLMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
+import org.semanticweb.HermiT.Reasoner;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
@@ -35,6 +35,7 @@ public class RALOntologyManager {
     public static final String RTASSIGNMENT_IRI = "assignment-rt";
 
     public static final String LOG = "log:";
+    public static final String DTASSIGNMENT = "dtassign:";
 
     private OWLOntologyManager manager;
     private DefaultPrefixManager prefixManager;
@@ -61,6 +62,17 @@ public class RALOntologyManager {
         loadCoreOntologies();
 
         prefixManager = createPrefixManager(namespaces);
+
+        Reasoner.ReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
+        OWLReasoner reasoner = reasonerFactory.createReasoner(manager.getOntology(Definitions.ORGANIZATION_IRI));
+        log.info("org consistent: " + reasoner.isConsistent());
+
+        reasoner = reasonerFactory.createReasoner(manager.getOntology(Definitions.BP_IRI));
+        log.info("bpmn consistent: " + reasoner.isConsistent());
+
+        reasoner = reasonerFactory.createReasoner(manager.getOntology(Definitions.BPRELATIONSHIPS_IRI));
+        log.info("bp relationships consistent: " + reasoner.isConsistent());
+
     }
 
 
@@ -117,18 +129,18 @@ public class RALOntologyManager {
 
     public AssignmentOntology getDesignTimeAssignmentOntology() {
         if (dtAssignment == null) {
-            dtAssignment = new DTAssignmentOntology(createImportAllOntology(DTASSIGNMENT_IRI), idMapper, engine);
+            dtAssignment = new DTSubClassAssignmentOntology(createImportAllOntology(DTASSIGNMENT_IRI), idMapper, engine);
             dtAssignment.buildOntology(assignment);
         }
         return dtAssignment;
     }
 
-    public DTRALAnalyser createDesignTimeAnalyser() {
-        return (DTRALAnalyser) getDesignTimeAssignmentOntology().createAnalyser();
+    public RALAnalyser createDesignTimeAnalyser() {
+        return getDesignTimeAssignmentOntology().createAnalyser();
     }
 
-    public RTRALAnalyser createRunTimeAnalyser(String pid) {
-        return (RTRALAnalyser) getRuntimeAssignmentOntology(pid).createAnalyser();
+    public RALAnalyser createRunTimeAnalyser(String pid) {
+        return getRuntimeAssignmentOntology(pid).createAnalyser();
     }
 
     // Private methods ---------------------------------
@@ -164,6 +176,7 @@ public class RALOntologyManager {
         prefixManager.setPrefix(Definitions.BPRELATIONSHIPS, Definitions.BPRELATIONSHIPS_IRI.toString() + "#");
         prefixManager.setPrefix(Definitions.BPMN, Definitions.BPMN_IRI.toString() + "#");
         prefixManager.setPrefix(LOG, LOG_IRI + "#");
+        prefixManager.setPrefix(DTASSIGNMENT, DTASSIGNMENT_IRI + "#");
 
         prefixManager.setPrefix(namespaces.getPerson().getPrefix()+":", namespaces.getPerson().getNamespace()+"#");
         prefixManager.setPrefix(namespaces.getGroup().getPrefix()+":", namespaces.getGroup().getNamespace()+"#");

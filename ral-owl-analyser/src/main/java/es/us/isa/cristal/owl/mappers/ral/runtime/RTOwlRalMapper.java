@@ -1,13 +1,15 @@
-package es.us.isa.cristal.owl.mappers.ral;
+package es.us.isa.cristal.owl.mappers.ral.runtime;
 
 import es.us.isa.cristal.BPEngine;
+import es.us.isa.cristal.owl.mappers.ral.OwlConstraintMapper;
+import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
 import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import es.us.isa.cristal.owl.mappers.ral.constraints.IdConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.constraints.PositionOfConstraintMapper;
-import es.us.isa.cristal.owl.mappers.ral.constraints.runtime.RTActivityConstraintMapper;
-import es.us.isa.cristal.owl.mappers.ral.constraints.runtime.RTDataConstraintMapper;
+import es.us.isa.cristal.owl.mappers.ral.runtime.constraints.RTActivityConstraintMapper;
+import es.us.isa.cristal.owl.mappers.ral.runtime.constraints.RTDataConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.expr.*;
-import es.us.isa.cristal.owl.mappers.ral.expr.runtime.RTNegativeExprMapper;
+import es.us.isa.cristal.owl.mappers.ral.runtime.expr.RTNegativeExprMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 
 /**
@@ -32,7 +34,7 @@ public class RTOwlRalMapper extends OwlRalMapper {
         addMapper(new RTNegativeExprMapper(this, mapper, logOntologyHandler));
     }
 
-    public static class RTConstraintMapper extends OwlConstraintMapper  {
+    public static class RTConstraintMapper extends OwlConstraintMapper {
         public RTConstraintMapper(IdMapper idMapper) {
             super(idMapper);
 

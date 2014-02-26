@@ -1,9 +1,11 @@
-package es.us.isa.cristal.owl.ontologyhandlers;
+package es.us.isa.cristal.owl.mappers.ral.runtime;
 
 import es.us.isa.cristal.ResourceAssignment;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.AttendConferenceScenario;
 import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
+import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import es.us.isa.cristal.parser.RALParser;
 import org.junit.Before;
 import org.junit.Test;

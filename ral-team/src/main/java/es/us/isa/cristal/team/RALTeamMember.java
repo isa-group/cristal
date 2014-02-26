@@ -1,7 +1,6 @@
 package es.us.isa.cristal.team;
 
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.owl.mappers.ral.DTOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.parser.RALParser;

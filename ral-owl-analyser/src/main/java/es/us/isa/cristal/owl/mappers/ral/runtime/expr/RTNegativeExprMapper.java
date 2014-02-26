@@ -1,4 +1,4 @@
-package es.us.isa.cristal.owl.mappers.ral.expr.runtime;
+package es.us.isa.cristal.owl.mappers.ral.runtime.expr;
 
 import es.us.isa.cristal.model.constraints.Constraint;
 import es.us.isa.cristal.model.constraints.PersonWhoDidActivityConstraint;
