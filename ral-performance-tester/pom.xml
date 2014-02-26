@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<artifactId>cristal</artifactId>
+		<groupId>es.us.isa.cristal</groupId>
+		<version>1.1-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>ral-performance-tester</artifactId>
+	<packaging>jar</packaging>
+
+
+
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>es.us.isa.cristal</groupId>
+			<artifactId>organization-generator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>es.us.isa.cristal</groupId>
+			<artifactId>ral-neo4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>es.us.isa.cristal</groupId>
+			<artifactId>ral-model</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

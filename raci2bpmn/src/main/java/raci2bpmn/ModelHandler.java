@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
@@ -57,7 +58,19 @@ public class ModelHandler {
 	public TDefinitions getDefinitions() {
 		return (TDefinitions) bpmnModel.getValue();
 	}
+	
+	public void saveModel(OutputStream os) {
+		try {
+			// Creamos un marshaller
+			Marshaller m = jc.createMarshaller();
 
+			// Guardamos el modelo en un XML
+			m.marshal(bpmnModel, os);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		} 
+	}
+	
 	public void saveModel(String filename) {
 		try {
 			// Creamos un marshaller

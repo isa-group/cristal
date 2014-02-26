@@ -2,7 +2,6 @@ package es.us.isa.cristal.neo4j.queries;
 
 import es.us.isa.cristal.model.expressions.IsAssignmentExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.resolver.ConstraintResolver;
 
 /**
  * User: resinas
@@ -12,7 +11,6 @@ import es.us.isa.cristal.resolver.ConstraintResolver;
 public class IsAssignmentExprBuilder implements ExprBuilder {
 
     private Neo4jQueryBuilder builder;
-
     public IsAssignmentExprBuilder(Neo4jQueryBuilder builder) {
         this.builder = builder;
     }
@@ -23,10 +21,10 @@ public class IsAssignmentExprBuilder implements ExprBuilder {
     }
 
     @Override
-    public Query build(RALExpr expr, ConstraintResolver resolver) {
+    public Query build(RALExpr expr, Object processId) {
         IsAssignmentExpr assignmentExpr = (IsAssignmentExpr) expr;
-        RALExpr activityExpr = builder.getBpEngine().getResourceExpression(assignmentExpr.getActivityName());
+        RALExpr activityExpr = builder.getBpEngine().getResourceExpression(processId,assignmentExpr.getActivityName());
 
-        return builder.buildQuery(activityExpr, resolver);
+        return builder.buildQuery(activityExpr, processId);
     }
 }

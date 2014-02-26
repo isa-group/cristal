@@ -1,5 +1,8 @@
 package es.us.isa.cristal;
 
+import java.util.List;
+
+import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
 import es.us.isa.cristal.model.expressions.RALExpr;
 
 /**
@@ -8,7 +11,55 @@ import es.us.isa.cristal.model.expressions.RALExpr;
  * Time: 19:53
  */
 public interface BPEngine {
-    public String getDataValue(Object pid, String data, String property);
-    public String getActivityPerformer(Object pid, String activityName);
-    RALExpr getResourceExpression(String activityName);
+	/**
+	 * 
+	 * @param pid Process Instance Identifier
+	 * @param dataObjectName The name of the object which contains the datafield
+	 * @param fieldName The name of the field which will be read. Use null to return the dataObject
+	 * @return the value of the data
+	 * 
+	 * 
+	 */
+    public Object getDataValue(Object pid, String dataObjectName, String fieldName);
+    /**
+     * 
+     * @param pid Process Instance Identifier
+     * @param activityId Activity Identifier
+     * @return the name of the person who completed the activity.
+     */
+    public List<String> getActivityPerformer(Object pid, String activityId);
+    
+    /**
+     * 
+     * @param processDefinitionId The id defined in the process
+     * @param activityId Activity Identifier
+     * @return the RAL expression used to calculate candidates to perform the activity
+     */
+    RALExpr getResourceExpression(Object processId, String activityId);
+    
+    /**
+     * 
+     * @param processDefinitionId The id defined in the process
+     * @param activityId Activity Identifier
+     * @return the RAL expression used to calculate candidates to perform the activity
+     */
+    RALExpr getResourceExpressionByProcessDefinitionId(Object processDefinitionId, String activityId);
+    
+    /**
+     * 
+     * @param processInstanceId The id defined in the process
+     * @param activityId Activity Identifier
+     * @return the RAL expression used to calculate candidates to perform the activity
+     */
+    RALExpr getResourceExpressionByProcessInstanceId(Object processInstanceId, String activityId);
+    
+    
+    /**
+     * 
+     * @param processId The id of the process
+     * @return The Model of the Bpmn
+     */
+    Bpmn20ModelHandler getBpmnModel(Object processId);
+    
+
 }

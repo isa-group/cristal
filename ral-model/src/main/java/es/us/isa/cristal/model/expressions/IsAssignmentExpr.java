@@ -16,7 +16,6 @@ public class IsAssignmentExpr extends RALExpr {
 	private static final long serialVersionUID = 2957284638582593646L;
 	// identificador de la actividad
 	protected String activityName;
-
 	/**
 	 * Constructor de la clase
 	 * 
@@ -36,8 +35,9 @@ public class IsAssignmentExpr extends RALExpr {
 	public String getActivityName() {
 		return this.activityName;
 	}
+	
 
-    @Override
+	@Override
     public boolean hasRuntimeConstraint() {
         return false;
     }

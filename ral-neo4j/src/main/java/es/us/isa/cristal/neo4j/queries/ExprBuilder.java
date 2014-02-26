@@ -1,7 +1,6 @@
 package es.us.isa.cristal.neo4j.queries;
 
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.resolver.ConstraintResolver;
 
 /**
  * User: resinas
@@ -10,5 +9,5 @@ import es.us.isa.cristal.resolver.ConstraintResolver;
  */
 public interface ExprBuilder {
     public Class<? extends RALExpr> getExprType();
-    public Query build(RALExpr expr, ConstraintResolver resolver);
+    public Query build(RALExpr expr, Object processId);
 }
