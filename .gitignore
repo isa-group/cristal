@@ -4,6 +4,8 @@ target
 .classpath
 .idea
 *.iml
+*.sublime-project
+*.sublime-workspace
 raci2bpmn/target
 raci2bpmn/.settings
 raci2bpmn/.project
