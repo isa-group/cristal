@@ -6,8 +6,11 @@ import es.us.isa.cristal.model.constraints.DataConstraint;
 import es.us.isa.cristal.model.expressions.IsAssignmentExpr;
 import es.us.isa.cristal.model.expressions.NegativeExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
+import es.us.isa.cristal.owl.Definitions;
+import es.us.isa.cristal.owl.RALOntologyManager;
 import es.us.isa.cristal.owl.mappers.ral.ExprMapper;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
 
 import static es.us.isa.cristal.owl.Definitions.PERSON;
 
@@ -36,20 +39,20 @@ public class DTSubClassNegativeExprMapper implements ExprMapper {
         NegativeExpr e = (NegativeExpr) expr;
         String map;
 
-        if (hasData(e)){
-            map = PERSON;
-        }
-        else{
-            map = PERSON + " and ( not ( " + mapper.map(e.getExprObject(), pid) + "))";
+//        if (hasData(e)){
+//            map = PERSON;
+//        }
+//        else{
+            map = Definitions.ORGANIZATIONPEOPLE + " and ( not ( " + mapper.map(e.getExprObject(), pid) + "))";
 
-            if (e.getExprObject() instanceof IsAssignmentExpr) {
-                IsAssignmentExpr isa = (IsAssignmentExpr) e.getExprObject();
-                RALExpr isaExpr = bpEngine.getResourceExpression(isa.getActivityName());
-                if (hasData(isaExpr)) {
-                    map = PERSON;
-                }
-            }
-        }
+//            if (e.getExprObject() instanceof IsAssignmentExpr) {
+//                IsAssignmentExpr isa = (IsAssignmentExpr) e.getExprObject();
+//                RALExpr isaExpr = bpEngine.getResourceExpression(pid, isa.getActivityName());
+////                if (hasData(isaExpr)) {
+////                    map = PERSON;
+////                }
+//            }
+//        }
 
         return map;
     }

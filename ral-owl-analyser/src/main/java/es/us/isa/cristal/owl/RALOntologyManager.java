@@ -170,11 +170,15 @@ public class RALOntologyManager {
 
     private DefaultPrefixManager createPrefixManager(OntologyNamespaces namespaces) {
         DefaultPrefixManager prefixManager = new DefaultPrefixManager();
+
+        prefixManager.setPrefix("owl:", "http://www.w3.org/2002/07/owl#");
+
         prefixManager.setPrefix(Definitions.ORGANIZATION, Definitions.ORGANIZATION_IRI.toString() + "#");
 
         prefixManager.setPrefix(Definitions.ABSTRACTBP, Definitions.BP_IRI.toString()+"#");
         prefixManager.setPrefix(Definitions.BPRELATIONSHIPS, Definitions.BPRELATIONSHIPS_IRI.toString() + "#");
         prefixManager.setPrefix(Definitions.BPMN, Definitions.BPMN_IRI.toString() + "#");
+
         prefixManager.setPrefix(LOG, LOG_IRI + "#");
         prefixManager.setPrefix(DTASSIGNMENT, DTASSIGNMENT_IRI + "#");
 

@@ -10,6 +10,10 @@ import java.util.Collections;
 import java.util.Set;
 
 public class DLQueryEngine {
+
+    public static final String NOTHING = "owl:Nothing";
+    public static final String THING = "owl:Thing";
+
     private OWLReasoner reasoner;
     private DLQueryParser parser;
 
@@ -112,7 +116,8 @@ public class DLQueryEngine {
         return individuals.getFlattened();
     }
 
-    /** Checks whether a class expression is satisfiable in the current ontology
+    /**
+     * Checks whether a class expression is satisfiable in the current ontology
      *
      * @param classExpressionString
      *            The string from which the class expression will be parsed
@@ -130,6 +135,14 @@ public class DLQueryEngine {
     public boolean isEntailed(String axiomString) {
         OWLAxiom axiom = parser.parseAxiom(axiomString);
         return reasoner.isEntailed(axiom);
+    }
+
+    /**
+     * Checks whether the ontology is consistent
+     * @return the result of the consistency checking.
+     */
+    public boolean isConsistent() {
+        return reasoner.isConsistent();
     }
 
 }

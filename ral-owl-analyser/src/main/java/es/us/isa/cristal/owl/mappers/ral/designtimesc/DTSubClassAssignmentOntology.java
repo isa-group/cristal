@@ -38,7 +38,7 @@ public class DTSubClassAssignmentOntology extends AssignmentOntology {
     public DTSubClassAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
         super(ontologyHandler);
         this.idMapper = idMapper;
-        owlRalMapper = new DTOwlRalMapper(idMapper, engine);
+        owlRalMapper = new DTSubClassOwlRalMapper(idMapper, engine);
         manager = ontology.getOWLOntologyManager();
         factory = manager.getOWLDataFactory();
     }
@@ -48,7 +48,10 @@ public class DTSubClassAssignmentOntology extends AssignmentOntology {
         for (ResourceAssignment.Assignment a : assignment.getAll()) {
             addParticipant(a.getActivity(), a.getExpr(), a.getDuty());
         }
+
     }
+
+
 
     private void addParticipant(String activityName, RALExpr expr, TaskDuty duty) {
         String hasDuty = new InstanceTaskDutyMapper().map(duty);
@@ -66,7 +69,7 @@ public class DTSubClassAssignmentOntology extends AssignmentOntology {
         manager.addAxiom(ontology, owlSubClassOfAxiom);
         log.info("Add axiom: " + owlSubClassOfAxiom);
 
-        String axiom = "(" + Definitions.ISOFTYPE +" value " + idMapper.mapActivity(activityName) + ") SubClassOf: (" + hasDuty + " some " + Definitions.ORGANIZATIONPEOPLE + " and " + hasDuty + " only " + Definitions.ORGANIZATIONPEOPLE + ")";
+        String axiom = "(" + Definitions.ISOFTYPE +" value " + idMapper.mapActivity(activityName) + ") SubClassOf: (" + hasDuty + " some " + Definitions.ORGANIZATIONPEOPLE + " and " + hasDuty + " only " + Definitions.ORGANIZATIONPEOPLE + " and " + hasDuty + " min 1 " + Definitions.ORGANIZATIONPEOPLE + ")";
         addAxiom(axiom);
 
         String subClass = "( inverse(" + hasDuty + ") some (" + Definitions.ISOFTYPE + " value " + idMapper.mapActivity(activityName) + ")) SubClassOf: (" + owlRalMapper.map(expr, 0) + ")";

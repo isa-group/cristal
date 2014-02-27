@@ -29,6 +29,6 @@ public class DTSubClassActivityConstraintMapper implements ConstraintMapper {
     public String map(Constraint expr, Object pid) {
         ActivityConstraint c = (ActivityConstraint) expr;
 
-        return Definitions.HASRESPONSIBLE + " some (" + Definitions.ISOFTYPE + " value " + idMapper.mapActivity(c.getActivityName());
+        return Definitions.HASRESPONSIBLE + " some (" + Definitions.ISOFTYPE + " value " + idMapper.mapActivity(c.getActivityName()) + ")";
     }
 }

@@ -9,6 +9,7 @@ import es.us.isa.cristal.owl.mappers.ral.designtime.constraints.DTActivityConstr
 import es.us.isa.cristal.owl.mappers.ral.designtime.constraints.DTDataConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.designtime.expr.DTNegativeExprMapper;
 import es.us.isa.cristal.owl.mappers.ral.designtimesc.constraints.DTSubClassActivityConstraintMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtimesc.constraints.DTSubClassDataConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.designtimesc.expr.DTSubClassNegativeExprMapper;
 import es.us.isa.cristal.owl.mappers.ral.expr.*;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
@@ -41,7 +42,7 @@ public class DTSubClassOwlRalMapper extends OwlRalMapper {
 
             addMapper(new IdConstraintMapper(idMapper));
             addMapper(new PositionOfConstraintMapper(this));
-            addMapper(new DTDataConstraintMapper());
+            addMapper(new DTSubClassDataConstraintMapper(idMapper));
             addMapper(new DTSubClassActivityConstraintMapper(idMapper));
         }
     }

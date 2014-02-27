@@ -110,7 +110,7 @@ public class DTScenarioAttendConferenceTest {
     }
 
     @Test
-    public void shouldCheckConsistencyOf() {
+    public void shouldFailConsistency() {
         manager = new AttendConferenceScenario().getRalOntologyManager();
         manager.loadResourceAssignment(
                 new ResourceAssignment().

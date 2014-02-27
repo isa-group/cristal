@@ -9,6 +9,7 @@ import es.us.isa.cristal.owl.mappers.ral.misc.LogMapper;
 import es.us.isa.cristal.owl.mappers.ral.runtime.RTTaskDutyMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.TaskDutyMapper;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -74,6 +75,11 @@ public class RTRALAnalyser extends AbstractRALAnalyser {
     }
 
     @Override
+    public Set<String> notInvolved(String personName, TaskDuty duty) {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public Set<String> permanentParticipants(Iterable<String> activities, TaskDuty duty) {
         String isPotentialDuty = taskDutyMapper.map(duty);
         List<String> act = new ArrayList<String>();
@@ -103,6 +109,11 @@ public class RTRALAnalyser extends AbstractRALAnalyser {
         }
 
         return result;
+    }
+
+    @Override
+    public Set<String> criticalActivities(String personName, TaskDuty duty) {
+        throw new NotImplementedException();
     }
 
     @Override

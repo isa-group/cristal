@@ -71,8 +71,9 @@ public class OrganizationOWLMapper {
         } else {
             OWLClassExpression expr = parser.parseClassExpression(query);
             OWLClass nothing = factory.getOWLNothing();
-            axiom = factory.getOWLEquivalentClassesAxiom(expr, nothing);
+            axiom = factory.getOWLSubClassOfAxiom(expr, nothing);
         }
+        log.info(axiom.toString());
         manager.addAxiom(ontology, axiom);
     }
 
@@ -128,6 +129,7 @@ public class OrganizationOWLMapper {
 
     private class PositionMapper extends ElementMapper<Organization.Position> {
         private Map<String, List<String>> canBeDelegatedWorkBy = new HashMap<String, List<String>>();
+        private Map<String, String> reportsTo = new HashMap<String, String>();
 
         @Override
         protected String getName(Organization.Position i) {
@@ -155,8 +157,12 @@ public class OrganizationOWLMapper {
         }
 
         private void mapIsReportedBy(Organization.Position i) {
-            String query = "(" + Definitions.REPORTSTO + " value " + mapper.mapGroup(i.getName()) + ")";
-            addEquivAxiom(query, i.getReportedBy());
+//            if (i.getReportedBy() != null && ! i.getReportedBy().isEmpty()) {
+                String query = "(" + Definitions.REPORTSTO + " value " + mapper.mapGroup(i.getName()) + ")";
+                addEquivAxiom(query, i.getReportedBy());
+//            } else {
+//                String query = Definitions.
+//            }
         }
 
         private void mapCanDelegateWorkTo(Organization.Position i) {

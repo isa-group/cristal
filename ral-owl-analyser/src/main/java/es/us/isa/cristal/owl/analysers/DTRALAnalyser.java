@@ -8,6 +8,7 @@ import es.us.isa.cristal.owl.mappers.ral.designtime.DTTaskDutyMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.TaskDutyMapper;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -63,6 +64,11 @@ public class DTRALAnalyser extends AbstractRALAnalyser {
         return DLHelper.mapFromOwl(engine.getInstances(query, false));
     }
 
+    @Override
+    public Set<String> notInvolved(String personName, TaskDuty duty) {
+        throw new NotImplementedException();
+    }
+
     public Set<String> permanentParticipants(Iterable<String> activities, TaskDuty duty) {
         String isPotentialDuty = taskDutyMapper.map(duty);
         List<String> act = new ArrayList<String>();
@@ -91,7 +97,12 @@ public class DTRALAnalyser extends AbstractRALAnalyser {
         return result;
     }
 
-	public Set<String> criticalParticipants(Iterable<String> activities, TaskDuty duty) {
+    @Override
+    public Set<String> criticalActivities(String personName, TaskDuty duty) {
+        throw new NotImplementedException();
+    }
+
+    public Set<String> criticalParticipants(Iterable<String> activities, TaskDuty duty) {
         Set<String> criticalActivities = criticalActivities(activities, duty);
         String isPotentialDuty = taskDutyMapper.map(duty);
         List<String> act = new ArrayList<String>();

@@ -19,6 +19,7 @@ import es.us.isa.cristal.neo4j.analyzer.operations.Operation;
 import es.us.isa.cristal.neo4j.analyzer.operations.PermanentParticipantsOP;
 import es.us.isa.cristal.neo4j.analyzer.operations.PotentialActivitiesOP;
 import es.us.isa.cristal.neo4j.analyzer.operations.PotentialParticipantsOP;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * 
@@ -73,7 +74,12 @@ public class Neo4jRALAnalyser implements RALAnalyser {
 		return op.execute();
 	}
 
-	@Override
+    @Override
+    public Set<String> notInvolved(String personName, TaskDuty duty) {
+        throw new NotImplementedException();
+    }
+
+    @Override
 	public Set<String> permanentParticipants(Iterable<String> activities, TaskDuty duty) {
 		Operation<Set<String>> op = new PermanentParticipantsOP(bpEngine, resolver, processInstanceId, activities, duty);
 		return op.execute();
@@ -84,9 +90,14 @@ public class Neo4jRALAnalyser implements RALAnalyser {
 		Operation<Set<String>> op = new CriticalActivitiesOP(bpEngine, resolver, processInstanceId, activities, duty);
 		return op.execute();
 	}
-	
-	
-	public Set<String> mandatoryActivities(Iterable<String> activities, TaskDuty duty) {
+
+    @Override
+    public Set<String> criticalActivities(String personName, TaskDuty duty) {
+        throw new NotImplementedException();
+    }
+
+
+    public Set<String> mandatoryActivities(Iterable<String> activities, TaskDuty duty) {
 		Operation<Set<String>> op = new MandatoryActivitiesOP(bpEngine, resolver, processInstanceId, activities, duty);
 		return op.execute();
 	}

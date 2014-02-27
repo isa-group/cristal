@@ -165,17 +165,13 @@ public class DTSubClassRALAnalyser extends AbstractRALAnalyser {
     }
 
     public boolean basicConsistency(String activity, TaskDuty duty) {
-        String isPotentialDuty = taskDutyMapper.map(duty);
-        String act = idMapper.mapActivity(activity);
+//        String query = "organization:Person and not (organization:occupies some (organization:reportsTo some ({organization-isa:AdministrativeAssistant})))";
+//        testQuery(query);
 
-        String atLeastOne = "(inverse(" + isPotentialDuty + ") min 1 (" + Definitions.PERSON + "))";
-        String query = "({" + act + "}) and " + atLeastOne;
-//        System.out.println(engine.isSatisfiable(query));
-//
-//        System.out.println(engine.isEntailed("({" + act + "}) SubClassOf: " + atLeastOne));
-//        return engine.isSatisfiable(isPotentialDuty + " value " + act);
 
-        return engine.isEntailed("({" + act + "}) SubClassOf: " + atLeastOne);
+        Set<String> inconsistent = DLHelper.mapClassesFromOwl(engine.getEquivalentClasses(DLQueryEngine.NOTHING));
+        log.info("Inconsistent: " + inconsistent);
+        return inconsistent.isEmpty();
     }
 
 }
