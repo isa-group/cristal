@@ -53,7 +53,7 @@ public class ProcessHandler {
 		List<TTask> result = new ArrayList<TTask>();
 		List<JAXBElement<? extends TFlowElement>> flowElements = process.getFlowElement();
 		for (JAXBElement<? extends TFlowElement> elem: flowElements) {
-			System.out.println(elem.getDeclaredType().getName());
+			//System.out.println(elem.getDeclaredType().getName());
 			TFlowElement flowElement = elem.getValue();
 			if (flowElement instanceof TTask) {
 				result.add((TTask) flowElement);
@@ -66,7 +66,7 @@ public class ProcessHandler {
 		List<TUserTask> result = new ArrayList<TUserTask>();
 		List<JAXBElement<? extends TFlowElement>> flowElements = process.getFlowElement();
 		for (JAXBElement<? extends TFlowElement> elem: flowElements) {
-			System.out.println(elem.getDeclaredType().getName());
+			//System.out.println(elem.getDeclaredType().getName());
 			TFlowElement flowElement = elem.getValue();
 			if (flowElement instanceof TUserTask) {
 				result.add((TUserTask) flowElement);
