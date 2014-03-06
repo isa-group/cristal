@@ -32,7 +32,7 @@ public class ConfigurationFactory {
 		result.setRolePositionDistributor(new RolePositionMultipleRandomDistributor(1,4,new ConsecutiveSelector<Role>()));
 		result.setPositionUnitDistributor(new PositionUnitConsecutiveDistributor());
 		result.setPositionDelegatesDistributor(new PositionDelegatesMultipleRandomDistributor(1,3,new RandomSelector<Position>()));
-		result.setPositionReportsDistributor(new PositionReportsMultipleRandomDistributor(1,3,new RandomSelector<Position>()));
+		result.setPositionReportsDistributor(new PositionReportsMultipleRandomDistributor(1,1,new RandomSelector<Position>()));
 		
 		return result;
 	}
