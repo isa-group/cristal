@@ -13,10 +13,13 @@ public class IdMapper {
     private String groupPrefix;
     private String activityPrefix;
 
+    private OntologyNamespaces namespaces;
+
     public IdMapper(OntologyNamespaces ontologyNamespaces) {
         this.personPrefix = ontologyNamespaces.getPerson().getPrefix();
         this.groupPrefix = ontologyNamespaces.getGroup().getPrefix();
         this.activityPrefix = ontologyNamespaces.getActivity().getPrefix();
+        this.namespaces = ontologyNamespaces;
     }
 
     public IdMapper(String personPrefix, String groupPrefix, String activityPrefix) {
@@ -35,5 +38,9 @@ public class IdMapper {
 
     public String mapActivity(String activity) {
         return activityPrefix + ":" + activity;
+    }
+
+    public OntologyNamespaces getNamespaces() {
+        return namespaces;
     }
 }

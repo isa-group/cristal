@@ -63,6 +63,15 @@
         </dependency>
         <dependency>
             <groupId>es.us.isa.cristal</groupId>
+            <artifactId>organization-gson-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>es.us.isa.cristal</groupId>
+            <artifactId>ral-performance-tester</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>es.us.isa.cristal</groupId>
             <artifactId>ral-ontology</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -73,22 +82,113 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>net.sourceforge.owlapi</groupId>-->
+            <!--<artifactId>owlapi-apibinding</artifactId>-->
+            <!--<version>3.4.9</version>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>net.sourceforge.owlapi</groupId>
-            <artifactId>owlapi-apibinding</artifactId>
-            <version>3.4.4</version>
+            <groupId>com.complexible.stardog.reasoning.snarl</groupId>
+            <artifactId>client</artifactId>
+            <version>2.1.1</version>
         </dependency>
+
         <dependency>
-			<groupId>org.semanticweb</groupId>
-			<artifactId>HermiT</artifactId>
-			<version>1.3.6</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>owlapi</artifactId>
-                    <groupId>owlapi</groupId>
-                </exclusion>
-            </exclusions>
-		</dependency>
+            <groupId>com.complexible.stardog.reasoning.http</groupId>
+            <artifactId>client</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>com.clarkparsia.pellet</groupId>-->
+            <!--<artifactId>pellet</artifactId>-->
+            <!--<version>3.0.0</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>com.complexible.common</groupId>-->
+                    <!--<artifactId>core</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>com.complexible.common</groupId>-->
+                    <!--<artifactId>openrdf</artifactId>-->
+                <!--</exclusion>-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>net.sourceforge.owlapi</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>owlapi-api</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>net.sourceforge.owlapi</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>owlapi-apibinding</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.complexible.common</groupId>-->
+            <!--<artifactId>core</artifactId>-->
+            <!--<version>3.1.1</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.complexible.common</groupId>-->
+            <!--<artifactId>openrdf</artifactId>-->
+            <!--<version>2.0</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.openrdf.sesame</groupId>-->
+            <!--<artifactId>sesame</artifactId>-->
+            <!--<version>2.7.7</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.github.ansell.pellet</groupId>-->
+            <!--<artifactId>pellet-owlapiv3</artifactId>-->
+            <!--<version>2.3.6-ansell</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>com.github.ansell.owlapi</groupId>-->
+                    <!--<artifactId>owlapi-api</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>com.github.ansell.owlapi</groupId>-->
+                    <!--<artifactId>owlapi-impl</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>com.github.ansell.owlapi</groupId>-->
+                    <!--<artifactId>owlapi-parsers</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.github.ansell.pellet</groupId>-->
+            <!--<artifactId>pellet-modularity</artifactId>-->
+            <!--<version>2.3.6-ansell</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>com.github.ansell.owlapi</groupId>-->
+                    <!--<artifactId>owlapi-tools</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.hermit-reasoner</groupId>
+            <artifactId>org.semanticweb.hermit</artifactId>
+            <version>1.3.8.4</version>
+
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.6</version>
+        </dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

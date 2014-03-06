@@ -7,9 +7,8 @@ import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.analysers.DTRALAnalyser;
-import es.us.isa.cristal.owl.mappers.ral.designtime.DTOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
-import es.us.isa.cristal.owl.mappers.ral.designtime.DTTaskDutyMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
 
@@ -26,7 +25,7 @@ public class DTAssignmentOntology extends AssignmentOntology {
     public DTAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
         super(ontologyHandler);
         this.idMapper = idMapper;
-        owlRalMapper = new DTOwlRalMapper(idMapper, engine);
+        owlRalMapper = new DTOwlRalMapper(idMapper, engine, new DTSubClassAssignmentOntology.ActivityMapper());
     }
 
     @Override

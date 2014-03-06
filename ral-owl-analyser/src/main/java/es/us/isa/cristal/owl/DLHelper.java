@@ -1,6 +1,7 @@
 package es.us.isa.cristal.owl;
 
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 import java.util.HashSet;
@@ -17,6 +18,17 @@ public class DLHelper {
         Set<String> result = new HashSet<String>();
         for (OWLNamedIndividual i : individuals) {
             result.add(i.getIRI().getFragment());
+        }
+
+        return result;
+    }
+
+    public static Set<String> mapFromOwlIndividual(Set<OWLIndividual> individuals) {
+        Set<String> result = new HashSet<String>();
+        for (OWLIndividual i : individuals) {
+            if (i.isNamed()) {
+                result.add(i.asOWLNamedIndividual().getIRI().getFragment());
+            }
         }
 
         return result;

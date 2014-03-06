@@ -21,8 +21,8 @@ import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
  */
 public class DTSubClassOwlRalMapper extends OwlRalMapper {
 
-    public DTSubClassOwlRalMapper(IdMapper mapper, BPEngine engine) {
-        super(new DTConstraintMapper(mapper), engine);
+    public DTSubClassOwlRalMapper(IdMapper mapper, BPEngine engine, DTSubClassAssignmentOntology.ActivityMapper activityMapper) {
+        super(new DTConstraintMapper(mapper, activityMapper), engine);
 
         addMapper(new PersonExprMapper(constraintMapper));
         addMapper(new GroupResourceExprMapper(constraintMapper));
@@ -37,13 +37,13 @@ public class DTSubClassOwlRalMapper extends OwlRalMapper {
     }
 
     public static class DTConstraintMapper extends OwlConstraintMapper {
-        public DTConstraintMapper(IdMapper idMapper) {
+        public DTConstraintMapper(IdMapper idMapper, DTSubClassAssignmentOntology.ActivityMapper activityMapper) {
             super(idMapper);
 
             addMapper(new IdConstraintMapper(idMapper));
             addMapper(new PositionOfConstraintMapper(this));
             addMapper(new DTSubClassDataConstraintMapper(idMapper));
-            addMapper(new DTSubClassActivityConstraintMapper(idMapper));
+            addMapper(new DTSubClassActivityConstraintMapper(idMapper, activityMapper));
         }
     }
 }

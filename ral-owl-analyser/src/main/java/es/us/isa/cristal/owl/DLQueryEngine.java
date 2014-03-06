@@ -39,6 +39,10 @@ public class DLQueryEngine {
         parser = new DLQueryParser(rootOntology, shortFormProvider);
     }
 
+    public OWLReasoner getReasoner() {
+        return reasoner;
+    }
+
     /** Gets the superclasses of a class expression parsed from a string.
      * 
      * @param classExpressionString

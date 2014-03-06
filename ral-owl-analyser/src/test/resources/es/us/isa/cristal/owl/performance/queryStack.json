@@ -1,0 +1,20 @@
+{
+	export: "/Users/resinas/Desktop/results.html",
+	modelWeight: 50,
+	processExpressionForEachIteration: true,
+	iterations: 5,
+	queryList: [
+			{ activity: "activity2", query: "HAS POSITION #RandomPosition#" },
+			{ activity: "activity1", query: "HAS ROLE #RandomRole#" },
+			{ activity: "activity6", query: "IS PERSON WHO DID ACTIVITY activity1" },
+			{ activity: "activity10", query: "NOT IS PERSON WHO DID ACTIVITY activity6" },
+			{ activity: "activity28", query: "IS PERSON WHO DID ACTIVITY activity10 AND HAS POSITION #RandomPosition#" },
+			{ activity: "activity4", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+			{ activity: "activity5", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+			{ activity: "activity7", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+			{ activity: "activity8", query: "HAS POSITION #RandomPosition#" },
+			{ activity: "activity9", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+			{ activity: "activity3", query: "HAS ROLE #RandomRole# AND HAS UNIT #RandomUnit#" }
+	]
+
+}

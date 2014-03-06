@@ -4,12 +4,12 @@ import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.Organization;
 import es.us.isa.cristal.ResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
+import es.us.isa.cristal.owl.mappers.process.ProcessActivitiesOWLMapper;
 import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
 import es.us.isa.cristal.owl.mappers.ral.runtime.RTAssignmentOntology;
 import es.us.isa.cristal.owl.ontologyhandlers.*;
-import es.us.isa.cristal.owl.mappers.OrganizationOWLMapper;
+import es.us.isa.cristal.owl.mappers.organization.OrganizationOWLMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
-import org.semanticweb.HermiT.Reasoner;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -62,26 +62,26 @@ public class RALOntologyManager {
         loadCoreOntologies();
 
         prefixManager = createPrefixManager(namespaces);
-
-        Reasoner.ReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
-        OWLReasoner reasoner = reasonerFactory.createReasoner(manager.getOntology(Definitions.ORGANIZATION_IRI));
-        log.info("org consistent: " + reasoner.isConsistent());
-
-        reasoner = reasonerFactory.createReasoner(manager.getOntology(Definitions.BP_IRI));
-        log.info("bpmn consistent: " + reasoner.isConsistent());
-
-        reasoner = reasonerFactory.createReasoner(manager.getOntology(Definitions.BPRELATIONSHIPS_IRI));
-        log.info("bp relationships consistent: " + reasoner.isConsistent());
-
     }
 
 
     // Loaders -------------------------------------
 
     public OWLOntology loadProcessOntology(IRI documentIRI) {
-
         this.processIRI = IRI.create(this.namespaces.getActivity().getNamespace());
         return loadOntology(processIRI, documentIRI);
+    }
+
+    public OWLOntology loadProcessAsListOfActivities(String... activities) {
+        processIRI = IRI.create(this.namespaces.getActivity().getNamespace());
+        OntologyHandler procOntologyHandler = createOntology(processIRI, Definitions.BPMN_IRI);
+        ProcessActivitiesOWLMapper procMapper = new ProcessActivitiesOWLMapper(procOntologyHandler, idMapper);
+        procMapper.map(activities);
+
+        OWLReasoner reasoner = procOntologyHandler.createReasoner();
+        log.info("bp ontology consistent: " + reasoner.isConsistent());
+
+        return procOntologyHandler.getOntology();
     }
 
     public OWLOntology loadOrganizationOntology(IRI documentIRI) {
@@ -97,11 +97,22 @@ public class RALOntologyManager {
         OrganizationOWLMapper orgMapper = new OrganizationOWLMapper(orgOntologyHandler, idMapper);
         orgMapper.map(org);
 
+        OWLReasoner reasoner = orgOntologyHandler.createReasoner();
+        log.info("org ontology consistent: " + reasoner.isConsistent());
+
         return orgOntologyHandler.getOntology();
     }
 
     public void loadResourceAssignment(ResourceAssignment assignment) {
         this.assignment = assignment;
+        if (dtAssignment != null) {
+            manager.removeOntology(dtAssignment.getOntology());
+            dtAssignment = null;
+        }
+        if (rtAssignment != null) {
+            manager.removeOntology(rtAssignment.getOntology());
+            rtAssignment = null;
+        }
     }
 
     public LogOntologyHandler.ProcessInstance logProcessInstance(String processName, String pid) {
@@ -118,6 +129,8 @@ public class RALOntologyManager {
     }
 
     public AssignmentOntology getRuntimeAssignmentOntology(String pid) {
+        if (assignment == null) throw new IllegalStateException();
+
         if (rtAssignment != null)
             manager.removeOntology(rtAssignment.getOntology());
 
@@ -128,6 +141,8 @@ public class RALOntologyManager {
     }
 
     public AssignmentOntology getDesignTimeAssignmentOntology() {
+        if (assignment == null) throw new IllegalStateException();
+
         if (dtAssignment == null) {
             dtAssignment = new DTSubClassAssignmentOntology(createImportAllOntology(DTASSIGNMENT_IRI), idMapper, engine);
             dtAssignment.buildOntology(assignment);

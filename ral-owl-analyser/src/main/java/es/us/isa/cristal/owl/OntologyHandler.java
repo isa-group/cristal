@@ -2,8 +2,8 @@ package es.us.isa.cristal.owl;
 
 import org.semanticweb.HermiT.Reasoner;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /**
@@ -39,8 +39,14 @@ public class OntologyHandler {
 
 
     public OWLReasoner createReasoner() {
-        Reasoner.ReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
+//        OWLReasonerFactory reasonerFactory = PelletOWLAPIReasonerFactory.getInstance();
+        OWLReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
+
+
         OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
+//        IncrementalClassifier classifier = new IncrementalClassifier((PelletReasoner) reasoner);
+//        ontology.getOWLOntologyManager().addOntologyChangeListener((PelletOWLAPIReasoner) reasoner);
+
         return reasoner;
     }
 }

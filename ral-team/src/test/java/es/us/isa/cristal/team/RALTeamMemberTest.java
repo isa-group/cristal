@@ -2,6 +2,7 @@ package es.us.isa.cristal.team;
 
 import es.us.isa.cristal.owl.OntologyNamespaces;
 import es.us.isa.cristal.owl.mappers.ral.designtime.DTOwlRalMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.test.utils.bpEngine.MockBPEngine;
 
@@ -29,7 +30,7 @@ public class RALTeamMemberTest {
     public void testMember() throws Exception {
         IdMapper idMapper = new IdMapper(namespaces);
         RALTeamCore r = new RALTeamCore(idMapper);
-        RALTeamMember m = new RALTeamMember(idMapper, new DTOwlRalMapper(idMapper, new MockBPEngine()), "1");
+        RALTeamMember m = new RALTeamMember(idMapper, new DTOwlRalMapper(idMapper, new MockBPEngine(), new DTSubClassAssignmentOntology.ActivityMapper()), "1");
 
         System.out.println(
                 r.and(

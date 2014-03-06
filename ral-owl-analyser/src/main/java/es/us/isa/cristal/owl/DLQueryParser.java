@@ -73,23 +73,23 @@ public class DLQueryParser {
 		return parser;
 	}
 
-	public Set<OntologyAxiomPair> parseIndividualFrame(String string) {
-		ManchesterOWLSyntaxEditorParser parser = createParser(string);
-		try {
-			return parser.parseIndividualFrame();
-		} catch (ParserException e) {			
-			throw new RuntimeException(e);
-		}
-	}
-
-	public OWLIndividual parseIndividual(String string) {
-		ManchesterOWLSyntaxEditorParser parser = createParser(string);
-		try {
-			return parser.parseIndividual();
-		} catch (ParserException e) {			
-			throw new RuntimeException(e);
-		}
-	}
+//	public Set<OntologyAxiomPair> parseIndividualFrame(String string) {
+//		ManchesterOWLSyntaxEditorParser parser = createParser(string);
+//		try {
+//			return parser.parseIndividualFrame();
+//		} catch (ParserException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+//
+//	public OWLIndividual parseIndividual(String string) {
+//		ManchesterOWLSyntaxEditorParser parser = createParser(string);
+//		try {
+//			return parser.parseIndividual();
+//		} catch (ParserException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 	
 	public OWLAxiom parseAxiom(String string) {
 		ManchesterOWLSyntaxEditorParser parser = createParser(string);

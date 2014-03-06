@@ -1,48 +1,175 @@
 package es.us.isa.cristal.owl.analysers;
 
+
+import com.complexible.common.openrdf.model.Graphs;
+import com.complexible.stardog.StardogException;
+import com.complexible.stardog.api.ConnectionConfiguration;
+import com.complexible.stardog.api.IO;
+import com.complexible.stardog.api.SelectQuery;
+import com.complexible.stardog.api.admin.AdminConnection;
+import com.complexible.stardog.api.admin.AdminConnectionConfiguration;
+import com.complexible.stardog.api.reasoning.ReasoningConnection;
+import com.complexible.stardog.db.DatabaseOptions;
+import com.complexible.stardog.protocols.snarl.SNARLProtocolConstants;
+import com.complexible.stardog.reasoning.api.ReasoningType;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.DLHelper;
 import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.Definitions;
+import es.us.isa.cristal.owl.RALOntologyManager;
 import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.InstanceTaskDutyMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.TaskDutyMapper;
+import org.openrdf.model.Graph;
+import org.openrdf.model.Statement;
+import org.openrdf.model.URI;
+import org.openrdf.model.impl.ValueFactoryImpl;
+import org.openrdf.query.QueryEvaluationException;
+import org.openrdf.query.TupleQueryResult;
+import org.openrdf.rio.RDFFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.util.*;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+import javax.annotation.Resource;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-public class DTSubClassRALAnalyser extends AbstractRALAnalyser {
+public class DTStardogRALAnalyser extends AbstractRALAnalyser {
 
-    private static final Logger log = Logger.getLogger(DTSubClassRALAnalyser.class.getName());
+    private static final Logger log = Logger.getLogger(DTStardogRALAnalyser.class.getName());
+    private static String SERVER = "http://localhost:5820/";
 
     private TaskDutyMapper taskDutyMapper;
     private Set<String> organizationPeople;
     private DTSubClassAssignmentOntology.ActivityMapper activityMapper;
     private DefaultPrefixManager prefixManager;
 
-    public DTSubClassRALAnalyser(DLQueryEngine engine, IdMapper mapper, DefaultPrefixManager prefixManager, DTSubClassAssignmentOntology.ActivityMapper activityMapper) {
+    public DTStardogRALAnalyser(DLQueryEngine engine, IdMapper mapper, DefaultPrefixManager prefixManager, DTSubClassAssignmentOntology.ActivityMapper activityMapper) {
 		super(engine, mapper);
         this.activityMapper = activityMapper;
         this.prefixManager = prefixManager;
-//        engine.getReasoner().precomputeInferences(InferenceType.CLASS_ASSERTIONS, InferenceType.CLASS_HIERARCHY,
-//                InferenceType.DIFFERENT_INDIVIDUALS, InferenceType.SAME_INDIVIDUAL, InferenceType.DISJOINT_CLASSES,
-//                InferenceType.OBJECT_PROPERTY_ASSERTIONS);
-//        Reasoner r = (Reasoner) engine.getReasoner();
-//        r.classifyClasses();
-//        r.classifyObjectProperties();
-//        r.classifyDataProperties();
 
         OWLReasoner reasoner = engine.getReasoner();
         OWLOntology ontology = reasoner.getRootOntology();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
+
+
+
+        try {
+//            Server aServer = Stardog
+//                    .buildServer()
+//                    .bind(SNARLProtocolConstants.EMBEDDED_ADDRESS)
+//                    .start();
+
+            AdminConnection aAdminConnection = AdminConnectionConfiguration.toServer(SERVER)
+                    .credentials("admin", "admin")
+                    .connect();
+
+            if (aAdminConnection.list().contains("reasoningExampleTest")) {
+                aAdminConnection.drop("reasoningExampleTest");
+            }
+
+            // Convenience function for creating a non-persistent in-memory database with all the default settings.
+            aAdminConnection.disk("reasoningExampleTest").create();
+
+            // *ALWAYS* close your connections!
+            aAdminConnection.close();
+
+            ReasoningConnection aReasoningConn = ConnectionConfiguration
+                    .to("reasoningExampleTest")
+                    .server(SERVER)
+                    .credentials("admin", "admin")
+                    .reasoning(ReasoningType.SL)
+                    .connect()
+                    .as(ReasoningConnection.class);
+
+            aReasoningConn.begin();
+
+            IO aAdder = aReasoningConn.add().io().format(RDFFormat.RDFXML);
+
+            Set<OWLOntology> importsClosure = ontology.getImportsClosure();
+            for (OWLOntology ont : importsClosure) {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                manager.saveOntology(ont, outputStream);
+                InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+                aAdder.stream(inputStream);
+            }
+
+            ByteArrayOutputStream assignmentStream = new ByteArrayOutputStream();
+            manager.saveOntology(ontology, assignmentStream);
+            InputStream assignments = new ByteArrayInputStream(assignmentStream.toByteArray());
+
+            aAdder.stream(assignments);
+
+            aReasoningConn.commit();
+
+            URI orgPeople = ValueFactoryImpl.getInstance().createURI(prefixManager.getIRI(Definitions.ORGANIZATIONPEOPLE).toString());
+
+            SelectQuery aQuery = aReasoningConn.select("SELECT ?x WHERE {\n" +
+                            "?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type\n" +
+                            "}").reasoning(ReasoningType.SL);
+            aQuery.parameter("type", orgPeople);
+            TupleQueryResult result = aQuery.execute();
+
+            log.info("org people: " + StardogHelper.getElements(result, "x"));
+
+            log.info("consistent: " + aReasoningConn.isConsistent());
+            log.info("unstaisf: " + aReasoningConn.getUnsatisfiableClasses());
+
+            SelectQuery criticalQuery = aReasoningConn.select("SELECT ?x WHERE {\n" +
+                    "?x <http://www.w3.org/2000/01/rdf-schema#subClassOf> ?type\n" +
+                    "}").reasoning(ReasoningType.SL);
+
+            URI critical = ValueFactoryImpl.getInstance().createURI(Definitions.ORGANIZATION_IRI+"#critical");
+            criticalQuery.parameter("type", critical);
+            result = criticalQuery.execute();
+            log.info("critical: " + StardogHelper.getElements(result, "x"));
+
+
+            aReasoningConn.begin();
+            result = aQuery.execute();
+
+            URI aContext = ValueFactoryImpl.getInstance().createURI("urn:test:context");
+            URI type = ValueFactoryImpl.getInstance().createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+            URI a8 = ValueFactoryImpl.getInstance().createURI("bpi:a8");
+            URI hasResponsible = ValueFactoryImpl.getInstance().createURI(prefixManager.getIRI(Definitions.HASRESPONSIBLE).toString());
+            URI act = ValueFactoryImpl.getInstance().createURI("http://localhost/bpperformance#activity8");
+            Statement a8statement = ValueFactoryImpl.getInstance().createStatement(a8, type, act);
+            aReasoningConn.add().statement(a8statement);
+
+            aReasoningConn.commit();
+
+            while (result.hasNext()) {
+                aReasoningConn.begin();
+
+                URI r = ValueFactoryImpl.getInstance().createURI(result.next().getValue("x").stringValue());
+                aReasoningConn.add().statement(r, hasResponsible, a8, aContext);
+
+                aReasoningConn.commit();
+                log.info("cons instancias: " + aReasoningConn.isConsistent());
+
+                aReasoningConn.begin();
+                aReasoningConn.remove().context(aContext);
+                aReasoningConn.commit();
+            }
+
+
+            aReasoningConn.close();
+
+        } catch (StardogException e) {
+            throw new RuntimeException(e);
+        } catch (OWLOntologyStorageException e) {
+            throw new RuntimeException(e);
+        } catch (QueryEvaluationException e) {
+            e.printStackTrace();
+        }
 
 
 //        List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
@@ -60,13 +187,13 @@ public class DTSubClassRALAnalyser extends AbstractRALAnalyser {
 //        }
 
 
-        OWLClass orgPeople = factory.getOWLClass(Definitions.ORGANIZATIONPEOPLE, prefixManager);
-        Set<OWLIndividual> individuals = orgPeople.getIndividuals(ontology);
-        organizationPeople = DLHelper.mapFromOwlIndividual(individuals);
-
-        organizationPeople = DLHelper.mapFromOwl(engine.getInstances(Definitions.ORGANIZATIONPEOPLE, false));
-
-        log.info("org people: " + organizationPeople);
+//        OWLClass orgPeople = factory.getOWLClass(Definitions.ORGANIZATIONPEOPLE, prefixManager);
+//        Set<OWLIndividual> individuals = orgPeople.getIndividuals(ontology);
+//        organizationPeople = DLHelper.mapFromOwlIndividual(individuals);
+//
+//        organizationPeople = DLHelper.mapFromOwl(engine.getInstances(Definitions.ORGANIZATIONPEOPLE, false));
+//
+//        log.info("org people: " + organizationPeople);
 
         taskDutyMapper = new InstanceTaskDutyMapper();
     }
@@ -101,33 +228,10 @@ public class DTSubClassRALAnalyser extends AbstractRALAnalyser {
 
     }
 
-    private Set<String> instancePP(String activityName, TaskDuty duty) {
-        String hasDuty =  taskDutyMapper.map(duty);
-        String expressionString = Definitions.ORGANIZATIONPEOPLE + " and not ( inverse("+hasDuty + ") value " + activityMapper.mapActivity(activityName)+")";
-        log.info("PotentialParticipant: " + expressionString);
-
-        Set<String> notParticipants = DLHelper.mapFromOwl(engine.getInstances(expressionString, false));
-
-//        OWLReasoner reasoner = engine.getReasoner();
-//        OWLOntology ontology = reasoner.getRootOntology();
-//        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-//        OWLDataFactory factory = manager.getOWLDataFactory();
-//        OWLClass assign = factory.getOWLClass(activityMapper.mapAssignment(activityName), prefixManager);
-//        Set<String> notParticipants = DLHelper.mapFromOwlIndividual(assign.getIndividuals(ontology));
-        log.info("Not potential participants: " + notParticipants);
-
-        Set<String> result = new HashSet<String>(organizationPeople);
-        result.removeAll(notParticipants);
-
-        return result;
-
-    }
-
     @Override
     public Set<String> potentialParticipants(String activityName, TaskDuty duty) {
 //        return classicPP(activityName, duty);
-//        return peoplePP(activityName, duty);
-        return instancePP(activityName, duty);
+        return peoplePP(activityName, duty);
     }
 
     private Set<String> peoplePP(String activityName, TaskDuty duty) {
@@ -137,32 +241,14 @@ public class DTSubClassRALAnalyser extends AbstractRALAnalyser {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
 
-        OWLClassExpression classExpression = factory.getOWLObjectIntersectionOf(
-                factory.getOWLObjectSomeValuesFrom(
-                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
-                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager)),
-                factory.getOWLObjectAllValuesFrom(
-                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
-                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager))
-        );
+        OWLClassExpression classExpression = factory.getOWLObjectSomeValuesFrom(
+                factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
+                factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager));
 
         Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
 
         Set<OWLNamedIndividual> potential = engine.getInstances(activityMapper.mapAssignment(activityName), false);
 
-//
-//        if (potential.size() == organizationPeople.size()) {
-//            OWLSubClassOfAxiom axiom = factory.getOWLSubClassOfAxiom(
-//                    factory.getOWLClass(Definitions.ORGANIZATIONPEOPLE, prefixManager),
-//                    classExpression
-//            );
-//            manager.addAxiom(ontology, axiom);
-//            reasoner.flush();
-//            if (reasoner.isConsistent()) {
-//                return DLHelper.mapFromOwl(potential);
-//            }
-//            manager.removeAxiom(ontology, axiom);
-//        }
 
 
         // Hope for the best
@@ -179,104 +265,7 @@ public class DTSubClassRALAnalyser extends AbstractRALAnalyser {
             }
             reasoner.flush();
             for (OWLNamedIndividual p : potential) {
-//                OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
-                OWLAxiom axiom = factory.getOWLSubClassOfAxiom(
-                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager),
-                        factory.getOWLObjectIntersectionOf(
-                                factory.getOWLObjectHasValue(
-                                        factory.getOWLObjectProperty(hasDuty, prefixManager),
-                                        p),
-                                factory.getOWLObjectAllValuesFrom(
-                                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
-                                        factory.getOWLObjectOneOf(p)
-                                )
-                        )
-                );
-
-                log.info(axiom.toString());
-
-                manager.addAxiom(ontology, axiom);
-                reasoner.flush();
-
-                if (reasoner.isConsistent()) {
-                    result.add(p);
-                } else {
-//                    reasoner.flush();
-                }
-                manager.removeAxiom(ontology, axiom);
-
-            }
-            reasoner.flush();
-        } else {
-            result = potential;
-        }
-
-
-        return DLHelper.mapFromOwl(result);
-    }
-
-    private Set<String> peopleInstancePP(String activityName, TaskDuty duty) {
-        String hasDuty =  taskDutyMapper.map(duty);
-        OWLReasoner reasoner = engine.getReasoner();
-        OWLOntology ontology = reasoner.getRootOntology();
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        OWLDataFactory factory = manager.getOWLDataFactory();
-
-        OWLClassExpression classExpression = factory.getOWLObjectIntersectionOf(
-                factory.getOWLObjectSomeValuesFrom(
-                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
-                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager)),
-                factory.getOWLObjectAllValuesFrom(
-                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
-                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager))
-        );
-
-        Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
-
-        Set<OWLNamedIndividual> potential = engine.getInstances(activityMapper.mapAssignment(activityName), false);
-
-//
-//        if (potential.size() == organizationPeople.size()) {
-//            OWLSubClassOfAxiom axiom = factory.getOWLSubClassOfAxiom(
-//                    factory.getOWLClass(Definitions.ORGANIZATIONPEOPLE, prefixManager),
-//                    classExpression
-//            );
-//            manager.addAxiom(ontology, axiom);
-//            reasoner.flush();
-//            if (reasoner.isConsistent()) {
-//                return DLHelper.mapFromOwl(potential);
-//            }
-//            manager.removeAxiom(ontology, axiom);
-//        }
-
-
-        // Hope for the best
-        for (OWLNamedIndividual p: potential) {
-            OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
-            manager.addAxiom(ontology,axiom);
-        }
-        reasoner.flush();
-
-        if (!reasoner.isConsistent()) {
-            for (OWLNamedIndividual p: potential) {
                 OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
-                manager.removeAxiom(ontology,axiom);
-            }
-            reasoner.flush();
-            for (OWLNamedIndividual p : potential) {
-//                OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
-                OWLAxiom axiom = factory.getOWLSubClassOfAxiom(
-                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager),
-                        factory.getOWLObjectIntersectionOf(
-                                factory.getOWLObjectHasValue(
-                                        factory.getOWLObjectProperty(hasDuty, prefixManager),
-                                        p),
-                                factory.getOWLObjectAllValuesFrom(
-                                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
-                                        factory.getOWLObjectOneOf(p)
-                                )
-                        )
-                );
 
                 log.info(axiom.toString());
 
@@ -286,12 +275,11 @@ public class DTSubClassRALAnalyser extends AbstractRALAnalyser {
                 if (reasoner.isConsistent()) {
                     result.add(p);
                 } else {
-//                    reasoner.flush();
+                    manager.removeAxiom(ontology, axiom);
+                    reasoner.flush();
                 }
-                manager.removeAxiom(ontology, axiom);
 
             }
-            reasoner.flush();
         } else {
             result = potential;
         }
@@ -376,8 +364,7 @@ public class DTSubClassRALAnalyser extends AbstractRALAnalyser {
         String q = Definitions.ACTIVITYINSTANCE + " and " + hasDuty + " exactly 1 " + Definitions.ORGANIZATIONPEOPLE;
         log.info("Critical activities query:" + q);
 
-//        Set<String> criticalActivities = DLHelper.mapClassesFromOwl(engine.getSubClasses(Definitions.ORGANIZATION+"critical", false));
-        Set<String> criticalActivities = DLHelper.mapFromOwl(engine.getInstances(Definitions.ORGANIZATION+"critical", false));
+        Set<String> criticalActivities = DLHelper.mapClassesFromOwl(engine.getSubClasses(activityMapper.mapActivity("critical"), false));
         log.info("Critical activities result: " + criticalActivities);
 
         return criticalActivities;
