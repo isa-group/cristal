@@ -26,7 +26,7 @@
 		</dependency>
 		<dependency>
 			<groupId>es.us.isa.cristal</groupId>
-			<artifactId>ral-neo4j</artifactId>
+			<artifactId>ral-neo4j-analyser</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>es.us.isa.cristal</groupId>
