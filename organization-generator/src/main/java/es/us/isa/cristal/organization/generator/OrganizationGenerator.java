@@ -1,6 +1,7 @@
 package es.us.isa.cristal.organization.generator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import es.us.isa.cristal.organization.generator.distributors.PositionDelegatesMultipleRandomDistributor;
@@ -29,9 +30,11 @@ public class OrganizationGenerator {
 
 
 
-	public Model generate(){
+	public Model generate(GenerationMode... generationModes){
 		Model model = new Model();
-		//generate people
+        List<GenerationMode> modes = Arrays.asList(generationModes);
+
+        //generate people
 		Integer numberOfPersons = config.getNumberOfPersonsFunction().getResult();
 		List<Person> persons = new ArrayList<Person>();
 		for(int i=0; i<numberOfPersons;i++){
@@ -62,19 +65,21 @@ public class OrganizationGenerator {
 		}
 		model.setUnits(units);
 		
-		((PositionReportsMultipleRandomDistributor) config.getPositionReportsDistributor()).setPositions(positions);
-		
-		((PositionDelegatesMultipleRandomDistributor) config.getPositionDelegatesDistributor()).setPositions(positions);
-		
 		config.getPersonPositionDistributor().distribute(persons, positions);
 		
 		config.getRolePositionDistributor().distribute(roles, positions);
 		
 		config.getPositionUnitDistributor().distribute(positions, units);
-		
-		config.getPositionReportsDistributor().distribute(positions, positions);
-		
-		config.getPositionDelegatesDistributor().distribute(positions, positions);
+
+        if (! modes.contains(GenerationMode.DISABLE_REPORTSTO)) {
+            ((PositionReportsMultipleRandomDistributor) config.getPositionReportsDistributor()).setPositions(positions);
+		    config.getPositionReportsDistributor().distribute(positions, positions);
+        }
+
+        if (! modes.contains(GenerationMode.DISABLE_DELEGATESTO)) {
+            ((PositionDelegatesMultipleRandomDistributor) config.getPositionDelegatesDistributor()).setPositions(positions);
+		    config.getPositionDelegatesDistributor().distribute(positions, positions);
+        }
 				
 		return model;
 		

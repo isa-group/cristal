@@ -8,6 +8,7 @@ import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.queries.Neo4jQueryBuilder;
 import es.us.isa.cristal.organization.generator.ConfigurationFactory;
+import es.us.isa.cristal.organization.generator.GenerationMode;
 import es.us.isa.cristal.organization.generator.GeneratorConfiguration;
 import es.us.isa.cristal.organization.generator.OrganizationGenerator;
 import es.us.isa.cristal.organization.generator.distributors.*;
@@ -174,11 +175,10 @@ public class PerformanceIT {
     }
 
     private Model generateModel(ExecutionData edata) {
-        ConfigurationFactory factory = new ConfigurationFactory();
         OrganizationGenerator generator = new OrganizationGenerator(buildConfiguration(edata.getModelWeight()));
 
         System.out.println("Generating model...");
-        return generator.generate();
+        return generator.generate(GenerationMode.DISABLE_DELEGATESTO, GenerationMode.DISABLE_REPORTSTO);
     }
 
     private void exportResults(ExecutionData edata, Model model) {
