@@ -16,4 +16,4 @@ public abstract class AbstractRALAnalyser implements RALAnalyser {
     }
 
 
-    }
+}

@@ -3,16 +3,11 @@ package es.us.isa.cristal.owl.mappers.ral.designtimesc.expr;
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.constraints.Constraint;
 import es.us.isa.cristal.model.constraints.DataConstraint;
-import es.us.isa.cristal.model.expressions.IsAssignmentExpr;
 import es.us.isa.cristal.model.expressions.NegativeExpr;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.Definitions;
-import es.us.isa.cristal.owl.RALOntologyManager;
 import es.us.isa.cristal.owl.mappers.ral.ExprMapper;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
-import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
-
-import static es.us.isa.cristal.owl.Definitions.PERSON;
 
 
 /**

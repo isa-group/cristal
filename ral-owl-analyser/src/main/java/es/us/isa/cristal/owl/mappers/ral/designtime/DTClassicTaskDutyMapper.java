@@ -9,7 +9,7 @@ import es.us.isa.cristal.owl.mappers.ral.misc.TaskDutyMapper;
  * Date: 07/07/13
  * Time: 12:05
  */
-public class DTTaskDutyMapper implements TaskDutyMapper {
+public class DTClassicTaskDutyMapper implements TaskDutyMapper {
     @Override
     public String map(TaskDuty duty) {
         String isPotentialDuty;

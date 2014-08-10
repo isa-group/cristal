@@ -67,11 +67,11 @@ public class ACScenarioAttendConferenceTest {
 
     @Test
     public void shouldGetPotentialPerformersOfRegisterAtConferenceFuture() {
-        assignment.add("RegisterAtConference", RALParser.parse("IS PERSON WHO DID ACTIVITY SignTravelAuthorization"));
+        assignment.add("SendTravelAuthorization", RALParser.parse("IS PERSON WHO DID ACTIVITY SignTravelAuthorization"));
         loadInFutureLog();
 
         RALAnalyser analyser = manager.createRunTimeAnalyser(pid);
-        Set<String> SignTravelAuthorization = analyser.potentialParticipants("RegisterAtConference", TaskDuty.RESPONSIBLE);
+        Set<String> SignTravelAuthorization = analyser.potentialParticipants("SendTravelAuthorization", TaskDuty.RESPONSIBLE);
         Assert.assertEquals(new HashSet<String>(Arrays.asList("Adela", "Cristina")), SignTravelAuthorization);
         System.out.println(SignTravelAuthorization);
     }
@@ -85,33 +85,35 @@ public class ACScenarioAttendConferenceTest {
 
     @Test
     public void shouldGetPotentialPerformersOfRegisterAtConferenceReadyWithNot() {
-        assignment.add("RegisterAtConference", RALParser.parse("NOT IS PERSON WHO DID ACTIVITY SignTravelAuthorization"));
+        assignment.add("SendTravelAuthorization", RALParser.parse("NOT IS PERSON WHO DID ACTIVITY SignTravelAuthorization"));
         manager.logProcessInstance("AttendConference", pid)
                 .activity("SignTravelAuthorization", "scr1", LogOntologyHandler.ActivityState.COMPLETED, "Adela")
                 .activity("SignTravelAuthorization", "scr2", LogOntologyHandler.ActivityState.READY)
                 .activity("FillTravelAuthorization", "fta1", LogOntologyHandler.ActivityState.READY)
-                .activity("RegisterAtConference", "rat1", LogOntologyHandler.ActivityState.READY);
+                .activity("SendTravelAuthorization", "rat1", LogOntologyHandler.ActivityState.READY);
 
         RALAnalyser analyser = manager.createRunTimeAnalyser(pid);
-        Set<String> signTravelAuthorization = analyser.potentialParticipants("RegisterAtConference", TaskDuty.RESPONSIBLE);
+        Set<String> signTravelAuthorization = analyser.potentialParticipants("SendTravelAuthorization", TaskDuty.RESPONSIBLE);
         System.out.println(signTravelAuthorization);
         DLQueryEngine engine = manager.getRuntimeAssignmentOntology(pid).createDLQueryEngine();
         System.out.println(engine.getInstances(ACTIVITYINSTANCE + " and not(inverse(" + HASACTIVITYINSTANCE + ") value log:ac1 AND " + ISOFTYPE + " value bp-attend-conference:SignTravelAuthorization AND " + HASSTATE + " some " + AFTERALLOCATION + ")", true));
         System.out.println(engine.isEntailed("{log:scr1} EquivalentTo: (inverse(" + HASACTIVITYINSTANCE + ") value log:ac1 AND " + ISOFTYPE + " value bp-attend-conference:SignTravelAuthorization AND " + HASSTATE + " some " + AFTERALLOCATION + ")"));
+        System.out.println(engine.getInstances("inverse("+HASRESPONSIBLE+") some (inverse(" + HASACTIVITYINSTANCE + ") value log:ac1 AND " + ISOFTYPE + " value bp-attend-conference:SignTravelAuthorization AND " + HASSTATE + " some " + AFTERALLOCATION+")", false));
         System.out.println(engine.getInstances(Definitions.PERSON + " and not(inverse(" + HASRESPONSIBLE + ") some (inverse(" + HASACTIVITYINSTANCE + ") value log:ac1 AND " + ISOFTYPE + " value bp-attend-conference:SignTravelAuthorization AND " + HASSTATE + " some " + AFTERALLOCATION + "))", true));
+        System.out.println(engine.getInstances(Definitions.PERSON + " and not(inverse(" + HASRESPONSIBLE + ") some ({log:scr1}))", true));
         Assert.assertEquals(new HashSet<String>(Arrays.asList("Sergio", "Antonio", "Manuel", "Beatriz", "Ana", "Cristina")), signTravelAuthorization);
     }
 
     @Test
     public void shouldGetPotentialPerformersOfRegisterAtConferenceFutureWithNot() {
-        assignment.add("RegisterAtConference", RALParser.parse("NOT IS PERSON WHO DID ACTIVITY SignTravelAuthorization"));
+        assignment.add("SendTravelAuthorization", RALParser.parse("NOT IS PERSON WHO DID ACTIVITY SignTravelAuthorization"));
         manager.logProcessInstance("AttendConference", pid)
                 .activity("SignTravelAuthorization", "scr1", LogOntologyHandler.ActivityState.COMPLETED, "Adela")
                 .activity("SignTravelAuthorization", "scr2", LogOntologyHandler.ActivityState.READY)
                 .activity("FillTravelAuthorization", "fta1", LogOntologyHandler.ActivityState.READY);
 
         RALAnalyser analyser = manager.createRunTimeAnalyser(pid);
-        Set<String> signTravelAuthorization = analyser.potentialParticipants("RegisterAtConference", TaskDuty.RESPONSIBLE);
+        Set<String> signTravelAuthorization = analyser.potentialParticipants("SendTravelAuthorization", TaskDuty.RESPONSIBLE);
         Assert.assertEquals(new HashSet<String>(Arrays.asList("Sergio", "Antonio", "Manuel", "Beatriz", "Ana", "Cristina")), signTravelAuthorization);
         System.out.println(signTravelAuthorization);
     }

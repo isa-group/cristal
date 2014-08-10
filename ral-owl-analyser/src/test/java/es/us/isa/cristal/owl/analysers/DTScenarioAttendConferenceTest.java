@@ -36,10 +36,6 @@ public class DTScenarioAttendConferenceTest {
 
         manager.loadResourceAssignment(assignment);
 
-//        manager.logProcessInstance("AttendConference", "ac1")
-//                .activity("SubmitCameraReady", "scr1", LogOntologyHandler.ActivityState.COMPLETED, "Adela")
-//                .activity("FillTravelAuthorization", "fta1", LogOntologyHandler.ActivityState.READY);
-
     }
 
     @Test
@@ -82,13 +78,19 @@ public class DTScenarioAttendConferenceTest {
     }
 
     @Test
-    public void shouldGetPermanentParticipants() {
+    public void shouldGetCriticalParticipants() {
         RALAnalyser analyser = manager.createDesignTimeAnalyser();
-        Set<String> results = analyser.permanentParticipants(Arrays.asList("SubmitCameraReady", "FillTravelAuthorization"), TaskDuty.RESPONSIBLE);
+        Set<String> results = analyser.criticalParticipants(Arrays.asList("SubmitCameraReady", "FillTravelAuthorization", "MakeReservations"), TaskDuty.RESPONSIBLE);
 
-        Assert.assertEquals(new HashSet<String>(Arrays.asList("Cristina", "Adela")), results);
-        System.out.println(results);
+        Assert.assertEquals(new HashSet<String>(Arrays.asList("Ana")), results);
+    }
 
+    @Test
+    public void shouldGetCriticalActivitiesOfAna() {
+        RALAnalyser analyser = manager.createDesignTimeAnalyser();
+        Set<String> results = analyser.criticalActivities("Ana", TaskDuty.RESPONSIBLE);
+
+        Assert.assertEquals(new HashSet<String>(Arrays.asList("MakeReservations")), results);
     }
 
     @Test

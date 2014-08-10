@@ -1,5 +1,7 @@
 package es.us.isa.cristal.owl;
 
+import com.clarkparsia.modularity.IncrementalClassifier;
+import com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory;
 import org.semanticweb.HermiT.Reasoner;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -39,13 +41,13 @@ public class OntologyHandler {
 
 
     public OWLReasoner createReasoner() {
-//        OWLReasonerFactory reasonerFactory = PelletOWLAPIReasonerFactory.getInstance();
+//        OWLReasonerFactory reasonerFactory = PelletReasonerFactory.getInstance();
         OWLReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
 
 
         OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
-//        IncrementalClassifier classifier = new IncrementalClassifier((PelletReasoner) reasoner);
-//        ontology.getOWLOntologyManager().addOntologyChangeListener((PelletOWLAPIReasoner) reasoner);
+//        IncrementalClassifier classifier = new IncrementalClassifier(reasoner);
+//        ontology.getOWLOntologyManager().addOntologyChangeListener(classifier);
 
         return reasoner;
     }

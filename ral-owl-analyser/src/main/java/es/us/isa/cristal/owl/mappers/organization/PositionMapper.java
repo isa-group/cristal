@@ -19,8 +19,13 @@ public class PositionMapper extends OrgElementMapper<Organization.Position> {
     private Map<String, List<String>> canBeDelegatedWorkBy = new HashMap<String, List<String>>();
     private Map<String, String> reportsTo = new HashMap<String, String>();
 
-    public PositionMapper(OntologyHandler ontologyHandler, IdMapper mapper) {
+    private Set<String> roles;
+    private Set<String> units;
+
+    public PositionMapper(OntologyHandler ontologyHandler, IdMapper mapper, List<String> roles, List<String> units) {
         super(ontologyHandler, mapper);
+        this.roles = new HashSet<String>(roles);
+        this.units = new HashSet<String>(units);
     }
 
     @Override
@@ -44,14 +49,28 @@ public class PositionMapper extends OrgElementMapper<Organization.Position> {
 
 
     private void mapIsMemberOf(Organization.Position i, OWLNamedIndividual instance) {
-        OWLNamedIndividual unit = factory.getOWLNamedIndividual(mapper.mapGroup(i.getMemberOf()), prefix);
-        propertyAssertion(Definitions.ISMEMBEROF, instance, unit);
+        for (String u : units) {
+            OWLNamedIndividual unit = factory.getOWLNamedIndividual(mapper.mapGroup(u), prefix);
+            if (u.equals(i.getMemberOf())) {
+                propertyAssertion(Definitions.ISMEMBEROF, instance, unit);
+            } else {
+                negativePropertyAssertion(Definitions.ISMEMBEROF, instance, unit);
+            }
+        }
     }
 
     private void mapParticipatesIn(Organization.Position i, OWLNamedIndividual instance) {
+        Set<String> rs = new HashSet<String>(roles);
+
         for (String roleName : i.getParticipatesIn()) {
             OWLNamedIndividual role = factory.getOWLNamedIndividual(mapper.mapGroup(roleName), prefix);
             propertyAssertion(Definitions.PARTICIPATESIN, instance, role);
+            rs.remove(roleName);
+        }
+
+        for (String r : rs) {
+            OWLNamedIndividual role = factory.getOWLNamedIndividual(mapper.mapGroup(r), prefix);
+            negativePropertyAssertion(Definitions.PARTICIPATESIN, instance, role);
         }
 
         String classExpression = Definitions.PARTICIPATESIN + " only {" + joinWith(i.getParticipatesIn()) + "}";
@@ -77,9 +96,9 @@ public class PositionMapper extends OrgElementMapper<Organization.Position> {
     protected void additionalGlobalMap(List<Organization.Position> instanceNames, Set<OWLNamedIndividual> instances) {
         super.additionalGlobalMap(instanceNames, instances);
         for (Organization.Position p : instanceNames) {
-//            mapIsReportedBy(p);
-//            mapCanDelegateWorkTo(p);
-//            mapCanBeDelegatedWorkBy(p);
+            mapIsReportedBy(p);
+            mapCanDelegateWorkTo(p);
+            mapCanBeDelegatedWorkBy(p);
         }
     }
 

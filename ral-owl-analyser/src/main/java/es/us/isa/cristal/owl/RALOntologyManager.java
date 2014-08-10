@@ -4,13 +4,21 @@ import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.Organization;
 import es.us.isa.cristal.ResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
+import es.us.isa.cristal.owl.factories.DTAssignmentOntologyFactory;
+import es.us.isa.cristal.owl.factories.DTSubClassFactory;
+import es.us.isa.cristal.owl.factories.RTAssignmentOntologyFactory;
+import es.us.isa.cristal.owl.factories.RTBasicMappingFactory;
 import es.us.isa.cristal.owl.mappers.process.ProcessActivitiesOWLMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTInstanceAssignmentOntology;
+import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTMixAssignmentOntology;
 import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
 import es.us.isa.cristal.owl.mappers.ral.runtime.RTAssignmentOntology;
 import es.us.isa.cristal.owl.ontologyhandlers.*;
 import es.us.isa.cristal.owl.mappers.organization.OrganizationOWLMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
+import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
@@ -40,9 +48,9 @@ public class RALOntologyManager {
     private OWLOntologyManager manager;
     private DefaultPrefixManager prefixManager;
 
-    private IdMapper idMapper;
+    private final IdMapper idMapper;
     private final BPEngine engine;
-    private OntologyNamespaces namespaces;
+    private final OntologyNamespaces namespaces;
 
     private IRI processIRI;
     private IRI organizationIRI;
@@ -51,11 +59,22 @@ public class RALOntologyManager {
     private AssignmentOntology dtAssignment;
     private AssignmentOntology rtAssignment;
 
+    private DTAssignmentOntologyFactory dtFactory;
+    private RTAssignmentOntologyFactory rtFactory;
+
     private ResourceAssignment assignment;
 
-    public RALOntologyManager(OntologyNamespaces namespaces, BPEngine engine) {
+
+    public RALOntologyManager(BPEngine engine, DTAssignmentOntologyFactory dtFactory, RTAssignmentOntologyFactory rtFactory) {
+        this(createOntologyNamespaces(), engine, dtFactory, rtFactory);
+    }
+
+    public RALOntologyManager(OntologyNamespaces namespaces, BPEngine engine, DTAssignmentOntologyFactory dtFactory, RTAssignmentOntologyFactory rtFactory) {
         this.engine = engine;
         this.namespaces = namespaces;
+        this.dtFactory = dtFactory;
+        this.rtFactory = rtFactory;
+
         idMapper = new IdMapper(namespaces);
 
         manager = createOntologyManager();
@@ -63,6 +82,12 @@ public class RALOntologyManager {
 
         prefixManager = createPrefixManager(namespaces);
     }
+
+    public RALOntologyManager(OntologyNamespaces namespaces, BPEngine engine) {
+        this(namespaces, engine, new DTSubClassFactory(), new RTBasicMappingFactory());
+    }
+
+
 
 
     // Loaders -------------------------------------
@@ -134,7 +159,7 @@ public class RALOntologyManager {
         if (rtAssignment != null)
             manager.removeOntology(rtAssignment.getOntology());
 
-        rtAssignment = new RTAssignmentOntology(createImportAllOntology(RTASSIGNMENT_IRI + "-" + pid), pid, getLogOntologyHandler(), idMapper, engine);
+        rtAssignment = rtFactory.createAssignmentOntology(createImportAllOntology(RTASSIGNMENT_IRI + "-" + pid), idMapper, engine, pid, getLogOntologyHandler());
         rtAssignment.buildOntology(assignment);
 
         return rtAssignment;
@@ -144,7 +169,7 @@ public class RALOntologyManager {
         if (assignment == null) throw new IllegalStateException();
 
         if (dtAssignment == null) {
-            dtAssignment = new DTSubClassAssignmentOntology(createImportAllOntology(DTASSIGNMENT_IRI), idMapper, engine);
+            dtAssignment = dtFactory.createAssignmentOntology(createImportAllOntology(DTASSIGNMENT_IRI), idMapper, engine);
             dtAssignment.buildOntology(assignment);
         }
         return dtAssignment;
@@ -161,6 +186,7 @@ public class RALOntologyManager {
     // Private methods ---------------------------------
 
     private OWLOntologyManager createOntologyManager() {
+        OWLParserFactoryRegistry.getInstance().registerParserFactory(new RDFXMLParserFactory());
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
         CommonBaseIRIMapper ralOntologyMapper = null;
@@ -267,6 +293,15 @@ public class RALOntologyManager {
 
         return createOntology(IRI.create(ontologyIRI), organizationIRI, processIRI, Definitions.BPMN_IRI);
     }
+
+    private static OntologyNamespaces createOntologyNamespaces() {
+        OntologyNamespaces namespaces = new OntologyNamespaces();
+        namespaces.setPerson("org", "http://ppinot/org");
+        namespaces.setGroup("org", "http://ppinot/org");
+        namespaces.setActivity("bp", "http://ppinot/bp");
+        return namespaces;
+    }
+
 
 
 }

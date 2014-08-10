@@ -3,7 +3,43 @@
 	modelWeight: 50,
 	processExpressionForEachIteration: true,
 	iterations: 5,
+	aaqueryList: [
+                           { activity: "activity2", query: "HAS POSITION #RandomPosition#" },
+                           { activity: "activity1", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity4", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+                           { activity: "activity5", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity7", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+                           { activity: "activity8", query: "HAS POSITION #RandomPosition#" },
+                           { activity: "activity9", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity11", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity21", query: "HAS POSITION #RandomPosition# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity24", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+                           { activity: "activity25", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity29", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity211", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity310", query: "NOT HAS POSITION #RandomPosition#" },
+                           { activity: "activity311", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity322", query: "HAS POSITION #RandomPosition#" },
+                           { activity: "activity321", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+                           { activity: "activity324", query: "HAS ROLE #RandomRole# AND HAS UNIT #RandomUnit#" },
+                           { activity: "activity325", query: "NOT HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" }
+                   	]  ,
 	queryList: [
+			{ activity: "activity1", query: "HAS POSITION position1" },
+			{ activity: "activity2", query: "IS PERSON WHO DID ACTIVITY activity1 AND NOT IS person1" },
+			{ activity: "activity3", query: "HAS ROLE role1" }
+	],
+	ooql: [
+			{ activity: "activity2", query: "HAS POSITION position1" },
+			{ activity: "activity1", query: "NOT IS PERSON WHO DID ACTIVITY activity2 AND HAS POSITION position1" },
+			{ activity: "activity4", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+			{ activity: "activity5", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+			{ activity: "activity7", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+			{ activity: "activity8", query: "HAS POSITION #RandomPosition#" },
+			{ activity: "activity9", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+			{ activity: "activity3", query: "HAS ROLE #RandomRole# AND HAS UNIT #RandomUnit#" }
+	],
+	bqueryList: [
 			{ activity: "activity2", query: "HAS POSITION #RandomPosition#" },
 			{ activity: "activity1", query: "HAS ROLE #RandomRole#" },
 			{ activity: "activity6", query: "IS PERSON WHO DID ACTIVITY activity1" },
@@ -15,6 +51,42 @@
 			{ activity: "activity8", query: "HAS POSITION #RandomPosition#" },
 			{ activity: "activity9", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
 			{ activity: "activity3", query: "HAS ROLE #RandomRole# AND HAS UNIT #RandomUnit#" }
-	]
+	],
+	morequeryList: [
+            { activity: "activity2", query: "HAS POSITION #RandomPosition#" },
+            { activity: "activity1", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity4", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+            { activity: "activity5", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity6", query: "IS PERSON WHO DID ACTIVITY activity1" },
+            { activity: "activity7", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+            { activity: "activity8", query: "HAS POSITION #RandomPosition#" },
+            { activity: "activity9", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity10", query: "NOT IS PERSON WHO DID ACTIVITY activity6" },
+            { activity: "activity11", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity22", query: "NOT IS PERSON WHO DID ACTIVITY activity8 AND HAS POSITION #RandomPosition#" },
+            { activity: "activity21", query: "HAS POSITION #RandomPosition# OR HAS ROLE #RandomRole#" },
+            { activity: "activity24", query: "HAS POSITION #RandomPosition# AND HAS UNIT #RandomUnit#" },
+            { activity: "activity25", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity26", query: "NOT HAS POSITION #RandomPosition#" },
+            { activity: "activity27", query: "HAS ROLE #RandomRole# AND NOT HAS UNIT #RandomUnit#" },
+            { activity: "activity28", query: "IS PERSON WHO DID ACTIVITY activity10 AND HAS POSITION #RandomPosition#" },
+            { activity: "activity29", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity210", query: "IS PERSON WHO DID ACTIVITY activity6 AND HAS POSITION #RandomPosition#" },
+            { activity: "activity211", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity310", query: "HAS POSITION #RandomPosition#" },
+            { activity: "activity311", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity322", query: "HAS POSITION #RandomPosition#" },
+            { activity: "activity321", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity324", query: "HAS ROLE #RandomRole# AND HAS UNIT #RandomUnit#" },
+            { activity: "activity325", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity326", query: "HAS POSITION #RandomPosition#" },
+            { activity: "activity327", query: "HAS ROLE #RandomRole# AND HAS UNIT #RandomUnit#" },
+            { activity: "activity328", query: "HAS POSITION #RandomPosition#" },
+            { activity: "activity329", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity3210", query: "HAS POSITION #RandomPosition#" },
+            { activity: "activity3211", query: "HAS ROLE #RandomRole# OR HAS ROLE #RandomRole#" },
+            { activity: "activity3", query: "HAS ROLE #RandomRole# AND HAS UNIT #RandomUnit#" }
+    	]
+
 
 }

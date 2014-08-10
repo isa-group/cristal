@@ -4,7 +4,7 @@ import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.DLHelper;
 import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.Definitions;
-import es.us.isa.cristal.owl.mappers.ral.designtime.DTTaskDutyMapper;
+import es.us.isa.cristal.owl.mappers.ral.designtime.DTClassicTaskDutyMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.TaskDutyMapper;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -24,7 +24,7 @@ public class DTRALAnalyser extends AbstractRALAnalyser {
 
     public DTRALAnalyser(DLQueryEngine engine, IdMapper mapper) {
 		super(engine, mapper);
-        taskDutyMapper = new DTTaskDutyMapper();
+        taskDutyMapper = new DTClassicTaskDutyMapper();
     }
 
     private void testQuery(String query) {

@@ -45,7 +45,25 @@ public class LogOntologyHandler extends OntologyHandler {
 
     public void propertyAssertion(String property, OWLNamedIndividual source, OWLNamedIndividual target) {
         OWLObjectProperty prop = factory.getOWLObjectProperty(property, prefixManager);
-        manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(prop, source, target));
+        OWLObjectPropertyAssertionAxiom axiom = factory.getOWLObjectPropertyAssertionAxiom(prop, source, target);
+        manager.addAxiom(ontology, axiom);
+        System.out.println(axiom);
+    }
+
+    public void exactlyOneAssertion(String property, OWLNamedIndividual source, OWLNamedIndividual target) {
+        OWLObjectProperty prop = factory.getOWLObjectProperty(property, prefixManager);
+        OWLObjectExactCardinality exactCardinality = factory.getOWLObjectExactCardinality(1, prop, factory.getOWLObjectOneOf(target));
+        OWLSubClassOfAxiom axiom = factory.getOWLSubClassOfAxiom(factory.getOWLObjectOneOf(source), exactCardinality);
+        manager.addAxiom(ontology, axiom);
+        System.out.println(axiom);
+    }
+
+    public void onlyAssertion(String property, OWLNamedIndividual source, OWLNamedIndividual target) {
+        OWLObjectProperty prop = factory.getOWLObjectProperty(property, prefixManager);
+        OWLObjectAllValuesFrom only = factory.getOWLObjectAllValuesFrom(prop, factory.getOWLObjectOneOf(target));
+        OWLSubClassOfAxiom axiom = factory.getOWLSubClassOfAxiom(factory.getOWLObjectOneOf(source), only);
+        manager.addAxiom(ontology, axiom);
+        System.out.println(axiom);
     }
 
     public void noInversePropertyAssertion(String property, OWLNamedIndividual source) {
@@ -85,8 +103,10 @@ public class LogOntologyHandler extends OntologyHandler {
 
         classAssertion(Definitions.ACTIVITYINSTANCE, currentActivity);
         propertyAssertion(Definitions.ISOFTYPE, currentActivity, activity);
+        onlyAssertion(Definitions.ISOFTYPE, currentActivity, activity);
         propertyAssertion(Definitions.HASACTIVITYINSTANCE, currentProcess, currentActivity);
         propertyAssertion(Definitions.HASSTATE, currentActivity, currentState);
+        onlyAssertion(Definitions.HASSTATE, currentActivity, currentState);
     }
 
     private void activityParticipant(String aid, String participantName, TaskDuty duty) {
@@ -95,6 +115,7 @@ public class LogOntologyHandler extends OntologyHandler {
 
         String taskduty = new InstanceTaskDutyMapper().map(duty);
         propertyAssertion(taskduty, currentActivity, participant);
+        onlyAssertion(taskduty, currentActivity, participant);
 
     }
 

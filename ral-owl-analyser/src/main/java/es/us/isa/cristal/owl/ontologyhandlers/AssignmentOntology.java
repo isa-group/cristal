@@ -38,6 +38,5 @@ public abstract class AssignmentOntology extends OntologyHandler {
 
     public abstract void buildOntology(ResourceAssignment assignment);
 
-    //public abstract void addParticipant(String activityName, RALExpr expr, TaskDuty duty);
     public abstract RALAnalyser createAnalyser();
 }

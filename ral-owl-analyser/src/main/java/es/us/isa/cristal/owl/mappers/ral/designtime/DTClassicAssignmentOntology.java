@@ -8,7 +8,7 @@ import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.analysers.DTRALAnalyser;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
-import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
+import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapperClassic;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
 
@@ -17,15 +17,15 @@ import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
 * Date: 13/07/13
 * Time: 11:01
 */
-public class DTAssignmentOntology extends AssignmentOntology {
+public class DTClassicAssignmentOntology extends AssignmentOntology {
 
     private OwlRalMapper owlRalMapper;
     private IdMapper idMapper;
 
-    public DTAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
+    public DTClassicAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
         super(ontologyHandler);
         this.idMapper = idMapper;
-        owlRalMapper = new DTOwlRalMapper(idMapper, engine, new DTSubClassAssignmentOntology.ActivityMapper());
+        owlRalMapper = new DTClassicOwlRalMapper(idMapper, engine, new ActivityMapperClassic(idMapper));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class DTAssignmentOntology extends AssignmentOntology {
     }
 
     private void addParticipant(String activityName, RALExpr expr, TaskDuty duty) {
-        String isPotentialDuty = new DTTaskDutyMapper().map(duty);
+        String isPotentialDuty = new DTClassicTaskDutyMapper().map(duty);
         String axiom = "(" + isPotentialDuty + " value " + idMapper.mapActivity(activityName) + ") EquivalentTo: (" + owlRalMapper.map(expr, 0) + ")";
 
         addAxiom(axiom);

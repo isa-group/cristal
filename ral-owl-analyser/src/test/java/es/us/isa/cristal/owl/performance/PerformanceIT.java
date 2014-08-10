@@ -143,6 +143,17 @@ public class PerformanceIT {
 //            analyser.criticalActivities(finalExpressions.keySet(), TaskDuty.RESPONSIBLE);
 //            meterCritical.stop();
 //            System.out.println(" Time critical: " + meterCritical.getResult());
+            meter.start();
+            Set<String> criticalActivities = analyser.criticalActivities(new ArrayList<String>(), TaskDuty.RESPONSIBLE);
+            meter.stop();
+            System.out.println("analyser critical: " + meter.getResult() + "-" + criticalActivities);
+
+
+            meter.start();
+            boolean basicConsistency = analyser.basicConsistency(null, TaskDuty.RESPONSIBLE);
+            meter.stop();
+            System.out.println("analyser consistency: " + meter.getResult() + "-" + basicConsistency);
+
 
             for (Query q : edata.getQueryList()) {
                 System.out.println(" Analysis of " + q.getActivity());
@@ -151,6 +162,7 @@ public class PerformanceIT {
                 meter.stop();
 
                 System.out.println(participants);
+                System.out.println(participants.size());
                 System.out.println(" Time analysis: " + meter.getResult());
 
                 q.addExecution(finalExpressions.get(q.getActivity()), participants.toString(), meter.getResult());

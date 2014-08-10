@@ -90,6 +90,7 @@ public class RTAssignmentOntology extends AssignmentOntology {
         Set<OWLNamedIndividual> activitiesAlreadyStartedAndNotInLoop = activitiesAlreadyStartedAndNotInLoop();
 
         for (OWLNamedIndividual a : activitiesInWeakOrderWithRunningInstances()) {
+            log.info("Processing activities in weak order with running instances " + a);
             if (!activitiesAlreadyStartedAndNotInLoop.contains(a)) {
                 String activityName = a.getIRI().getFragment();
                 String logA = logMapper.map(activityName + "-rtInstance");
@@ -105,7 +106,7 @@ public class RTAssignmentOntology extends AssignmentOntology {
                 Map<TaskDuty, RALExpr> assignments = assignment.getByTaskDuty(activityName);
                 for (TaskDuty t : assignments.keySet()) {
                     String isDuty = new RTTaskDutyMapper().map(t);
-                    String axiom = "(" + isDuty + " value " + logA + ") EquivalentTo: " + rtOwlRalMapper.map(assignments.get(t),pid);
+                    String axiom = "(" + isDuty + " value " + logA + ") EquivalentTo: " + rtOwlRalMapper.map(assignments.get(t), pid);
                     addAxiom(axiom);
                 }
             }
@@ -133,6 +134,8 @@ public class RTAssignmentOntology extends AssignmentOntology {
             String axiom = "{" + DLHelper.joinWith(names, ",") + "} EquivalentTo: ("+instancesExpressionString + ")";
             log.info("Closing with:" + axiom);
             addAxiom(axiom);
+
+
         }
     }
 

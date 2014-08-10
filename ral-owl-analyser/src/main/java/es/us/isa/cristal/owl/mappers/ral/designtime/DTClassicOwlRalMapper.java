@@ -7,9 +7,9 @@ import es.us.isa.cristal.owl.mappers.ral.constraints.IdConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.constraints.PositionOfConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.designtime.constraints.DTActivityConstraintMapper;
 import es.us.isa.cristal.owl.mappers.ral.designtime.constraints.DTDataConstraintMapper;
-import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
 import es.us.isa.cristal.owl.mappers.ral.expr.*;
 import es.us.isa.cristal.owl.mappers.ral.designtime.expr.DTNegativeExprMapper;
+import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 
 /**
@@ -17,9 +17,9 @@ import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
  * Date: 02/07/13
  * Time: 18:06
  */
-public class DTOwlRalMapper extends OwlRalMapper {
+public class DTClassicOwlRalMapper extends OwlRalMapper {
 
-    public DTOwlRalMapper(IdMapper mapper, BPEngine engine, DTSubClassAssignmentOntology.ActivityMapper activityMapper) {
+    public DTClassicOwlRalMapper(IdMapper mapper, BPEngine engine, ActivityMapper activityMapper) {
         super(new DTConstraintMapper(mapper, activityMapper), engine);
 
         addMapper(new PersonExprMapper(constraintMapper));
@@ -35,7 +35,7 @@ public class DTOwlRalMapper extends OwlRalMapper {
     }
 
     public static class DTConstraintMapper extends OwlConstraintMapper {
-        public DTConstraintMapper(IdMapper idMapper, DTSubClassAssignmentOntology.ActivityMapper activityMapper) {
+        public DTConstraintMapper(IdMapper idMapper, ActivityMapper activityMapper) {
             super(idMapper);
 
             addMapper(new IdConstraintMapper(idMapper));

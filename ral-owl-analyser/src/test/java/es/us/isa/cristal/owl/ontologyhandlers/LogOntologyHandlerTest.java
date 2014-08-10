@@ -37,20 +37,12 @@ public class LogOntologyHandlerTest {
                 .activity("CheckResponse", "cr1", LogOntologyHandler.ActivityState.ALLOCATED);
 
         LogOntologyHandler handler = manager.getLogOntologyHandler();
-        OWLOntology logOntology = handler.getOntology();
         DLQueryEngine engine = handler.createDLQueryEngine();
 
         Set<OWLNamedIndividual> individuals = engine.getInstances("inverse(" + Definitions.HASACTIVITYINSTANCE + ") value log:ac1", false);
 
         Assert.assertEquals(2, individuals.size());
         Assert.assertEquals(new HashSet<String>(Arrays.asList("scr1", "cr1")), OntologyTestUtils.toFragments(individuals));
-
-        try {
-            logOntology.getOWLOntologyManager().saveOntology(logOntology, new StreamDocumentTarget(System.out));
-        } catch (OWLOntologyStorageException e) {
-            e.printStackTrace();
-        }
-
     }
 
 }

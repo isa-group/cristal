@@ -60,6 +60,9 @@ public abstract class ElementMapper<T> {
 
         OWLAxiom differentAxiom = factory.getOWLDifferentIndividualsAxiom(instances);
         manager.addAxiom(ontology, differentAxiom);
+
+//        manager.addAxiom(ontology, factory.getOWLEquivalentClassesAxiom(typeInstance, factory.getOWLObjectOneOf(instances)));
+
         additionalGlobalMap(instanceNames, instances);
     }
 
@@ -100,6 +103,11 @@ public abstract class ElementMapper<T> {
     protected void propertyAssertion(String property, OWLNamedIndividual source, OWLNamedIndividual target) {
         OWLObjectProperty prop = factory.getOWLObjectProperty(property, prefix);
         manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(prop, source, target));
+    }
+
+    protected void negativePropertyAssertion(String property, OWLNamedIndividual source, OWLNamedIndividual target) {
+        OWLObjectProperty prop = factory.getOWLObjectProperty(property, prefix);
+        manager.addAxiom(ontology, factory.getOWLNegativeObjectPropertyAssertionAxiom(prop, source, target));
     }
 
     protected void addTypeAxiom(T individual, String query)    {

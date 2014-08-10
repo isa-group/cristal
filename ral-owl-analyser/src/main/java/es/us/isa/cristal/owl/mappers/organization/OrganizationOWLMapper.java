@@ -36,11 +36,11 @@ public class OrganizationOWLMapper {
         reasoner = ontologyHandler.createReasoner();
         System.out.println("role ontology consistent: " + reasoner.isConsistent());
 
-        new PositionMapper(ontologyHandler, mapper).map(org.getPositions());
+        new PositionMapper(ontologyHandler, mapper, org.getRoles(), org.getUnits()).map(org.getPositions());
         reasoner = ontologyHandler.createReasoner();
         System.out.println("position ontology consistent: " + reasoner.isConsistent());
 
-        new PersonMapper(ontologyHandler, mapper).map(org.getPersons());
+        new PersonMapper(ontologyHandler, mapper, org.getPositions()).map(org.getPersons());
         reasoner = ontologyHandler.createReasoner();
         System.out.println("person ontology consistent: " + reasoner.isConsistent());
 

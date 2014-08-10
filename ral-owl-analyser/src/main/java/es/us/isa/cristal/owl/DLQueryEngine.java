@@ -1,5 +1,6 @@
 package es.us.isa.cristal.owl;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
@@ -41,6 +42,10 @@ public class DLQueryEngine {
 
     public OWLReasoner getReasoner() {
         return reasoner;
+    }
+
+    public DLQueryParser getParser() {
+        return parser;
     }
 
     /** Gets the superclasses of a class expression parsed from a string.
