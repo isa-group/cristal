@@ -20,21 +20,13 @@
 	</properties>
 	<dependencies>
 		<dependency>
-            <groupId>es.us.isa.cristal</groupId>
-            <artifactId>cristal-test-utils</artifactId>
-            
-            <scope>test</scope>
-        </dependency>
-		<dependency>
 			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>organization-gson-model</artifactId>
-			
 		</dependency>
 
 		<dependency>
 			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>ral-neo4j-analyser</artifactId>
-			
 		</dependency>
 		<dependency>
 			<groupId>es.us.isa.bpmn</groupId>

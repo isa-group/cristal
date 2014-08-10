@@ -3,7 +3,6 @@ package es.us.isa.cristal.team;
 import es.us.isa.cristal.owl.OntologyNamespaces;
 import es.us.isa.cristal.owl.mappers.ral.designtime.DTClassicOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapperClassic;
-import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapperSubClass;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.test.utils.bpEngine.MockBPEngine;
 

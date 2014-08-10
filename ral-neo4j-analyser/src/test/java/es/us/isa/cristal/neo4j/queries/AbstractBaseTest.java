@@ -12,8 +12,8 @@ import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.resolver.ConstraintResolver;
 import es.us.isa.cristal.test.utils.bpEngine.MockBPEngine;
-import es.us.isa.cristal.test.utils.executionengine.ExecutionEngineUtil;
-import es.us.isa.cristal.test.utils.graph.GraphUtil;
+import es.us.isa.cristal.neo4j.test.utils.executionengine.ExecutionEngineUtil;
+import es.us.isa.cristal.neo4j.test.utils.graph.GraphUtil;
 
 /**
  * User: resinas

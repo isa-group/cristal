@@ -1,6 +1,5 @@
 package es.us.isa.cristal.activiti.gson;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,8 +16,7 @@ import es.us.isa.cristal.organization.model.gson.Person;
 import es.us.isa.cristal.organization.model.gson.Position;
 import es.us.isa.cristal.organization.model.gson.Role;
 import es.us.isa.cristal.organization.model.gson.Unit;
-import es.us.isa.cristal.organization.model.util.IOUtil;
-import es.us.isa.cristal.test.utils.graph.GraphUtil;
+import es.us.isa.cristal.neo4j.test.utils.graph.GraphUtil;
 
 public class GsonModelTest {
 

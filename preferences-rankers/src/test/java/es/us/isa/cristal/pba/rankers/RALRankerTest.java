@@ -22,8 +22,8 @@ import es.isa.puri.model.FavoritesPreference;
 import es.isa.puri.model.PreferenceTerm;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.test.utils.bpEngine.MockBPEngine;
-import es.us.isa.cristal.test.utils.executionengine.ExecutionEngineUtil;
-import es.us.isa.cristal.test.utils.graph.GraphUtil;
+import es.us.isa.cristal.neo4j.test.utils.executionengine.ExecutionEngineUtil;
+import es.us.isa.cristal.neo4j.test.utils.graph.GraphUtil;
 
 /**
  * User: resinas

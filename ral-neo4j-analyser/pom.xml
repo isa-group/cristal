@@ -24,12 +24,6 @@
 
 		<dependency>
 			<groupId>es.us.isa.cristal</groupId>
-			<artifactId>cristal-test-utils</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>ral-model</artifactId>
 		</dependency>
 		<dependency>

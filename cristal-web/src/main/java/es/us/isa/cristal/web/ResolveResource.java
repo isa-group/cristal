@@ -20,8 +20,8 @@ import es.us.isa.cristal.pba.rankers.Person;
 import es.us.isa.cristal.pba.rankers.TaskEngine;
 import es.us.isa.cristal.resolver.RALResolver;
 import es.us.isa.cristal.test.utils.bpEngine.MockBPEngine;
-import es.us.isa.cristal.test.utils.executionengine.ExecutionEngineUtil;
-import es.us.isa.cristal.test.utils.graph.GraphUtil;
+import es.us.isa.cristal.neo4j.test.utils.executionengine.ExecutionEngineUtil;
+import es.us.isa.cristal.neo4j.test.utils.graph.GraphUtil;
 
 /**
  * User: resinas

@@ -11,8 +11,8 @@ import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.neo4j.Neo4JRalResolver;
 import es.us.isa.cristal.neo4j.analyzer.operations.MandatoryActivitiesOP;
-import es.us.isa.cristal.test.utils.executionengine.ExecutionEngineUtil;
-import es.us.isa.cristal.test.utils.graph.GraphUtil;
+import es.us.isa.cristal.neo4j.test.utils.executionengine.ExecutionEngineUtil;
+import es.us.isa.cristal.neo4j.test.utils.graph.GraphUtil;
 
 public class BpmnTest{
 

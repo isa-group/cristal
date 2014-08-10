@@ -19,7 +19,6 @@ import es.us.isa.cristal.neo4j.analyzer.operations.Operation;
 import es.us.isa.cristal.neo4j.analyzer.operations.PermanentParticipantsOP;
 import es.us.isa.cristal.neo4j.analyzer.operations.PotentialActivitiesOP;
 import es.us.isa.cristal.neo4j.analyzer.operations.PotentialParticipantsOP;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * 
@@ -76,7 +75,7 @@ public class Neo4jRALAnalyser implements RALAnalyser {
 
     @Override
     public Set<String> notInvolved(String personName, TaskDuty duty) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -93,7 +92,7 @@ public class Neo4jRALAnalyser implements RALAnalyser {
 
     @Override
     public Set<String> criticalActivities(String personName, TaskDuty duty) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
 

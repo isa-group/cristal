@@ -12,11 +12,6 @@
     <artifactId>ral-team</artifactId>
 
     <dependencies>
-    	<dependency>
-            <groupId>es.us.isa.cristal</groupId>
-            <artifactId>cristal-test-utils</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>es.us.isa.cristal</groupId>
             <artifactId>ral-owl-analyser</artifactId>

@@ -1,4 +1,4 @@
-package es.us.isa.cristal.test.utils.graph;
+package es.us.isa.cristal.neo4j.test.utils.graph;
 
 public class GraphUtil {
 

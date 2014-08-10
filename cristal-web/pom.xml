@@ -2,7 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cristal-web</artifactId>
   <packaging>war</packaging>
-  <name>CRISTAL Dashboard</name>
 
 	<parent>
 	    <groupId>es.us.isa.cristal</groupId>
@@ -22,11 +21,6 @@
 			<artifactId>raci2bpmn</artifactId>
 		</dependency>
 		
-		<dependency>
-			<groupId>es.us.isa.cristal</groupId>
-			<artifactId>cristal-test-utils</artifactId>
-		</dependency>
-
         <dependency>
             <groupId>es.us.isa.cristal</groupId>
             <artifactId>ral-neo4j-analyser</artifactId>

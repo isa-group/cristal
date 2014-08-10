@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>ral-owl-analyser</artifactId>
-	<name>RAL OWL Analyser</name>
 
 	<parent>
 	    <groupId>es.us.isa.cristal</groupId>
@@ -51,12 +50,6 @@
     </build>
 
 	<dependencies>
-	
-		<dependency>
-            <groupId>es.us.isa.cristal</groupId>
-            <artifactId>cristal-test-utils</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>es.us.isa.cristal</groupId>
             <artifactId>ral-model</artifactId>

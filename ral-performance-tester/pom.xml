@@ -22,12 +22,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>es.us.isa.cristal</groupId>
-			<artifactId>organization-generator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>ral-neo4j-analyser</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>es.us.isa.cristal</groupId>
+            <artifactId>organization-gson-model</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>es.us.isa.cristal</groupId>
 			<artifactId>ral-model</artifactId>
