@@ -3,7 +3,8 @@ package es.us.isa.cristal.organization.model.util;
 public class CypherUtil {
 	
 	public static String getId(String name){
-		return name.replace(" ","_").toLowerCase();
+        String id = name.replaceAll("\\W", "").toLowerCase();
+        return id;
 	}
 	
 	public static String cypherCreateEdgeQuery(String from, String to, String type){
