@@ -1,6 +1,6 @@
 package es.us.isa.cristal.owl.analysers;
 
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.AttendConferenceScenario;
@@ -31,7 +31,7 @@ public class RTScenarioAttendConferenceTest {
         manager = new AttendConferenceScenario().getRalOntologyManager();
         pid = "ac1";
 
-        ResourceAssignment assignment = new ResourceAssignment().
+        RALResourceAssignment assignment = new RALResourceAssignment().
                 add("SubmitCameraReady", RALParser.parse("HAS POSITION PhdStudent")).
                 add("FillTravelAuthorization", RALParser.parse("REPORTS TO POSITION ProjectCoordinator")).
                 add("MakeReservations", RALParser.parse("HAS ROLE Clerk")).
@@ -151,7 +151,7 @@ public class RTScenarioAttendConferenceTest {
     @Test
     public void shouldCheckConsistencyOf() {
         manager = new AttendConferenceScenario().getRalOntologyManager();
-        manager.loadResourceAssignment(new ResourceAssignment().add("SendTravelAuthorization", TaskDuty.RESPONSIBLE, RALParser.parse("REPORTS TO POSITION AdministrativeAssistant DIRECTLY")));
+        manager.loadResourceAssignment((RALResourceAssignment) new RALResourceAssignment().add("SendTravelAuthorization", TaskDuty.RESPONSIBLE, RALParser.parse("REPORTS TO POSITION AdministrativeAssistant DIRECTLY")));
         loadPredefinedLog();
 
         RALAnalyser analyser = manager.createRunTimeAnalyser(pid);

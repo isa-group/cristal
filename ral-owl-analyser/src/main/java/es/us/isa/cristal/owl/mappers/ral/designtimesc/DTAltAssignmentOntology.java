@@ -1,7 +1,7 @@
 package es.us.isa.cristal.owl.mappers.ral.designtimesc;
 
 import es.us.isa.cristal.BPEngine;
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
@@ -52,18 +52,18 @@ public abstract class DTAltAssignmentOntology extends AssignmentOntology {
     }
 
     @Override
-    public void buildOntology(ResourceAssignment assignment) {
+    public void buildOntology(RALResourceAssignment assignment) {
         log.info(engine.getReasoner().getBufferingMode().toString());
         log.info(engine.getReasoner().getPrecomputableInferenceTypes().toString());
 
         engine.getReasoner().precomputeInferences(InferenceType.CLASS_HIERARCHY, InferenceType.CLASS_ASSERTIONS, InferenceType.OBJECT_PROPERTY_ASSERTIONS);
 
-        for (ResourceAssignment.Assignment a : assignment.getAll()) {
+        for (RALResourceAssignment.Assignment a : assignment.getAll()) {
             loadActivitySkeleton(a.getActivity(), a.getDuty(), Cardinality.EXACTLY);
         }
 //        engine.getReasoner().flush();
 
-        for (ResourceAssignment.Assignment a : assignment.getAll()) {
+        for (RALResourceAssignment.Assignment<RALExpr> a : assignment.getAll()) {
             addAssignment(a.getActivity(), a.getExpr(), a.getDuty());
         }
 
@@ -74,7 +74,7 @@ public abstract class DTAltAssignmentOntology extends AssignmentOntology {
         engine.getReasoner().flush();
     }
 
-    protected void loadOverall(ResourceAssignment assignment){}
+    protected void loadOverall(RALResourceAssignment assignment){}
 
     protected abstract void loadActivitySkeleton(String activityName, TaskDuty duty, Cardinality cardinality);
 

@@ -11,5 +11,5 @@ public enum TaskDuty {
     SUPPORT,
     INFORMED,
     CONSULTED,
-    PARTICIPANT
+    PARTICIPANT;
 }

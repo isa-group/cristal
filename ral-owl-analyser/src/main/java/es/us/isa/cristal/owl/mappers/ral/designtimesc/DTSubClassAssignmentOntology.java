@@ -1,30 +1,17 @@
 package es.us.isa.cristal.owl.mappers.ral.designtimesc;
 
-import com.clarkparsia.modularity.IncrementalClassifier;
-import com.clarkparsia.owlapi.explanation.DefaultExplanationGenerator;
-import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 import es.us.isa.cristal.BPEngine;
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.Definitions;
 import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.analysers.DTSubClassRALAnalyser;
-import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.InstanceTaskDutyMapper;
-import org.semanticweb.HermiT.Reasoner;
-import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.*;
-import uk.ac.manchester.cs.bhig.util.Tree;
-import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrderer;
-import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl;
-import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationTree;
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -91,13 +78,13 @@ public class DTSubClassAssignmentOntology extends DTAltAssignmentOntology {
     }
 
     @Override
-    protected void loadOverall(ResourceAssignment assignment) {
+    protected void loadOverall(RALResourceAssignment assignment) {
         activityInstanceAsDisjointUnionOfActivitySubclasses(assignment);
     }
 
-    private void activityInstanceAsDisjointUnionOfActivitySubclasses(ResourceAssignment assignment) {
+    private void activityInstanceAsDisjointUnionOfActivitySubclasses(RALResourceAssignment assignment) {
         Set<OWLClass> classes = new HashSet<OWLClass>();
-        for (ResourceAssignment.Assignment a : assignment.getAll()) {
+        for (RALResourceAssignment.Assignment a : assignment.getAll()) {
             classes.add(factory.getOWLClass(activityMapper.mapActivity(a.getActivity()), prefixManager));
         }
 

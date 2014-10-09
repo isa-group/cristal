@@ -2,17 +2,13 @@ package es.us.isa.cristal.owl;
 
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.Organization;
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.owl.factories.DTAssignmentOntologyFactory;
 import es.us.isa.cristal.owl.factories.DTSubClassFactory;
 import es.us.isa.cristal.owl.factories.RTAssignmentOntologyFactory;
 import es.us.isa.cristal.owl.factories.RTBasicMappingFactory;
 import es.us.isa.cristal.owl.mappers.process.ProcessActivitiesOWLMapper;
-import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTInstanceAssignmentOntology;
-import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTMixAssignmentOntology;
-import es.us.isa.cristal.owl.mappers.ral.designtimesc.DTSubClassAssignmentOntology;
-import es.us.isa.cristal.owl.mappers.ral.runtime.RTAssignmentOntology;
 import es.us.isa.cristal.owl.ontologyhandlers.*;
 import es.us.isa.cristal.owl.mappers.organization.OrganizationOWLMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
@@ -62,7 +58,7 @@ public class RALOntologyManager {
     private DTAssignmentOntologyFactory dtFactory;
     private RTAssignmentOntologyFactory rtFactory;
 
-    private ResourceAssignment assignment;
+    private RALResourceAssignment assignment;
 
 
     public RALOntologyManager(BPEngine engine, DTAssignmentOntologyFactory dtFactory, RTAssignmentOntologyFactory rtFactory) {
@@ -128,7 +124,7 @@ public class RALOntologyManager {
         return orgOntologyHandler.getOntology();
     }
 
-    public void loadResourceAssignment(ResourceAssignment assignment) {
+    public void loadResourceAssignment(RALResourceAssignment assignment) {
         this.assignment = assignment;
         if (dtAssignment != null) {
             manager.removeOntology(dtAssignment.getOntology());

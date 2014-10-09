@@ -1,6 +1,6 @@
 package es.us.isa.cristal.owl.ontologyhandlers;
 
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.owl.DLQueryParser;
 import es.us.isa.cristal.owl.OntologyHandler;
@@ -36,7 +36,7 @@ public abstract class AssignmentOntology extends OntologyHandler {
         return axiom;
     }
 
-    public abstract void buildOntology(ResourceAssignment assignment);
+    public abstract void buildOntology(RALResourceAssignment assignment);
 
     public abstract RALAnalyser createAnalyser();
 }

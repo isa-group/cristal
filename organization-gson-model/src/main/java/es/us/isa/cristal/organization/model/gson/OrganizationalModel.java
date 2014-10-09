@@ -5,7 +5,7 @@ import java.util.List;
 
 import es.us.isa.cristal.organization.model.util.CypherUtil;
 
-public class Model implements CypherGenerator{
+public class OrganizationalModel implements CypherGenerator{
 	private List<Person> persons;
 	
 	private List<Role> roles;
@@ -78,7 +78,7 @@ public class Model implements CypherGenerator{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Model other = (Model) obj;
+		OrganizationalModel other = (OrganizationalModel) obj;
 		if (persons == null) {
 			if (other.persons != null)
 				return false;

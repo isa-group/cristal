@@ -1,6 +1,6 @@
 package es.us.isa.cristal.organization.generator;
 
-import es.us.isa.cristal.organization.model.gson.Model;
+import es.us.isa.cristal.organization.model.gson.OrganizationalModel;
 
 /**
  * 
@@ -14,7 +14,7 @@ public class Main {
 		ConfigurationFactory factory = new ConfigurationFactory();
 		OrganizationGenerator generator = new OrganizationGenerator(factory.getDefaultConfiguration(5));
 		
-		Model model = generator.generate();
+		OrganizationalModel model = generator.generate();
 		
 		System.out.println(model.getCypherCreateQuery());
 		

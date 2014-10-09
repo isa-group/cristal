@@ -1,7 +1,7 @@
 package es.us.isa.cristal.performance.tester.exporters;
 
 
-import es.us.isa.cristal.organization.model.gson.Model;
+import es.us.isa.cristal.organization.model.gson.OrganizationalModel;
 import es.us.isa.cristal.performance.tester.data.ExecutionData;
 import es.us.isa.cristal.performance.tester.data.Query;
 import es.us.isa.cristal.performance.tester.data.QueryExecutionResult;
@@ -15,7 +15,7 @@ import es.us.isa.cristal.performance.tester.util.FileWriterUtil;
 public class HTMLExporter implements Exporter{
 
 	@Override
-	public void export(String filename, ExecutionData edata, Model model) {
+	public void export(String filename, ExecutionData edata, OrganizationalModel model) {
 		
 		
 		String html = "<!doctype html> \n" +
