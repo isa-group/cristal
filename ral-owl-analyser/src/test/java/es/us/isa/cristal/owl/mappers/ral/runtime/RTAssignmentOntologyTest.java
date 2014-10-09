@@ -1,6 +1,6 @@
 package es.us.isa.cristal.owl.mappers.ral.runtime;
 
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.AttendConferenceScenario;
 import es.us.isa.cristal.owl.RALOntologyManager;
@@ -36,7 +36,7 @@ public class RTAssignmentOntologyTest {
                 .activity("SubmitCameraReady", "scr1", LogOntologyHandler.ActivityState.COMPLETED, "Adela")
                 .activity("FillTravelAuthorization", "fta1", LogOntologyHandler.ActivityState.READY);
 
-        ResourceAssignment assignment = new ResourceAssignment();
+        RALResourceAssignment assignment = new RALResourceAssignment();
         assignment.add("SubmitCameraReady", TaskDuty.RESPONSIBLE, RALParser.parse("HAS POSITION PhdStudent"));
         assignment.add("FillTravelAuthorization", TaskDuty.RESPONSIBLE, RALParser.parse("REPORTS TO POSITION ProjectCoordinator"));
         assignment.add("MakeReservations", TaskDuty.RESPONSIBLE, RALParser.parse("HAS ROLE Clerk"));

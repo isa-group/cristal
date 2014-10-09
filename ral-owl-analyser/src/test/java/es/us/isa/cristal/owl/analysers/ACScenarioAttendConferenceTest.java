@@ -1,6 +1,6 @@
 package es.us.isa.cristal.owl.analysers;
 
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.AttendConferenceScenario;
@@ -27,7 +27,7 @@ import java.util.Set;
 public class ACScenarioAttendConferenceTest {
     private RALOntologyManager manager;
     private String pid;
-    private ResourceAssignment assignment;
+    private RALResourceAssignment assignment;
 
 
 
@@ -35,7 +35,7 @@ public class ACScenarioAttendConferenceTest {
     public void setup() {
         manager = new AttendConferenceScenario().getRalOntologyManager();
         pid = "ac1";
-        assignment = new ResourceAssignment().
+        assignment = (RALResourceAssignment) new RALResourceAssignment().
                 add("SignTravelAuthorization", RALParser.parse("HAS POSITION PhdStudent")).
                 add("MakeReservations", RALParser.parse("HAS ROLE Clerk"));
 

@@ -6,11 +6,8 @@ import java.util.List;
 
 import es.us.isa.cristal.organization.generator.distributors.PositionDelegatesMultipleRandomDistributor;
 import es.us.isa.cristal.organization.generator.distributors.PositionReportsMultipleRandomDistributor;
-import es.us.isa.cristal.organization.model.gson.Model;
-import es.us.isa.cristal.organization.model.gson.Person;
-import es.us.isa.cristal.organization.model.gson.Position;
-import es.us.isa.cristal.organization.model.gson.Role;
-import es.us.isa.cristal.organization.model.gson.Unit;
+import es.us.isa.cristal.organization.model.gson.*;
+import es.us.isa.cristal.organization.model.gson.OrganizationalModel;
 
 /**
  * 
@@ -30,8 +27,8 @@ public class OrganizationGenerator {
 
 
 
-	public Model generate(GenerationMode... generationModes){
-		Model model = new Model();
+	public OrganizationalModel generate(GenerationMode... generationModes){
+		OrganizationalModel model = new OrganizationalModel();
         List<GenerationMode> modes = Arrays.asList(generationModes);
 
         //generate people

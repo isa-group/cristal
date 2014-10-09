@@ -4,21 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import es.us.isa.cristal.organization.model.gson.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 
-
-
-import es.us.isa.cristal.organization.model.gson.Document;
-import es.us.isa.cristal.organization.model.gson.Model;
-import es.us.isa.cristal.organization.model.gson.Person;
-import es.us.isa.cristal.organization.model.gson.Position;
-import es.us.isa.cristal.organization.model.gson.Role;
-import es.us.isa.cristal.organization.model.gson.Unit;
+import es.us.isa.cristal.organization.model.gson.OrganizationalModel;
 import es.us.isa.cristal.neo4j.test.utils.graph.GraphUtil;
 
-public class GsonModelTest {
+public class GsonOrganizationalModelTest {
 
 	
 	
@@ -30,8 +24,8 @@ public class GsonModelTest {
 		Document doc = buildExpectedDocument();
 		String script = doc.getCypherCreateQuery().trim();
 		String expected = GraphUtil.DEVELOPMENT_UNIT_GRAPH;
-		
-		Assert.assertEquals(expected,script);
+
+        Assert.assertEquals(expected,script);
 	}
 	
 	private Document buildExpectedDocument(){
@@ -80,7 +74,7 @@ public class GsonModelTest {
 		
 		u1.setPositions(positions);
 		
-		Model model = new Model();
+		OrganizationalModel model = new OrganizationalModel();
 		model.setPersons(Arrays.asList(p1,p2,p3,p4,p5));
 		model.setRoles(Arrays.asList(r1,r2,r3,r4,r5));
 		model.setUnits(Arrays.asList(u1));

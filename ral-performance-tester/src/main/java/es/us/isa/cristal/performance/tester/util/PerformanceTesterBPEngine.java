@@ -9,7 +9,7 @@ import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.organization.generator.selectors.RandomSelector;
 import es.us.isa.cristal.organization.generator.selectors.Selector;
-import es.us.isa.cristal.organization.model.gson.Model;
+import es.us.isa.cristal.organization.model.gson.OrganizationalModel;
 import es.us.isa.cristal.organization.model.gson.Person;
 import es.us.isa.cristal.parser.RALParser;
 import es.us.isa.cristal.performance.tester.data.Query;
@@ -21,13 +21,13 @@ import es.us.isa.cristal.performance.tester.data.Query;
  */
 public class PerformanceTesterBPEngine implements BPEngine{
 
-	private Model model;
+	private OrganizationalModel model;
 	
 	private Selector<Person> selector;
 	
 	private Map<String, Query> map;
 	
-	public PerformanceTesterBPEngine(Model model, Map<String,Query> queryMap) {
+	public PerformanceTesterBPEngine(OrganizationalModel model, Map<String,Query> queryMap) {
 		super();
 		this.model = model;
 		selector = new RandomSelector<Person>();

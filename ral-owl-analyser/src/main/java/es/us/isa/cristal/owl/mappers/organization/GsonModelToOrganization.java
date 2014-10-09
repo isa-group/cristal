@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class GsonModelToOrganization {
 
-    public Organization map(Model model) {
+    public Organization map(OrganizationalModel model) {
         Organization org = new Organization()
                 .persons(mapPersons(model))
                 .roles(mapRoles(model))
@@ -26,7 +26,7 @@ public class GsonModelToOrganization {
         return org;
     }
 
-    private Organization.Person[] mapPersons(Model model) {
+    private Organization.Person[] mapPersons(OrganizationalModel model) {
         List<Organization.Person> persons = new ArrayList<Organization.Person>();
         Map<String, List<String>> occupies = new HashMap<String, List<String>>();
 
@@ -55,7 +55,7 @@ public class GsonModelToOrganization {
         return persons.toArray(new Organization.Person[persons.size()]);
     }
 
-    private Organization.Position[] mapPositions(Model model) {
+    private Organization.Position[] mapPositions(OrganizationalModel model) {
         List<Organization.Position> positions = new ArrayList<Organization.Position>();
         for (Unit u : model.getUnits()) {
             for (Position pos : u.getPositions()) {
@@ -80,7 +80,7 @@ public class GsonModelToOrganization {
         return names;
     }
 
-    private String[] mapRoles(Model model) {
+    private String[] mapRoles(OrganizationalModel model) {
         List<String> roles = new ArrayList<String>();
         for (Role r : model.getRoles()) {
             roles.add(r.getName());
@@ -88,7 +88,7 @@ public class GsonModelToOrganization {
         return roles.toArray(new String[roles.size()]);
     }
 
-    private String[] mapUnits(Model model) {
+    private String[] mapUnits(OrganizationalModel model) {
         List<String> units = new ArrayList<String>();
         for (Unit u : model.getUnits()) {
             units.add(u.getName());

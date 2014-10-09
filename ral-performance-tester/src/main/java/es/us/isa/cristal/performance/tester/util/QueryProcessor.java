@@ -2,11 +2,8 @@ package es.us.isa.cristal.performance.tester.util;
 
 import es.us.isa.cristal.organization.generator.selectors.RandomSelector;
 import es.us.isa.cristal.organization.generator.selectors.Selector;
-import es.us.isa.cristal.organization.model.gson.Model;
-import es.us.isa.cristal.organization.model.gson.Person;
-import es.us.isa.cristal.organization.model.gson.Position;
-import es.us.isa.cristal.organization.model.gson.Role;
-import es.us.isa.cristal.organization.model.gson.Unit;
+import es.us.isa.cristal.organization.model.gson.*;
+import es.us.isa.cristal.organization.model.gson.OrganizationalModel;
 
 /**
  * 
@@ -22,7 +19,7 @@ public class QueryProcessor {
 		
 	}
 	
-	public String processQuery(String query, Model model){
+	public String processQuery(String query, OrganizationalModel model){
 		//process persons
 		query = query.replace("#FirstPerson#", model.getPersons().get(0).getName());
 		query = query.replace("#LastPerson#", model.getPersons().get(model.getPersons().size()-1).getName());

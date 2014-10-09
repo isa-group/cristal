@@ -2,7 +2,7 @@ package es.us.isa.cristal.owl.performance;
 
 import es.us.isa.cristal.BPEngine;
 import es.us.isa.cristal.Organization;
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
@@ -13,7 +13,7 @@ import es.us.isa.cristal.organization.generator.distributors.*;
 import es.us.isa.cristal.organization.generator.functions.ConstantFunction;
 import es.us.isa.cristal.organization.generator.selectors.ConsecutiveSelector;
 import es.us.isa.cristal.organization.generator.selectors.RandomSelector;
-import es.us.isa.cristal.organization.model.gson.Model;
+import es.us.isa.cristal.organization.model.gson.OrganizationalModel;
 import es.us.isa.cristal.organization.model.gson.Position;
 import es.us.isa.cristal.organization.model.gson.Role;
 import es.us.isa.cristal.organization.model.util.IOUtil;
@@ -53,7 +53,7 @@ public class PerformanceIT {
 
         // Set up performance evaluation environment
         ExecutionData edata = importQueryStack(path);
-        Model model = generateModel(edata);
+        OrganizationalModel model = generateModel(edata);
         QueryProcessor processor = new QueryProcessor();
         BPEngine engine = new PerformanceTesterBPEngine(model, edata.getActivityQueryMap());
 
@@ -92,7 +92,7 @@ public class PerformanceIT {
 
         System.out.println(" Loading resource assignment...");
         Map<String, String> finalExpressions = new HashMap<String, String>();
-        ResourceAssignment assignment = new ResourceAssignment();
+        RALResourceAssignment assignment = new RALResourceAssignment();
         for (Query q : edata.getQueryList()) {
             String expression = q.getQuery();
             String finalExpression = processor.processQuery(expression, model);
@@ -173,14 +173,14 @@ public class PerformanceIT {
         return ExecutionData.importFromJson(IOUtil.convertStreamToString(getClass().getResourceAsStream(path)));
     }
 
-    private Model generateModel(ExecutionData edata) {
+    private OrganizationalModel generateModel(ExecutionData edata) {
         OrganizationGenerator generator = new OrganizationGenerator(buildConfiguration(edata.getModelWeight()));
 
         System.out.println("Generating model...");
         return generator.generate(GenerationMode.DISABLE_DELEGATESTO, GenerationMode.DISABLE_REPORTSTO);
     }
 
-    private void exportResults(ExecutionData edata, Model model) {
+    private void exportResults(ExecutionData edata, OrganizationalModel model) {
         System.out.println("Exporting results...");
         ExporterFactory exporterFactory = new ExporterFactory();
         exporterFactory.getExporter(edata.getExport()).export(edata.getExport(), edata, model);

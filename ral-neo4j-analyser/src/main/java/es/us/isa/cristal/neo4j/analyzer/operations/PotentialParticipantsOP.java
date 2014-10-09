@@ -30,8 +30,10 @@ public class PotentialParticipantsOP extends AbstractOP<Set<String>> implements 
 	public Set<String> execute() {
 		Set<String>	result = new HashSet<String>();	
 		RALExpr expr = ExtractorRepository.getExtractor(duty).extractExpression(bpEngine, processId, activityName);
-		result.addAll(this.resolver.resolve(expr, processId));
-		return result; 
+        if (expr != null) {
+            result.addAll(this.resolver.resolve(expr, processId));
+        }
+		return result;
 	}
 
 	

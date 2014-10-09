@@ -1,7 +1,7 @@
 package es.us.isa.cristal.owl.mappers.ral.runtime;
 
 import es.us.isa.cristal.BPEngine;
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
@@ -60,13 +60,13 @@ public class RTAssignmentOntology extends AssignmentOntology {
     }
 
     @Override
-    public void buildOntology(ResourceAssignment assignment) {
+    public void buildOntology(RALResourceAssignment assignment) {
 
         for (OWLNamedIndividual a : activityInstancesThatHaveBeenAllocated()) {
             String logA = logMapper.toPrefix(a);
             String act = logManager.getTypeOf(a);
 
-            Map<TaskDuty, RALExpr> assignments = assignment.getByTaskDuty(act);
+            Map<TaskDuty, RALExpr> assignments = assignment.getByActivity(act);
             for (TaskDuty t : assignments.keySet()) {
                 String isDuty = new RTTaskDutyMapper().map(t);
                 String hasDuty = new InstanceTaskDutyMapper().map(t);
@@ -79,7 +79,7 @@ public class RTAssignmentOntology extends AssignmentOntology {
             String logA = logMapper.toPrefix(a);
             String act = logManager.getTypeOf(a);
 
-            Map<TaskDuty, RALExpr> assignments = assignment.getByTaskDuty(act);
+            Map<TaskDuty, RALExpr> assignments = assignment.getByActivity(act);
             for (TaskDuty t : assignments.keySet()) {
                 String isDuty = new RTTaskDutyMapper().map(t);
                 String axiom = "(" + isDuty + " value " + logA + ") EquivalentTo: " + instanceOwlRalMapper.map(assignments.get(t),pid);
@@ -103,7 +103,7 @@ public class RTAssignmentOntology extends AssignmentOntology {
                 logManager.noInversePropertyAssertion(HASSTATE, fakeInstance);
 
 
-                Map<TaskDuty, RALExpr> assignments = assignment.getByTaskDuty(activityName);
+                Map<TaskDuty, RALExpr> assignments = assignment.getByActivity(activityName);
                 for (TaskDuty t : assignments.keySet()) {
                     String isDuty = new RTTaskDutyMapper().map(t);
                     String axiom = "(" + isDuty + " value " + logA + ") EquivalentTo: " + rtOwlRalMapper.map(assignments.get(t), pid);

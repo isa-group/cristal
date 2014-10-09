@@ -7,11 +7,12 @@
 	<groupId>es.us.isa.cristal</groupId>
 	<artifactId>cristal</artifactId>
 
-	<version>1.1-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <bpmn.version>2.1</bpmn.version>
   	</properties>
 
 	<build>
@@ -76,8 +77,6 @@
                 <version>${project.version}</version>
             </dependency>
             
-            <!-- added in version 1.1 -->
-            
             <dependency>
                 <groupId>es.us.isa.cristal</groupId>
                 <artifactId>organization-gson-model</artifactId>
@@ -95,16 +94,30 @@
             </dependency>
             <dependency>
                 <groupId>es.us.isa.cristal</groupId>
-                <artifactId>ral-web-analyser</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>es.us.isa.cristal</groupId>
                 <artifactId>ral-activiti</artifactId>
                 <version>${project.version}</version>
             </dependency>
-             
-		</dependencies>
+
+            <dependency>
+                <groupId>es.us.isa.bpmn</groupId>
+                <artifactId>bpmn-model</artifactId>
+                <version>${bpmn.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.us.isa.bpmn</groupId>
+                <artifactId>bp-ontology</artifactId>
+                <version>${bpmn.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+            </dependency>
+
+        </dependencies>
 	</dependencyManagement>
 
 	<distributionManagement>
@@ -140,8 +153,8 @@
 	<url>http://www.isa.us.es/cristal</url>
 	<licenses>
 		<license>
-			<name>Apache v2</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<name>GNU GPL v2</name>
+			<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
 		</license>
 	</licenses>
 	<organization>
@@ -172,7 +185,6 @@
 		<module>ral-team</module>        
 		
 		<module>ral-performance-tester</module>
-		<module>ral-web-analyser</module>
 		<module>ral-activiti</module>
     </modules>
 </project>

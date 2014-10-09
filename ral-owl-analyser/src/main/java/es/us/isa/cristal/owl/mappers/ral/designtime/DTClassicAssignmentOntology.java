@@ -1,7 +1,7 @@
 package es.us.isa.cristal.owl.mappers.ral.designtime;
 
 import es.us.isa.cristal.BPEngine;
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.DLQueryEngine;
@@ -29,8 +29,8 @@ public class DTClassicAssignmentOntology extends AssignmentOntology {
     }
 
     @Override
-    public void buildOntology(ResourceAssignment assignment) {
-        for (ResourceAssignment.Assignment a : assignment.getAll()) {
+    public void buildOntology(RALResourceAssignment assignment) {
+        for (RALResourceAssignment.Assignment<RALExpr> a : assignment.getAll()) {
             addParticipant(a.getActivity(), a.getExpr(), a.getDuty());
         }
     }

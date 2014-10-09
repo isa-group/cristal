@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import es.us.isa.cristal.organization.model.gson.OrganizationalModel;
 import org.neo4j.cypher.ExecutionEngine;
 import org.neo4j.cypher.ExecutionResult;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -17,7 +18,6 @@ import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.neo4j.queries.Neo4jQueryBuilder;
 import es.us.isa.cristal.organization.generator.ConfigurationFactory;
 import es.us.isa.cristal.organization.generator.OrganizationGenerator;
-import es.us.isa.cristal.organization.model.gson.Model;
 import es.us.isa.cristal.organization.model.util.IOUtil;
 import es.us.isa.cristal.parser.RALParser;
 import es.us.isa.cristal.performance.tester.data.ExecutionData;
@@ -49,7 +49,7 @@ public class App
 		OrganizationGenerator generator = new OrganizationGenerator(factory.getDefaultConfiguration(edata.getModelWeight()));
 		
 		System.out.println("Generating model...");
-		Model model = generator.generate();
+		OrganizationalModel model = generator.generate();
 		
 		BPEngine engine = new PerformanceTesterBPEngine(model, edata.getActivityQueryMap());
     	

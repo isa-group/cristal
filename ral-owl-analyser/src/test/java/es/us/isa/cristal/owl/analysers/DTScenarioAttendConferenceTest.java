@@ -1,11 +1,10 @@
 package es.us.isa.cristal.owl.analysers;
 
-import es.us.isa.cristal.ResourceAssignment;
+import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.AttendConferenceScenario;
 import es.us.isa.cristal.owl.RALOntologyManager;
-import es.us.isa.cristal.owl.ontologyhandlers.LogOntologyHandler;
 import es.us.isa.cristal.parser.RALParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +28,7 @@ public class DTScenarioAttendConferenceTest {
     public void setup() {
         manager = new AttendConferenceScenario().getRalOntologyManager();
 
-        ResourceAssignment assignment = new ResourceAssignment();
+        RALResourceAssignment assignment = new RALResourceAssignment();
         assignment.add("SubmitCameraReady", RALParser.parse("HAS POSITION PhdStudent"));
         assignment.add("MakeReservations", RALParser.parse("HAS ROLE Clerk"));
         assignment.add("FillTravelAuthorization", RALParser.parse("REPORTS TO POSITION ProjectCoordinator"));
@@ -115,7 +114,7 @@ public class DTScenarioAttendConferenceTest {
     public void shouldFailConsistency() {
         manager = new AttendConferenceScenario().getRalOntologyManager();
         manager.loadResourceAssignment(
-                new ResourceAssignment().
+                (RALResourceAssignment) new RALResourceAssignment().
                         add("SendTravelAuthorization", TaskDuty.RESPONSIBLE, RALParser.parse("REPORTS TO POSITION AdministrativeAssistant DIRECTLY")));
 
         RALAnalyser analyser = manager.createDesignTimeAnalyser();

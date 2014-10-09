@@ -13,7 +13,7 @@ public class Document implements CypherGenerator{
 	private String type;
 	//extensions??
 	
-	private Model model;
+	private OrganizationalModel model;
 
 	
 	public String getCypherCreateQuery() {
@@ -66,7 +66,7 @@ public class Document implements CypherGenerator{
 	/**
 	 * @return the model
 	 */
-	public final Model getModel() {
+	public final OrganizationalModel getModel() {
 		return model;
 	}
 
@@ -115,7 +115,7 @@ public class Document implements CypherGenerator{
 	/**
 	 * @param model the model to set
 	 */
-	public final void setModel(Model model) {
+	public final void setModel(OrganizationalModel model) {
 		this.model = model;
 	}
 
@@ -191,9 +191,9 @@ public class Document implements CypherGenerator{
 	}
 	
 	public static Document importFromJson(String json){
-		Gson gson = new Gson();
-		Document d = gson.fromJson(json, Document.class);
-		return d;
+            Gson gson = new Gson();
+            Document d = gson.fromJson(json, Document.class);
+            return d;
 	}
 	
 

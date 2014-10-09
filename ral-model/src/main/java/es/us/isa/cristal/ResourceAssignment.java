@@ -10,32 +10,42 @@ import java.util.*;
  * Date: 13/07/13
  * Time: 10:39
  */
-public class ResourceAssignment {
+public class ResourceAssignment<T> {
 
-    private Map<Target, RALExpr> assignments;
+    protected Map<Target, T> assignments;
 
     public ResourceAssignment() {
-        assignments = new HashMap<Target, RALExpr>();
+        assignments = new HashMap<Target, T>();
     }
 
-    public ResourceAssignment add(String activity, TaskDuty duty, RALExpr expr) {
+    public <R extends ResourceAssignment<T>> R add(String activity, TaskDuty duty, T expr) {
         Target t = new Target(activity, duty);
         assignments.put(t, expr);
+        return (R) this;
+    }
+
+    public <R extends ResourceAssignment<T>> R add(String activity, T expr) {
+        return (R) add(activity, TaskDuty.RESPONSIBLE, expr);
+    }
+
+    public ResourceAssignment<T> addAll(Map<String, T> assignmentsMap, TaskDuty duty) {
+        for (Map.Entry<String, T> entry : assignmentsMap.entrySet()) {
+            add(entry.getKey(), duty, entry.getValue());
+        }
         return this;
     }
 
-    public RALExpr get(String activity, TaskDuty duty) {
+    public ResourceAssignment<T> addAll(Map<String, T> assignmentsMap) {
+        return addAll(assignmentsMap, TaskDuty.RESPONSIBLE);
+    }
+
+    public T get(String activity, TaskDuty duty) {
         Target t = new Target(activity, duty);
         return assignments.get(t);
     }
 
-    public ResourceAssignment add(String activity, RALExpr expr) {
-        add(activity, TaskDuty.RESPONSIBLE, expr);
-        return this;
-    }
-
-    public Map<TaskDuty, RALExpr> getByTaskDuty(String activity) {
-        Map<TaskDuty, RALExpr> result = new HashMap<TaskDuty, RALExpr>();
+    public Map<TaskDuty, T> getByActivity(String activity) {
+        Map<TaskDuty, T> result = new HashMap<TaskDuty, T>();
         for (Target t : assignments.keySet()) {
             if (t.getActivity().equals(activity)) {
                 result.put(t.getDuty(), assignments.get(t));
@@ -45,8 +55,28 @@ public class ResourceAssignment {
         return result;
     }
 
-    public Collection<Assignment> getAll() {
-        List<Assignment> all = new ArrayList<Assignment>();
+    public Map<String, T> getByTaskDuty(TaskDuty taskDuty) {
+        Map<String, T> result = new HashMap<String, T>();
+        for (Target t : assignments.keySet()) {
+            if (taskDuty.equals(t.getDuty())) {
+                result.put(t.getActivity(), assignments.get(t));
+            }
+        }
+
+        return result;
+    }
+
+    public Collection<String> getActivities() {
+        List<String> activities = new ArrayList<String>();
+        for (Target t : assignments.keySet()) {
+            activities.add(t.getActivity());
+        }
+
+        return activities;
+    }
+
+    public Collection<Assignment<T>> getAll() {
+        List<Assignment<T>> all = new ArrayList<Assignment<T>>();
         for (Target t : assignments.keySet()) {
             all.add(new Assignment(t.getActivity(), t.getDuty(), assignments.get(t)));
         }
@@ -54,12 +84,12 @@ public class ResourceAssignment {
         return all;
     }
 
-    public class Assignment {
+    public class Assignment<TA> {
         private String activity;
         private TaskDuty duty;
-        private RALExpr expr;
+        private TA expr;
 
-        public Assignment(String activity, TaskDuty duty, RALExpr expr) {
+        public Assignment(String activity, TaskDuty duty, TA expr) {
             this.activity = activity;
             this.duty = duty;
             this.expr = expr;
@@ -73,12 +103,12 @@ public class ResourceAssignment {
             return duty;
         }
 
-        public RALExpr getExpr() {
+        public TA getExpr() {
             return expr;
         }
     }
 
-    private class Target {
+    protected static class Target {
         private String activity;
         private TaskDuty duty;
 
