@@ -45,11 +45,6 @@
 				<artifactId>raci2bpmn</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>es.us.isa.cristal</groupId>
-				<artifactId>cristal-web</artifactId>
-				<version>${project.version}</version>
-			</dependency>
             <dependency>
                 <groupId>es.us.isa.cristal</groupId>
                 <artifactId>ral-model</artifactId>
@@ -176,14 +171,12 @@
 	<modules>
 		<module>organization-gson-model</module>
 		<module>raci2bpmn</module>
-		<module>cristal-web</module>
         <module>ral-model</module>
         <module>ral-neo4j-analyser</module>
         <module>preferences-rankers</module>
 		<module>ral-ontology</module>
         <module>ral-owl-analyser</module>
-		<module>ral-team</module>        
-		
+		<module>ral-team</module>
 		<module>ral-performance-tester</module>
 		<module>ral-activiti</module>
     </modules>
