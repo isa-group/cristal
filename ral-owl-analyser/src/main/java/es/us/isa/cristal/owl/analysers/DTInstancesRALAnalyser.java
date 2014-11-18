@@ -41,7 +41,7 @@ public class DTInstancesRALAnalyser extends DTAltRALAnalyser {
 //        Set<String> notParticipants = DLHelper.mapFromOwlIndividual(assign.getIndividuals(ontology));
         log.info("Not potential participants: " + notParticipants);
 
-        Set<String> result = new HashSet<String>(organizationPeople);
+        Set<String> result = new HashSet<String>(getOrganizationPeople());
         result.removeAll(notParticipants);
 
         return result;
@@ -63,7 +63,7 @@ public class DTInstancesRALAnalyser extends DTAltRALAnalyser {
 //        Set<String> notParticipants = DLHelper.mapFromOwlIndividual(assign.getIndividuals(ontology));
         log.info("Not potential participants: " + notParticipants);
 
-        Set<String> result = new HashSet<String>(organizationPeople);
+        Set<String> result = new HashSet<String>(getOrganizationPeople());
         result.removeAll(notParticipants);
 
         return result;
@@ -272,7 +272,7 @@ public class DTInstancesRALAnalyser extends DTAltRALAnalyser {
         Set<String> notParticipants = DLHelper.mapFromOwl(engine.getInstances(query, false));
         log.info("Not potential participants: " + notParticipants);
 
-        Set<String> participants = new HashSet<String>(organizationPeople);
+        Set<String> participants = new HashSet<String>(getOrganizationPeople());
         participants.removeAll(notParticipants);
 
         return participants;

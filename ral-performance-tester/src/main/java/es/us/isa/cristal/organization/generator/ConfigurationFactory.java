@@ -23,10 +23,12 @@ public class ConfigurationFactory {
 		
 		GeneratorConfiguration result= new GeneratorConfiguration();
 		
-		result.setNumberOfPersonsFunction(new RandomFunction(weight, weight*2));
-		result.setNumberOfPositionsFunction(new ConstantFunction(weight));
-		result.setNumberOfUnitsFunction(new ConstantFunction(2));
-		result.setNumberOfRolesFunction(new RandomFunction(weight*2, weight*3));
+//		result.setNumberOfPersonsFunction(new RandomFunction(weight, weight*2));
+//		result.setNumberOfPositionsFunction(new ConstantFunction(weight));
+		result.setNumberOfPersonsFunction(new ConstantFunction(weight));
+		result.setNumberOfPositionsFunction(new RandomFunction(weight/2, weight));
+        result.setNumberOfUnitsFunction(new ConstantFunction((int) Math.ceil(weight / 50)));
+        result.setNumberOfRolesFunction(new RandomFunction(weight, weight*2));
 		
 		result.setPersonPositionDistributor(new PersonPositionConsecutiveDistributor());
 		result.setRolePositionDistributor(new RolePositionMultipleRandomDistributor(1,4,new ConsecutiveSelector<Role>()));

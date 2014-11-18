@@ -1,9 +1,10 @@
-package es.us.isa.cristal.owl.analysers;
+package es.us.isa.cristal.owl.analysers.runtime;
 
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.DLHelper;
 import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.Definitions;
+import es.us.isa.cristal.owl.analysers.AbstractRALAnalyser;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.LogMapper;
 import es.us.isa.cristal.owl.mappers.ral.runtime.RTTaskDutyMapper;

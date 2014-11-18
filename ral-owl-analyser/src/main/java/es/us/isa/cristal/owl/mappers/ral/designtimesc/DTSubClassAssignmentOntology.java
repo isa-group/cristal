@@ -8,6 +8,9 @@ import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.Definitions;
 import es.us.isa.cristal.owl.OntologyHandler;
 import es.us.isa.cristal.owl.analysers.DTSubClassRALAnalyser;
+import es.us.isa.cristal.owl.mappers.ral.designtime.DTClassicOwlRalMapper;
+import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapper;
+import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapperSubClass;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.InstanceTaskDutyMapper;
 import org.semanticweb.owlapi.model.*;
@@ -25,9 +28,13 @@ public class DTSubClassAssignmentOntology extends DTAltAssignmentOntology {
 
     private static final Logger log = Logger.getLogger(DTSubClassAssignmentOntology.class.getName());
 
+    private static final ActivityMapper ACTIVITY_MAPPER = new ActivityMapperSubClass();
 
     public DTSubClassAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
-        super(ontologyHandler, idMapper, engine);
+        super(ontologyHandler, idMapper, engine,
+                ACTIVITY_MAPPER,
+                new DTSubClassOwlRalMapper(idMapper, engine, ACTIVITY_MAPPER),
+                new DTClassicOwlRalMapper(idMapper, engine, ACTIVITY_MAPPER));
 
     }
 
@@ -126,7 +133,7 @@ public class DTSubClassAssignmentOntology extends DTAltAssignmentOntology {
     public RALAnalyser createAnalyser() {
         engine.getReasoner().flush();
 
-        RALAnalyser analyser = new DTSubClassRALAnalyser(engine, idMapper, prefixManager, activityMapper);
+        RALAnalyser analyser = new DTSubClassRALAnalyser(engine, idMapper, prefixManager, activityMapper, organizationPeople);
 
         return analyser;
     }

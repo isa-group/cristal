@@ -8,7 +8,7 @@ import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.DLHelper;
 import es.us.isa.cristal.owl.DLQueryEngine;
 import es.us.isa.cristal.owl.OntologyHandler;
-import es.us.isa.cristal.owl.analysers.RTRALAnalyser;
+import es.us.isa.cristal.owl.analysers.runtime.RTRALAnalyser;
 import es.us.isa.cristal.owl.mappers.ral.InstanceOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.InstanceTaskDutyMapper;

@@ -43,10 +43,10 @@ public abstract class DTAltRALAnalyser extends AbstractRALAnalyser {
 //        r.classifyObjectProperties();
 //        r.classifyDataProperties();
 
-        OWLReasoner reasoner = engine.getReasoner();
-        OWLOntology ontology = reasoner.getRootOntology();
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        OWLDataFactory factory = manager.getOWLDataFactory();
+//        OWLReasoner reasoner = engine.getReasoner();
+//        OWLOntology ontology = reasoner.getRootOntology();
+//        OWLOntologyManager manager = ontology.getOWLOntologyManager();
+//        OWLDataFactory factory = manager.getOWLDataFactory();
 
 
 //        List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
@@ -64,15 +64,28 @@ public abstract class DTAltRALAnalyser extends AbstractRALAnalyser {
 //        }
 
 
-        precomputeOrganizationPeople(engine);
+//        precomputeOrganizationPeople(engine);
 
 
     }
 
+    protected Set<String> getOrganizationPeople() {
+        if (organizationPeople == null) {
+            precomputeOrganizationPeople(engine);
+        }
+        return organizationPeople;
+    }
+
+    public void precompute() {
+        precomputeOrganizationPeople(engine);
+    }
+
     private void precomputeOrganizationPeople(DLQueryEngine engine) {
         try {
-            organizationPeople = DLHelper.mapFromOwl(engine.getInstances(Definitions.ORGANIZATIONPEOPLE, false));
-            log.info("org people: " + organizationPeople);
+            if (organizationPeople == null) {
+                organizationPeople = DLHelper.mapFromOwl(engine.getInstances(Definitions.ORGANIZATIONPEOPLE, false));
+                log.info("org people: " + organizationPeople);
+            }
         } catch (InconsistentOntologyException e) {
             log.warning("Inconsistent resource assignment");
         }

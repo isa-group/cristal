@@ -1,5 +1,9 @@
 package es.us.isa.cristal.owl;
 
+import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
+import org.semanticweb.owlapi.formats.OWLOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -34,9 +38,17 @@ public class OntologyTestUtils {
     public static void printOntology(OWLOntology ont) {
         OWLOntologyManager manager = ont.getOWLOntologyManager();
         try {
-            manager.saveOntology(ont, new StreamDocumentTarget(System.out));
+            manager.saveOntology(ont, new OWLXMLOntologyFormat(), new StreamDocumentTarget(System.out));
         } catch (OWLOntologyStorageException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void printClosureOntologies(OWLOntology ontology) {
+        Set<OWLOntology> imports = ontology.getImportsClosure();
+        for (OWLOntology ont : imports) {
+            OntologyTestUtils.printOntology(ont);
+            System.out.println("---------------");
         }
     }
 

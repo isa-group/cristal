@@ -35,14 +35,10 @@ public class AttendConferenceScenario {
         idMapper = new IdMapper(namespaces);
         ralOntologyManager = new RALOntologyManager(namespaces, bpEngine);
 
-        try {
-            ralOntologyManager.loadOrganizationOntology(createOrganization());
-            IRI processDocumentIRI = IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/bp-attend-conference.owl"));
-            ralOntologyManager.loadProcessOntology(processDocumentIRI);
-        } catch (URISyntaxException e) {
-            // The ontology manager will try to get the ontologies from the web
-            e.printStackTrace();
-        }
+        ralOntologyManager.loadOrganizationOntology(createOrganization());
+        ralOntologyManager.loadProcessAsListOfActivities("CheckResponse", "FillTravelAuthorization", "MakeReservations", "RegisterAtConference", "SendTravelAuthorization", "SignTravelAuthorization", "SubmitCameraReady");
+//            IRI processDocumentIRI = IRI.create(getClass().getResource("/es/us/isa/cristal/ontologies/bp-attend-conference.owl"));
+//            ralOntologyManager.loadProcessOntology(processDocumentIRI);
     }
 
     private Organization createOrganization() {

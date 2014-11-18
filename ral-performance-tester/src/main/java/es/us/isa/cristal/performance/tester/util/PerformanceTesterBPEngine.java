@@ -6,6 +6,8 @@ import java.util.Map;
 
 import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
 import es.us.isa.cristal.BPEngine;
+import es.us.isa.cristal.RawResourceAssignment;
+import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.organization.generator.selectors.RandomSelector;
 import es.us.isa.cristal.organization.generator.selectors.Selector;
@@ -24,13 +26,14 @@ public class PerformanceTesterBPEngine implements BPEngine{
 	private OrganizationalModel model;
 	
 	private Selector<Person> selector;
-	
-	private Map<String, Query> map;
-	
-	public PerformanceTesterBPEngine(OrganizationalModel model, Map<String,Query> queryMap) {
+
+    private RawResourceAssignment assignment;
+
+    public PerformanceTesterBPEngine(OrganizationalModel model, RawResourceAssignment assignment) {
 		super();
 		this.model = model;
-		selector = new RandomSelector<Person>();
+        this.assignment = assignment;
+        selector = new RandomSelector<Person>();
 	}
 
 	public Object getDataValue(Object pid, String dataObjectName,
@@ -42,21 +45,18 @@ public class PerformanceTesterBPEngine implements BPEngine{
 		return Arrays.asList(selector.getIndividual(model.getPersons()).getName());
 	}
 
-	public RALExpr getResourceExpression(Object processDefinitionId,
-			String activityId) {
-		return RALParser.parse(map.get(activityId).getQuery());
+	public RALExpr getResourceExpression(Object processDefinitionId, String activityId) {
+		return RALParser.parse(assignment.get(activityId, TaskDuty.RESPONSIBLE));
 	}
 
 	@Override
-	public RALExpr getResourceExpressionByProcessDefinitionId(
-			Object processDefinitionId, String activityId) {
+	public RALExpr getResourceExpressionByProcessDefinitionId(Object processDefinitionId, String activityId) {
 		
 		return getResourceExpression(processDefinitionId, activityId);
 	}
 
 	@Override
-	public RALExpr getResourceExpressionByProcessInstanceId(
-			Object processInstanceId, String activityId) {
+	public RALExpr getResourceExpressionByProcessInstanceId(Object processInstanceId, String activityId) {
 		return getResourceExpression(processInstanceId, activityId);
 	}
 

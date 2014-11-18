@@ -41,14 +41,7 @@ public class OntologyHandler {
 
 
     public OWLReasoner createReasoner() {
-//        OWLReasonerFactory reasonerFactory = PelletReasonerFactory.getInstance();
-        OWLReasonerFactory reasonerFactory = new Reasoner.ReasonerFactory();
-
-
-        OWLReasoner reasoner = reasonerFactory.createReasoner(ontology);
-//        IncrementalClassifier classifier = new IncrementalClassifier(reasoner);
-//        ontology.getOWLOntologyManager().addOntologyChangeListener(classifier);
-
-        return reasoner;
+        OWLReasonerFactory reasonerFactory = ReasonerFactory.getReasonerFactory();
+        return reasonerFactory.createReasoner(ontology);
     }
 }

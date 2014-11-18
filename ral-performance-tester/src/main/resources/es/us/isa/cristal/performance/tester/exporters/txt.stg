@@ -1,0 +1,50 @@
+group txt;
+
+export(parameters, executions) ::= <<
+PARAMETERS
+===========================
+$parameters:keyValue():ul()$
+
+EXECUTIONS
+===========================
+$executions:execution()$
+>>
+
+keyValue() ::= <<
+$it.key$: $it.value$
+>>
+
+ul() ::= <<
+- $it$
+>>
+
+execution() ::= <<
+
+$i$. $it.operationName$: ($length(it.result)$) $it.result; separator=", "$
+     (AVG-TIME: $it.executionTime$, MAX: $it.max$, MIN: $it.min$)
+
+    Additional information:
+    $divInfo(it.additionalInfo)$
+
+    Executions:
+    $if(it.results)$
+    $it.results:executionDetail():ul(); separator="\n"$
+    $endif$
+
+>>
+
+executionDetail() ::= <<
+TIME: $it.executionTime$ # EXPR: $inlineInfo(it.additionalInfo)$ # RESULT: $it.result; separator=", "$
+>>
+
+pair(info) ::= <<
+$it$: $info.(it)$
+>>
+
+divInfo(addInfo) ::= <<
+$addInfo.keys:pair(info=addInfo):ul(); separator="\n"$
+>>
+
+inlineInfo(addInfo) ::= <<
+{ $addInfo.keys:pair(info=addInfo); separator=", "$ }
+>>

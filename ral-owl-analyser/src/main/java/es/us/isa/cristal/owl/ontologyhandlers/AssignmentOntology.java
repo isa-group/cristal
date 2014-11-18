@@ -39,4 +39,6 @@ public abstract class AssignmentOntology extends OntologyHandler {
     public abstract void buildOntology(RALResourceAssignment assignment);
 
     public abstract RALAnalyser createAnalyser();
+
+    public void precompute(RALResourceAssignment assignment, boolean full) {}
 }

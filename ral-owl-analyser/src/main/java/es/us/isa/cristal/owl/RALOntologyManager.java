@@ -14,7 +14,9 @@ import es.us.isa.cristal.owl.mappers.organization.OrganizationOWLMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.CommonBaseIRIMapper;
@@ -35,8 +37,8 @@ public class RALOntologyManager {
     private static final Logger log = Logger.getLogger(RALOntologyManager.class.getName());
 
     public static final String LOG_IRI = "log";
-    public static final String DTASSIGNMENT_IRI = "assignment-dt";
-    public static final String RTASSIGNMENT_IRI = "assignment-rt";
+    public static final String DTASSIGNMENT_IRI = "http://ppinot/assignment/dt";
+    public static final String RTASSIGNMENT_IRI = "http://ppinot/assignment/rt";
 
     public static final String LOG = "log:";
     public static final String DTASSIGNMENT = "dtassign:";
@@ -93,16 +95,13 @@ public class RALOntologyManager {
         return loadOntology(processIRI, documentIRI);
     }
 
-    public OWLOntology loadProcessAsListOfActivities(String... activities) {
+    public OntologyHandler loadProcessAsListOfActivities(String... activities) {
         processIRI = IRI.create(this.namespaces.getActivity().getNamespace());
         OntologyHandler procOntologyHandler = createOntology(processIRI, Definitions.BPMN_IRI);
         ProcessActivitiesOWLMapper procMapper = new ProcessActivitiesOWLMapper(procOntologyHandler, idMapper);
         procMapper.map(activities);
 
-        OWLReasoner reasoner = procOntologyHandler.createReasoner();
-        log.info("bp ontology consistent: " + reasoner.isConsistent());
-
-        return procOntologyHandler.getOntology();
+        return procOntologyHandler;
     }
 
     public OWLOntology loadOrganizationOntology(IRI documentIRI) {
@@ -110,7 +109,7 @@ public class RALOntologyManager {
         return loadOntology(organizationIRI, documentIRI);
     }
 
-    public OWLOntology loadOrganizationOntology(Organization org) {
+    public OntologyHandler loadOrganizationOntology(Organization org) {
         organizationIRI = IRI.create(this.namespaces.getGroup().getNamespace());
 
         OntologyHandler orgOntologyHandler = createOntology(organizationIRI, Definitions.ORGANIZATION_IRI);
@@ -118,14 +117,31 @@ public class RALOntologyManager {
         OrganizationOWLMapper orgMapper = new OrganizationOWLMapper(orgOntologyHandler, idMapper);
         orgMapper.map(org);
 
-        OWLReasoner reasoner = orgOntologyHandler.createReasoner();
-        log.info("org ontology consistent: " + reasoner.isConsistent());
+        return orgOntologyHandler;
+    }
 
-        return orgOntologyHandler.getOntology();
+    public void precomputeDesignTimeModels(RALResourceAssignment assignment, boolean full) {
+        dtAssignment = dtFactory.createAssignmentOntology(createImportAllOntology(DTASSIGNMENT_IRI), idMapper, engine);
+        dtAssignment.precompute(assignment, full);
     }
 
     public void loadResourceAssignment(RALResourceAssignment assignment) {
+        if (this.assignment != null) {
+            cleanUpAssignments();
+        }
+
         this.assignment = assignment;
+
+        if (dtAssignment == null) {
+            precomputeDesignTimeModels(assignment, true);
+        }
+        dtAssignment.buildOntology(assignment);
+
+    }
+
+    private void cleanUpAssignments() {
+        this.assignment = null;
+
         if (dtAssignment != null) {
             manager.removeOntology(dtAssignment.getOntology());
             dtAssignment = null;
@@ -162,12 +178,12 @@ public class RALOntologyManager {
     }
 
     public AssignmentOntology getDesignTimeAssignmentOntology() {
-        if (assignment == null) throw new IllegalStateException();
+        if (dtAssignment == null) throw new IllegalStateException();
 
-        if (dtAssignment == null) {
-            dtAssignment = dtFactory.createAssignmentOntology(createImportAllOntology(DTASSIGNMENT_IRI), idMapper, engine);
-            dtAssignment.buildOntology(assignment);
-        }
+//        if (dtAssignment == null) {
+//            precomputeDesignTimeModels();
+//            dtAssignment.buildOntology(assignment);
+//        }
         return dtAssignment;
     }
 
@@ -229,7 +245,8 @@ public class RALOntologyManager {
     private void loadCoreOntologies() {
         if (manager.getOntology(Definitions.ORGANIZATION_IRI) == null) {
             try {
-                manager.loadOntology(Definitions.ORGANIZATION_IRI);
+//                manager.loadOntology(Definitions.ORGANIZATION_IRI);
+                manager.loadOntologyFromOntologyDocument(new StreamDocumentSource(getClass().getResourceAsStream("/es/us/isa/cristal/ontologies/organization.owl"), Definitions.ORGANIZATION_IRI));
             } catch (OWLOntologyCreationException e) {
                 throw new RuntimeException("Could not load bpmn ontology", e);
             }
@@ -237,7 +254,10 @@ public class RALOntologyManager {
 
         if (manager.getOntology(Definitions.BPMN_IRI) == null) {
             try {
-                manager.loadOntology(Definitions.BPMN_IRI);
+//                manager.loadOntology(Definitions.BPMN_IRI);
+                manager.loadOntologyFromOntologyDocument(new StreamDocumentSource(getClass().getResourceAsStream("/es/us/isa/bpmn/ontologies/AbstractBP.owl"), Definitions.BP_IRI));
+                manager.loadOntologyFromOntologyDocument(new StreamDocumentSource(getClass().getResourceAsStream("/es/us/isa/bpmn/ontologies/bpmn.owl"), Definitions.BPMN_IRI));
+
             } catch (OWLOntologyCreationException e) {
                 throw new RuntimeException("Could not load bpmn ontology", e);
             }
@@ -245,7 +265,9 @@ public class RALOntologyManager {
 
         if (manager.getOntology(Definitions.BPRELATIONSHIPS_IRI) == null) {
             try {
-                manager.loadOntology(Definitions.BPRELATIONSHIPS_IRI);
+//                manager.loadOntology(Definitions.BPRELATIONSHIPS_IRI);
+                manager.loadOntologyFromOntologyDocument(new StreamDocumentSource(getClass().getResourceAsStream("/es/us/isa/bpmn/ontologies/AbstractBP-relationships.owl"), Definitions.BPRELATIONSHIPS_IRI));
+
             } catch (OWLOntologyCreationException e) {
                 throw new RuntimeException("Could not load BP Relationships ontology", e);
             }

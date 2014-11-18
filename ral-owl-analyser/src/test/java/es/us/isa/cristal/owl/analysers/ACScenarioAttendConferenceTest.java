@@ -135,6 +135,8 @@ public class ACScenarioAttendConferenceTest {
     public void sodInverted() {
         assignment.add("SubmitCameraReady", RALParser.parse("NOT IS PERSON WHO DID ACTIVITY SignTravelAuthorization"));
 
+        manager.loadResourceAssignment(assignment);
+
         manager.logProcessInstance("AttendConference", pid)
                 .activity("SubmitCameraReady", "scr1", LogOntologyHandler.ActivityState.READY);
 

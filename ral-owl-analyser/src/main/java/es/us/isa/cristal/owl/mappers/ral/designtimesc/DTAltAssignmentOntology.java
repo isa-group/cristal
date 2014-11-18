@@ -5,9 +5,7 @@ import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.model.expressions.RALExpr;
-import es.us.isa.cristal.owl.DLQueryEngine;
-import es.us.isa.cristal.owl.DLQueryParser;
-import es.us.isa.cristal.owl.OntologyHandler;
+import es.us.isa.cristal.owl.*;
 import es.us.isa.cristal.owl.mappers.ral.OwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.designtime.DTClassicOwlRalMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapper;
@@ -17,6 +15,7 @@ import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -36,18 +35,42 @@ public abstract class DTAltAssignmentOntology extends AssignmentOntology {
     protected  ActivityMapper activityMapper;
     protected final DLQueryParser parser;
     protected final DLQueryEngine engine;
+    protected Set<String> organizationPeople = null;
 
-    public DTAltAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
+
+    private boolean precomputed = false;
+
+    public DTAltAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine, ActivityMapper activityMapper, OwlRalMapper owlRalMapper, OwlRalMapper classicRalMapper) {
         super(ontologyHandler);
 
         manager = ontology.getOWLOntologyManager();
         factory = manager.getOWLDataFactory();
         this.idMapper = idMapper;
         parser = createDLQueryParser();
-        activityMapper = new ActivityMapperSubClass();
-        classicRalMapper = new DTClassicOwlRalMapper(idMapper, engine, activityMapper);
-        owlRalMapper = new DTSubClassOwlRalMapper(idMapper, engine, activityMapper);
+        this.activityMapper = activityMapper;
+        this.classicRalMapper = classicRalMapper;
+        this.owlRalMapper = owlRalMapper;
         this.engine = createDLQueryEngine();
+
+    }
+
+    @Override
+    public void precompute(RALResourceAssignment assignment, boolean full) {
+        super.precompute(assignment, full);
+        precomputed = true;
+
+        for (RALResourceAssignment.Assignment a : assignment.getAll()) {
+            loadActivitySkeleton(a.getActivity(), a.getDuty(), Cardinality.EXACTLY);
+        }
+
+        loadOverall(assignment);
+
+        if (full) {
+            engine.getReasoner().flush();
+//            this.engine.getReasoner().precomputeInferences(InferenceType.CLASS_HIERARCHY, InferenceType.CLASS_ASSERTIONS, InferenceType.OBJECT_PROPERTY_ASSERTIONS, InferenceType.DIFFERENT_INDIVIDUALS, InferenceType.SAME_INDIVIDUAL);
+            organizationPeople = DLHelper.mapFromOwl(engine.getInstances(Definitions.ORGANIZATIONPEOPLE, false));
+            log.info("org people: " + organizationPeople);
+        }
 
     }
 
@@ -56,22 +79,21 @@ public abstract class DTAltAssignmentOntology extends AssignmentOntology {
         log.info(engine.getReasoner().getBufferingMode().toString());
         log.info(engine.getReasoner().getPrecomputableInferenceTypes().toString());
 
-        engine.getReasoner().precomputeInferences(InferenceType.CLASS_HIERARCHY, InferenceType.CLASS_ASSERTIONS, InferenceType.OBJECT_PROPERTY_ASSERTIONS);
 
-        for (RALResourceAssignment.Assignment a : assignment.getAll()) {
-            loadActivitySkeleton(a.getActivity(), a.getDuty(), Cardinality.EXACTLY);
+        if (!precomputed) {
+            for (RALResourceAssignment.Assignment a : assignment.getAll()) {
+                loadActivitySkeleton(a.getActivity(), a.getDuty(), Cardinality.EXACTLY);
+            }
+
+            loadOverall(assignment);
         }
-//        engine.getReasoner().flush();
 
         for (RALResourceAssignment.Assignment<RALExpr> a : assignment.getAll()) {
             addAssignment(a.getActivity(), a.getExpr(), a.getDuty());
         }
 
-        loadOverall(assignment);
 
 //        engine.getReasoner().flush();
-
-        engine.getReasoner().flush();
     }
 
     protected void loadOverall(RALResourceAssignment assignment){}

@@ -11,17 +11,14 @@ import com.google.gson.Gson;
  * @author Manuel Leon
  *
  */
-public class ExecutionData {
+public class ExperimentConfiguration {
 	
 	private String export;
-	
-	private int modelWeight; 
-	
+	private int modelWeight;
 	private boolean processExpressionForEachIteration;
-	
-	private int iterations; 
-	
+	private int iterations;
 	private List<Query> queryList;
+
 
 	public final List<Query> getQueryList() {
 		return queryList;
@@ -74,9 +71,9 @@ public class ExecutionData {
 		return map;
 	}
 	
-	public static final ExecutionData importFromJson(String json){
+	public static final ExperimentConfiguration importFromJson(String json){
 		Gson gson = new Gson();
-		return gson.fromJson(json, ExecutionData.class);
+		return gson.fromJson(json, ExperimentConfiguration.class);
 	}
 	
 }

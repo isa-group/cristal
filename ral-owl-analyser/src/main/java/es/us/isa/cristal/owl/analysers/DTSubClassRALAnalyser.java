@@ -24,22 +24,34 @@ public class DTSubClassRALAnalyser extends DTAltRALAnalyser {
 
     private static final Logger log = Logger.getLogger(DTSubClassRALAnalyser.class.getName());
 
+    private PotentialParticipants potentialParticipants = new ClassicPP();
+
     public DTSubClassRALAnalyser(DLQueryEngine engine, IdMapper mapper, DefaultPrefixManager prefixManager, ActivityMapper activityMapper) {
 		super(engine, mapper, activityMapper, prefixManager);
+    }
+
+    public DTSubClassRALAnalyser(DLQueryEngine engine, IdMapper mapper, DefaultPrefixManager prefixManager, ActivityMapper activityMapper, Set<String> organizationPeople) {
+        super(engine, mapper, activityMapper, prefixManager);
+        this.organizationPeople = organizationPeople;
     }
 
     // Potential participants implementations -----------------------------------
 
     @Override
     public Set<String> potentialParticipants(String activityName, TaskDuty duty) {
-        return new ClassicPP().run(activityName, duty);
+        return potentialParticipants.run(activityName, duty);
     }
 
-    private class ClassicPP implements PotentialParticipants {
+
+    public void classicPotentialParticipants() {
+        this.potentialParticipants = new ClassicPP();
+    }
+    public class ClassicPP implements PotentialParticipants {
         @Override
         public Set<String> run(String activityName, TaskDuty duty) {
             String hasDuty =  taskDutyMapper.map(duty);
             String expressionString = Definitions.ORGANIZATIONPEOPLE + " and not ( inverse("+hasDuty + ") some (" + activityMapper.mapActivity(activityName)+"))";
+//            String expressionString = activityMapper.mapAssignment(activityName);
             log.info("PotentialParticipant: " + expressionString);
 
             Set<String> notParticipants = DLHelper.mapFromOwl(engine.getInstances(expressionString, false));
@@ -52,14 +64,18 @@ public class DTSubClassRALAnalyser extends DTAltRALAnalyser {
 //        Set<String> notParticipants = DLHelper.mapFromOwlIndividual(assign.getIndividuals(ontology));
             log.info("Not potential participants: " + notParticipants);
 
-            Set<String> result = new HashSet<String>(organizationPeople);
+            Set<String> result = new HashSet<String>(getOrganizationPeople());
             result.removeAll(notParticipants);
 
             return result;
         }
 
     }
-    private class NewPP implements PotentialParticipants {
+
+    public void newPotentialParticipants() {
+        this.potentialParticipants = new NewPP();
+    }
+    public class NewPP implements PotentialParticipants {
         @Override
         public Set<String> run(String activityName, TaskDuty duty) {
             String hasDuty =  taskDutyMapper.map(duty);
@@ -70,14 +86,117 @@ public class DTSubClassRALAnalyser extends DTAltRALAnalyser {
 
             log.info("Not potential participants: " + notParticipants);
 
-            Set<String> result = new HashSet<String>(organizationPeople);
+            Set<String> result = new HashSet<String>(getOrganizationPeople());
             result.removeAll(notParticipants);
 
             return result;
         }
     }
 
-    private class PeoplePP implements PotentialParticipants {
+    public void allPeoplePotentialParticipants() {
+        this.potentialParticipants = new AllPeoplePP();
+    }
+    public class AllPeoplePP implements PotentialParticipants {
+        @Override
+        public Set<String> run(String activityName, TaskDuty duty) {
+            String hasDuty =  taskDutyMapper.map(duty);
+            OWLReasoner reasoner = engine.getReasoner();
+            OWLOntology ontology = reasoner.getRootOntology();
+            OWLOntologyManager manager = ontology.getOWLOntologyManager();
+            OWLDataFactory factory = manager.getOWLDataFactory();
+
+//        OWLClassExpression classExpression = factory.getOWLObjectIntersectionOf(
+//                factory.getOWLObjectSomeValuesFrom(
+//                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
+//                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager)),
+//                factory.getOWLObjectAllValuesFrom(
+//                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
+//                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager))
+//        );
+
+            OWLClassExpression classExpression = factory.getOWLObjectSomeValuesFrom(
+                    factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
+                    factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager));
+
+            Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
+            Set<OWLNamedIndividual> potential = engine.getInstances(activityMapper.mapAssignment(activityName), false);
+
+            // Hope for the bst
+            String axiomStr;
+            axiomStr = "{" + idMapper.mapActivity(activityName) + "} SubClassOf: inverse(" + Definitions.ISOFTYPE + ") exactly 1 " + activityMapper.mapActivity(activityName);
+            OWLAxiom axiomRemoved = engine.getParser().parseAxiom(axiomStr);
+            manager.removeAxiom(ontology, axiomRemoved);
+            axiomStr = "{" + idMapper.mapActivity(activityName) + "} SubClassOf: inverse(" + Definitions.ISOFTYPE + ") exactly "+ potential.size()+ " " + activityMapper.mapActivity(activityName);
+            OWLAxiom axiomAdded = engine.getParser().parseAxiom(axiomStr);
+            manager.addAxiom(ontology, axiomAdded);
+            log.info("Add axiom: " + axiomStr);
+
+            for (OWLNamedIndividual p: potential) {
+                OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
+                manager.addAxiom(ontology, axiom);
+            }
+            reasoner.flush();
+
+            if (!reasoner.isConsistent()) {
+                log.info("Starting one by one");
+                for (OWLNamedIndividual p : potential) {
+                    OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
+                    manager.removeAxiom(ontology, axiom);
+                }
+                manager.removeAxiom(ontology, axiomAdded);
+                manager.addAxiom(ontology, axiomRemoved);
+                reasoner.flush();
+                for (OWLNamedIndividual p : potential) {
+                    OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
+//                OWLAxiom axiom = factory.getOWLSubClassOfAxiom(
+//                        factory.getOWLClass(activityMapper.mapActivity(activityName), prefixManager),
+//                        factory.getOWLObjectIntersectionOf(
+//                                factory.getOWLObjectHasValue(
+//                                        factory.getOWLObjectProperty(hasDuty, prefixManager),
+//                                        p),
+//                                factory.getOWLObjectAllValuesFrom(
+//                                        factory.getOWLObjectInverseOf(factory.getOWLObjectProperty(hasDuty, prefixManager)),
+//                                        factory.getOWLObjectOneOf(p)
+//                                )
+//                        )
+//                );
+
+
+                    manager.addAxiom(ontology, axiom);
+                    reasoner.flush();
+
+                    if (reasoner.isConsistent()) {
+                        result.add(p);
+                    } else {
+    //                    reasoner.flush();
+                        log.info("Removed " + p);
+
+                    }
+                    manager.removeAxiom(ontology, axiom);
+
+                }
+                reasoner.flush();
+            } else {
+                result = potential;
+                for (OWLNamedIndividual p : potential) {
+                    OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
+                    manager.removeAxiom(ontology, axiom);
+                }
+                manager.removeAxiom(ontology, axiomAdded);
+                manager.addAxiom(ontology, axiomRemoved);
+                reasoner.flush();
+            }
+
+
+            return DLHelper.mapFromOwl(result);
+
+        }
+    }
+
+    public void peoplePotentialParticipants() {
+        this.potentialParticipants = new PeoplePP();
+    }
+    public class PeoplePP implements PotentialParticipants {
         @Override
         public Set<String> run(String activityName, TaskDuty duty) {
             String hasDuty =  taskDutyMapper.map(duty);
@@ -119,13 +238,13 @@ public class DTSubClassRALAnalyser extends DTAltRALAnalyser {
 
 
             // Hope for the best
-            for (OWLNamedIndividual p: potential) {
-                OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
-                manager.addAxiom(ontology, axiom);
-            }
-            reasoner.flush();
-
-            if (!reasoner.isConsistent()) {
+//            for (OWLNamedIndividual p: potential) {
+//                OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
+//                manager.addAxiom(ontology, axiom);
+//            }
+//            reasoner.flush();
+//
+//            if (!reasoner.isConsistent()) {
                 log.info("Starting one by one");
                 for (OWLNamedIndividual p : potential) {
                     OWLAxiom axiom = factory.getOWLClassAssertionAxiom(classExpression, p);
@@ -162,9 +281,9 @@ public class DTSubClassRALAnalyser extends DTAltRALAnalyser {
 
                 }
                 reasoner.flush();
-            } else {
-                result = potential;
-            }
+//            } else {
+//                result = potential;
+//            }
 
 
             return DLHelper.mapFromOwl(result);
@@ -220,6 +339,7 @@ public class DTSubClassRALAnalyser extends DTAltRALAnalyser {
         return criticalActivities;
     }
 
+
     // Critical participants implementation --------------------------------
 
     public Set<String> criticalParticipants(Iterable<String> activities, TaskDuty duty) {
@@ -234,6 +354,18 @@ public class DTSubClassRALAnalyser extends DTAltRALAnalyser {
 
         return DLHelper.mapFromOwl(engine.getInstances(query, false));
     }
+
+    public Set<String> criticalParticipants(TaskDuty duty) {
+        String hasDuty = taskDutyMapper.map(duty);
+
+        String query = "inverse("+hasDuty+") some (" + Definitions.ACTIVITYINSTANCE + ")";
+        log.info("CriticalParticipants: " + query);
+
+        return DLHelper.mapFromOwl(engine.getInstances(query, false));
+    }
+
+
+    // All activities implementation ------------------------------------------
 
     public boolean allActivities(String personName, TaskDuty duty) {
         // There is a different way of implementing this, which involves adding properties to all activities and

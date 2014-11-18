@@ -27,22 +27,20 @@ public class OrganizationOWLMapper {
     public void map(Organization org) {
 
         new UnitMapper(ontologyHandler, mapper).map(org.getUnits());
-        OWLReasoner reasoner = ontologyHandler.createReasoner();
-
-        OWLOntology ont = reasoner.getRootOntology();
-        System.out.println("unit ontology consistent: " + reasoner.isConsistent());
+//        OWLReasoner reasoner = ontologyHandler.createReasoner();
+//        System.out.println("unit ontology consistent: " + reasoner.isConsistent());
 
         new RoleMapper(ontologyHandler, mapper).map(org.getRoles());
-        reasoner = ontologyHandler.createReasoner();
-        System.out.println("role ontology consistent: " + reasoner.isConsistent());
+//        reasoner = ontologyHandler.createReasoner();
+//        System.out.println("role ontology consistent: " + reasoner.isConsistent());
 
         new PositionMapper(ontologyHandler, mapper, org.getRoles(), org.getUnits()).map(org.getPositions());
-        reasoner = ontologyHandler.createReasoner();
-        System.out.println("position ontology consistent: " + reasoner.isConsistent());
+//        reasoner = ontologyHandler.createReasoner();
+//        System.out.println("position ontology consistent: " + reasoner.isConsistent());
 
         new PersonMapper(ontologyHandler, mapper, org.getPositions()).map(org.getPersons());
-        reasoner = ontologyHandler.createReasoner();
-        System.out.println("person ontology consistent: " + reasoner.isConsistent());
+//        reasoner = ontologyHandler.createReasoner();
+//        System.out.println("person ontology consistent: " + reasoner.isConsistent());
 
     }
 

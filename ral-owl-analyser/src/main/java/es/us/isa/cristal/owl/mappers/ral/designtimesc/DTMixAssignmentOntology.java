@@ -29,7 +29,7 @@ public class DTMixAssignmentOntology extends DTAltAssignmentOntology {
     private ActivityMapper instanceMapper2;
 
     public DTMixAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
-        super(ontologyHandler, idMapper, engine);
+        super(ontologyHandler, idMapper, engine, null, null, null);
         this.instanceMapper1 = new ActivityMapperSubClass("inst1-");
         this.instanceMapper2 = new ActivityMapperSubClass("inst2-");
     }

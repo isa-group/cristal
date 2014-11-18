@@ -1,0 +1,75 @@
+group html;
+
+htmlExport(parameters, executions) ::= <<
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Execution Results</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <style> h3{font-size:12px !important;} div,li,p{font-size:10px;} </style>
+    <script>
+        \$(function() {
+            \$( "#accordion" ).accordion({ collapsible: true });
+        });
+    </script>
+</head>
+<body>
+    <div id="accordion">
+        <h3>PARAMETERS</h3>
+        <div>
+            $parameters:keyValue():divEnclose()$
+        </div>
+
+        $executions:htmlExecution()$
+    </div>
+</body>
+</html>
+>>
+
+keyValue() ::= <<
+$it.key$: $it.value$
+>>
+
+divEnclose() ::= <<
+<div>$it$</div>
+>>
+
+pair(info) ::= <<
+$it$: $info.(it)$
+>>
+
+divInfo(addInfo) ::= <<
+$addInfo.keys:pair(info=addInfo):divEnclose(); separator="\n"$
+>>
+
+inlineInfo(addInfo) ::= <<
+{ $addInfo.keys:pair(info=addInfo); separator=", "$ }
+>>
+
+htmlExecution() ::= <<
+<h3>(AVG-TIME: $it.executionTime$, MAX: $it.max$, MIN: $it.min$) $it.operationName$: ($length(it.result)$) $it.result; separator=", "$</h3>
+<div>
+    <div>
+        <h4>Execution information:</h4>
+        $divInfo(it.additionalInfo)$
+    </div>
+    <div>
+        <h4>Executions:</h4>
+        $if(it.results)$
+        $it.results:executionDetail(); separator="\n"$
+        $endif$
+    </div>
+</div>
+
+>>
+
+executionDetail() ::= <<
+<ul>
+    <li>TIME: $it.executionTime$</li>
+    <li>INFO: $inlineInfo(it.additionalInfo)$</li>
+    <li>RESULT: $it.result; separator=", "$</li>
+</ul>
+>>

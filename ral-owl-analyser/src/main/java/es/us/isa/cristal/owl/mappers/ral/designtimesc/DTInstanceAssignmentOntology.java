@@ -7,6 +7,9 @@ import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.owl.*;
 import es.us.isa.cristal.owl.analysers.DTInstancesRALAnalyser;
 import es.us.isa.cristal.owl.analysers.DTSubClassRALAnalyser;
+import es.us.isa.cristal.owl.mappers.ral.designtime.DTClassicOwlRalMapper;
+import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapper;
+import es.us.isa.cristal.owl.mappers.ral.misc.ActivityMapperSubClass;
 import es.us.isa.cristal.owl.mappers.ral.misc.IdMapper;
 import es.us.isa.cristal.owl.mappers.ral.misc.InstanceTaskDutyMapper;
 import org.semanticweb.owlapi.model.*;
@@ -23,9 +26,13 @@ public class DTInstanceAssignmentOntology extends DTAltAssignmentOntology {
 
     private static final Logger log = Logger.getLogger(DTInstanceAssignmentOntology.class.getName());
 
+    private static final ActivityMapper ACTIVITY_MAPPER = new ActivityMapperSubClass();
 
     public DTInstanceAssignmentOntology(OntologyHandler ontologyHandler, IdMapper idMapper, BPEngine engine) {
-        super(ontologyHandler, idMapper, engine);
+        super(ontologyHandler, idMapper, engine,
+                ACTIVITY_MAPPER,
+                new DTSubClassOwlRalMapper(idMapper, engine, ACTIVITY_MAPPER),
+                new DTClassicOwlRalMapper(idMapper, engine, ACTIVITY_MAPPER));
 
     }
 

@@ -4,11 +4,14 @@ import es.us.isa.cristal.RALResourceAssignment;
 import es.us.isa.cristal.analyser.RALAnalyser;
 import es.us.isa.cristal.model.TaskDuty;
 import es.us.isa.cristal.owl.AttendConferenceScenario;
+import es.us.isa.cristal.owl.OntologyTestUtils;
 import es.us.isa.cristal.owl.RALOntologyManager;
+import es.us.isa.cristal.owl.ontologyhandlers.AssignmentOntology;
 import es.us.isa.cristal.parser.RALParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 import java.util.Arrays;
 import java.util.HashSet;

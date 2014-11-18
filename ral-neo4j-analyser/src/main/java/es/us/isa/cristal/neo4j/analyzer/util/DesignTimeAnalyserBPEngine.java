@@ -15,7 +15,10 @@ import es.us.isa.cristal.model.expressions.RALExpr;
 import es.us.isa.cristal.parser.RALParser;
 
 /**
- * 
+ *
+ * It provides a BPEngine implementation for design-time analysis. It provides information for just one model (given
+ * in the constructor) and it also allows overriding the assignments made in the BPMN model with a RawResourceAssignment
+ *
  * @author Manuel Leon
  *
  */
@@ -24,18 +27,23 @@ public class DesignTimeAnalyserBPEngine implements BPEngine {
 	Bpmn20ModelHandler bpmn = null;
 	RawResourceAssignment assignMap = null;
 
-	public DesignTimeAnalyserBPEngine(Bpmn20ModelHandler bpmn, RawResourceAssignment assignMap) {
+    public DesignTimeAnalyserBPEngine(Bpmn20ModelHandler bpmn) {
+        super();
+        this.bpmn = bpmn;
+    }
+
+    public DesignTimeAnalyserBPEngine(Bpmn20ModelHandler bpmn, RawResourceAssignment assignMap) {
 		super();
 		this.bpmn = bpmn;
         this.assignMap = assignMap;
     }
 
 	public Object getDataValue(Object pid, String dataObjectName, String fieldName) {
-		throw new UnsupportedOperationException("Operation not supported at Desing Time.");
+		throw new UnsupportedOperationException("Operation not supported at Design Time.");
 	}
 
 	public List<String> getActivityPerformer(Object pid, String activityId) {
-		throw new UnsupportedOperationException("Operation not supported at Desing Time.");
+		throw new UnsupportedOperationException("Operation not supported at Design Time.");
 	}
 
 	public RALExpr getResourceExpression(Object processId, String activityId) {
