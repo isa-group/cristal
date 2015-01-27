@@ -1,18 +1,19 @@
 package raci2bpmn;
 
-import java.util.List;
-
+import es.us.isa.bpmn.handler.Bpmn20ModelHandler;
+import es.us.isa.bpmn.xmlClasses.bpmn20.TDefinitions;
+import es.us.isa.bpmn.xmlClasses.bpmn20.TSubProcess;
+import es.us.isa.bpmn.xmlClasses.bpmn20.TTask;
+import es.us.isa.bpmn.xmlClasses.bpmndi.BPMNShape;
 import raci.RaciActivity;
 import raci.RaciMatrix;
 import raci2bpmn.DiagramUpdater.ShapeUpdater;
-import bpmn.BPMNShape;
-import bpmn.TDefinitions;
-import bpmn.TSubProcess;
-import bpmn.TTask;
+
+import java.util.List;
 
 public class Raci2Bpmn {
 
-	public void transformProcess(ModelHandler model, RaciMatrix matrix) {
+	public void transformProcess(Bpmn20ModelHandler model, RaciMatrix matrix) {
 		// Obtenemos el elemento raiz a partir del JAXBElement
 		TDefinitions definitions = model.getDefinitions();
 

@@ -1,17 +1,16 @@
 package raci2bpmn;
 
-import java.util.List;
+import es.us.isa.bpmn.xmlClasses.bpmn20.TDefinitions;
+import es.us.isa.bpmn.xmlClasses.bpmn20.TFlowNode;
+import es.us.isa.bpmn.xmlClasses.bpmndi.BPMNDiagram;
+import es.us.isa.bpmn.xmlClasses.bpmndi.BPMNPlane;
+import es.us.isa.bpmn.xmlClasses.bpmndi.BPMNShape;
+import es.us.isa.bpmn.xmlClasses.bpmndi.ObjectFactory;
+import es.us.isa.bpmn.xmlClasses.omgdi.DiagramElement;
 
 import javax.xml.bind.JAXBElement;
+import java.util.List;
 
-import bpmn.BPMNDiagram;
-import bpmn.BPMNPlane;
-import bpmn.BPMNShape;
-import bpmn.DiagramElement;
-import bpmn.ObjectFactory;
-import bpmn.TDefinitions;
-import bpmn.TFlowNode;
-import bpmn.TStartEvent;
 
 public class DiagramUpdater {
 

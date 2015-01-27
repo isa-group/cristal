@@ -1,15 +1,9 @@
 package raci2bpmn;
 
-import java.util.List;
+import es.us.isa.bpmn.xmlClasses.bpmn20.*;
 
 import javax.xml.bind.JAXBElement;
-
-import bpmn.ObjectFactory;
-import bpmn.TCollaboration;
-import bpmn.TDefinitions;
-import bpmn.TMessageFlow;
-import bpmn.TParticipant;
-import bpmn.TRootElement;
+import java.util.List;
 
 public class CollaborationHandler {
 
@@ -23,7 +17,7 @@ public class CollaborationHandler {
 		List<JAXBElement<? extends TRootElement>> rootElements = definitions.getRootElement();
 		
 		for (JAXBElement<? extends TRootElement> elem: rootElements) {
-			if (elem.getDeclaredType() == bpmn.TCollaboration.class)
+			if (elem.getDeclaredType() == TCollaboration.class)
 				collaboration = (TCollaboration) elem.getValue();
 		}
 		

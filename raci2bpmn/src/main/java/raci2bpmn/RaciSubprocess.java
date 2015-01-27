@@ -1,33 +1,13 @@
 package raci2bpmn;
 
-import java.util.ArrayList;
-import java.util.List;
+import es.us.isa.bpmn.xmlClasses.bpmn20.*;
+import raci.BoundedRole;
+import raci.RaciActivity;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-
-import raci.BoundedRole;
-import raci.RaciActivity;
-import bpmn.ObjectFactory;
-import bpmn.TActivity;
-import bpmn.TEndEvent;
-import bpmn.TExclusiveGateway;
-import bpmn.TExtensionElements;
-import bpmn.TFlowElement;
-import bpmn.TFormalExpression;
-import bpmn.TGatewayDirection;
-import bpmn.TMessageFlow;
-import bpmn.TParallelGateway;
-import bpmn.TParticipant;
-import bpmn.TPotentialOwner;
-import bpmn.TResourceAssignmentExpression;
-import bpmn.TResourceRole;
-import bpmn.TSendTask;
-import bpmn.TSequenceFlow;
-import bpmn.TStartEvent;
-import bpmn.TSubProcess;
-import bpmn.TTask;
-import bpmn.TUserTask;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RaciSubprocess {
 

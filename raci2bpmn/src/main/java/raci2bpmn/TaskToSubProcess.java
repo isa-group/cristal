@@ -1,8 +1,9 @@
 package raci2bpmn;
 
+
+import es.us.isa.bpmn.xmlClasses.bpmn20.TSubProcess;
+import es.us.isa.bpmn.xmlClasses.bpmn20.TTask;
 import raci.RaciActivity;
-import bpmn.TSubProcess;
-import bpmn.TTask;
 
 public class TaskToSubProcess {
 

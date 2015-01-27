@@ -1,18 +1,10 @@
 package raci2bpmn;
 
-import java.util.ArrayList;
-import java.util.List;
+import es.us.isa.bpmn.xmlClasses.bpmn20.*;
 
 import javax.xml.bind.JAXBElement;
-
-import bpmn.ObjectFactory;
-import bpmn.TDefinitions;
-import bpmn.TFlowElement;
-import bpmn.TProcess;
-import bpmn.TRootElement;
-import bpmn.TSubProcess;
-import bpmn.TTask;
-import bpmn.TUserTask;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProcessHandler {
 	
@@ -22,7 +14,7 @@ public class ProcessHandler {
 		List<JAXBElement<? extends TRootElement>> rootElements = definitions.getRootElement();
 		
 		for (JAXBElement<? extends TRootElement> elem: rootElements) {
-			if (elem.getDeclaredType() == bpmn.TProcess.class)
+			if (elem.getDeclaredType() == TProcess.class)
 				process = (TProcess) elem.getValue();
 		}
 	}
