@@ -1,4 +1,4 @@
-package raci;
+package es.us.isa.cristal.ram;
 
 public class BoundedRole {
 

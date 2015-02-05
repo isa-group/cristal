@@ -1,37 +1,29 @@
-package raci2bpmn;
+package es.us.isa.cristal.ram2bpmn.templates.rasci;
 
 import es.us.isa.bpmn.xmlClasses.bpmn20.*;
-import raci.BoundedRole;
-import raci.RaciActivity;
+import es.us.isa.cristal.ram.BoundedRole;
+import es.us.isa.cristal.ram.RamActivity;
+import es.us.isa.cristal.ram2bpmn.IdGenerator;
+import es.us.isa.cristal.ram2bpmn.templates.TemplateInstance;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RaciSubprocess {
+import static es.us.isa.cristal.ram2bpmn.templates.rasci.RasciDuties.*;
 
-	private TSubProcess subprocess;
+public class RasciTemplateInstance extends TemplateInstance {
+
+
 	private ObjectFactory objectFactory;
 	private TFlowElement lastElement;
-	private List<TParticipant> participants;
-	private List<TMessageFlow> messageFlows;
-	
-	public RaciSubprocess(TTask task) {
-		participants = new ArrayList<TParticipant>();
-		messageFlows = new ArrayList<TMessageFlow>();
-		objectFactory = new ObjectFactory();
-		subprocess = new TSubProcess();
-		copyFromTask(task);
-	}
 
-	public List<TParticipant> getParticipants() {
-		return participants;
-	}
-
-	public List<TMessageFlow> getMessageFlows() {
-		return messageFlows;
-	}
+	public RasciTemplateInstance(TTask task) {
+        super(new TSubProcess());
+        objectFactory = new ObjectFactory();
+        copyFromTask(task);
+    }
 
 	private void copyFromTask(TTask task) {
 		subprocess.setId(task.getId());
@@ -44,62 +36,56 @@ public class RaciSubprocess {
 		}
 		subprocess.setExtensionElements(task.getExtensionElements());
 	}
-	
-	public TSubProcess getSubprocess() {
-		return subprocess;
-	}
-	
-	public void buildSubprocess(RaciActivity raci) {
-		addAssignmentExpression(subprocess,  raci.getResponsible());
-		
-		lastElement = addStartEvent();
-		TExclusiveGateway accountableGateway = null;
-		TTask responsible = null;
-		
-		
-		if (raci.shouldIncludeAccountable()) {
-			accountableGateway = addAccountableGateway();
-			lastElement = accountableGateway;			
-		}
-		
-		if (raci.shouldIncludeConsult() || raci.shouldIncludeSupport()) {
-			lastElement = addOpenParallelGateway();
-		}
-		
-		responsible = addResponsibleFragment(raci.getResponsible());
 
-		if (raci.shouldIncludeConsult() || raci.shouldIncludeSupport()) {
-			List<TFlowElement> support = null;
-			List<TFlowElement> consult = null;
+	public void buildSubprocess(RamActivity ram) {
+        addAssignmentExpression(subprocess, ram.getOne(RESPONSIBLE));
 
-			if (raci.shouldIncludeSupport())
-				support = addSupportFragment(raci.getSupport(), responsible);
-			
-			if (raci.shouldIncludeConsult()) 
-				consult = addConsultFragment(raci.getConsulted(), responsible);
-			
-			TFlowElement closeParallel = addCloseParallelGateway(responsible, support, consult);
-			lastElement = closeParallel;
-		}
-		else {
-			lastElement = responsible;
-		}
-		
-		if (raci.shouldIncludeAccountable()) {
-			lastElement = addAcountableFragment(raci.getAccountable(), accountableGateway);
-		}
-		
-		if (raci.shouldIncludeInformed()) {
-			lastElement = addInformedFragment(raci.getInformed(), responsible);
-		}
-		
-		addEndEvent();
-		
-	}
-	
+        lastElement = addStartEvent();
+        TExclusiveGateway accountableGateway = null;
+        TTask responsible = null;
 
-	
-	private List<TFlowElement> addConsultFragment(List<BoundedRole> consulted,
+
+        if (ram.has(ACCOUNTABLE)) {
+            accountableGateway = addAccountableGateway();
+            lastElement = accountableGateway;
+        }
+
+        if (ram.has(CONSULT) || ram.has(SUPPORT)) {
+            lastElement = addOpenParallelGateway();
+        }
+
+        responsible = addResponsibleFragment(ram.getOne(RESPONSIBLE));
+
+        if (ram.has(CONSULT) || ram.has(SUPPORT)) {
+            List<TFlowElement> support = null;
+            List<TFlowElement> consult = null;
+
+            if (ram.has(SUPPORT))
+                support = addSupportFragment(ram.get(SUPPORT), responsible);
+
+            if (ram.has(CONSULT))
+                consult = addConsultFragment(ram.get(CONSULT), responsible);
+
+            TFlowElement closeParallel = addCloseParallelGateway(responsible, support, consult);
+            lastElement = closeParallel;
+        } else {
+            lastElement = responsible;
+        }
+
+        if (ram.has(ACCOUNTABLE)) {
+            lastElement = addAcountableFragment(ram.getOne(ACCOUNTABLE), accountableGateway);
+        }
+
+        if (ram.has(INFORMED)) {
+            lastElement = addInformedFragment(ram.get(INFORMED), responsible);
+        }
+
+        addEndEvent();
+
+    }
+
+
+    private List<TFlowElement> addConsultFragment(List<BoundedRole> consulted,
 			TTask responsible) {
 		return addHelpFragment(consulted, responsible, "information");
 	}

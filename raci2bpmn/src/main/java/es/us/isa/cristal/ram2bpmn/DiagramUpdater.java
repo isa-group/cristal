@@ -1,4 +1,4 @@
-package raci2bpmn;
+package es.us.isa.cristal.ram2bpmn;
 
 import es.us.isa.bpmn.xmlClasses.bpmn20.TDefinitions;
 import es.us.isa.bpmn.xmlClasses.bpmn20.TFlowNode;
@@ -25,7 +25,13 @@ public class DiagramUpdater {
 	public DiagramUpdater(TDefinitions definitions) {
 		diagrams = definitions.getBPMNDiagram();
 	}
-	
+
+    /**
+     * Finds the BPMNShape that corresponds to bpmnFlowNode and updates it according to updater
+     *
+     * @param bpmnFlowNode
+     * @param updater
+     */
 	public void updateShape(TFlowNode bpmnFlowNode, ShapeUpdater updater) {
 		for (BPMNDiagram diagram : diagrams) {
 			updatePlane(diagram.getBPMNPlane(), bpmnFlowNode, updater);

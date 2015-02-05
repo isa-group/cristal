@@ -1,4 +1,4 @@
-package raci2bpmn;
+package es.us.isa.cristal.ram2bpmn;
 
 import es.us.isa.bpmn.xmlClasses.bpmn20.*;
 
