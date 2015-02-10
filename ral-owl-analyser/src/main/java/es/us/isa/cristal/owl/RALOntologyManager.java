@@ -263,15 +263,15 @@ public class RALOntologyManager {
             }
         }
 
-        if (manager.getOntology(Definitions.BPRELATIONSHIPS_IRI) == null) {
-            try {
-//                manager.loadOntology(Definitions.BPRELATIONSHIPS_IRI);
-                manager.loadOntologyFromOntologyDocument(new StreamDocumentSource(getClass().getResourceAsStream("/es/us/isa/bpmn/ontologies/AbstractBP-relationships.owl"), Definitions.BPRELATIONSHIPS_IRI));
-
-            } catch (OWLOntologyCreationException e) {
-                throw new RuntimeException("Could not load BP Relationships ontology", e);
-            }
-        }
+//        if (manager.getOntology(Definitions.BPRELATIONSHIPS_IRI) == null) {
+//            try {
+////                manager.loadOntology(Definitions.BPRELATIONSHIPS_IRI);
+//                manager.loadOntologyFromOntologyDocument(new StreamDocumentSource(getClass().getResourceAsStream("/es/us/isa/bpmn/ontologies/AbstractBP-relationships.owl"), Definitions.BPRELATIONSHIPS_IRI));
+//
+//            } catch (OWLOntologyCreationException e) {
+//                throw new RuntimeException("Could not load BP Relationships ontology", e);
+//            }
+//        }
     }
 
 
