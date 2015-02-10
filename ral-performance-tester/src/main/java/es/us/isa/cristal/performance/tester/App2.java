@@ -23,15 +23,15 @@ import java.util.Map;
 public class App2 {
     public static void main(String [] args) throws FileNotFoundException {
         App2 app = new App2();
-        app.loadJson();
+        app.loadJson(args[0]);
 
     }
 
-    public void loadJson() throws FileNotFoundException {
-        Gson gson = gson = new GsonBuilder().setPrettyPrinting().create();
+    public void loadJson(String fileName) throws FileNotFoundException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Map<Double, Map<String, Data>> result = new HashMap<>();
 
-        JSONExporter.PerformanceTestInfo info = gson.fromJson(new JsonReader(new FileReader("/Users/resinas/Google Drive/code/cristal/ral-performance-tester/pplongAC-20141028-233902.json")), JSONExporter.PerformanceTestInfo.class);
+        JSONExporter.PerformanceTestInfo info = gson.fromJson(new JsonReader(new FileReader(fileName)), JSONExporter.PerformanceTestInfo.class);
 
         List<JSONExporter.ExecutionInfo> exInfoList = info.getExecutions();
         for (JSONExporter.ExecutionInfo exInfo : exInfoList) {

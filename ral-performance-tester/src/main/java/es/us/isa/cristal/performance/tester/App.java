@@ -157,15 +157,9 @@ public class App extends AbstractRALPerformanceTest {
         iterations(5);
 //        ReasonerFactory.setReasonerFactory(PelletReasonerFactory.getInstance());
 
-        for (int i = 20; i <= 80; i += 10) {
+        for (int i = 100; i <= 100; i += 10) {
 
             final OrganizationalModel org1 = generateModel(i);
-
-            final RawResourceAssignment q1 = loadAssignment(org1,
-                    "activity1", "HAS ROLE #RandomRole#",
-                    "activity2", "REPORTS TO POSITION #RandomPosition#",
-                    "activity3", "CAN DELEGATE WORK TO POSITION #RandomPosition#",
-                    "activity4", "CAN HAVE WORK DELEGATED BY POSITION #RandomPosition#");
 
             final RawResourceAssignment qActive = loadAssignment(org1, assignment);
 
@@ -186,14 +180,6 @@ public class App extends AbstractRALPerformanceTest {
 //                    p("Assignment", toString(qActive)));
 
         }
-
-
-//        final DTSubClassRALAnalyser analyser = (DTSubClassRALAnalyser) owlAnalyser(org1, q2);
-//        analyser.classicPotentialParticipants();
-//        analyser.peoplePotentialParticipants();
-//        runAllPotentialParticipants(analyser, q2);
-
-//        runAllPotentialParticipants(analyser, q2);
 
         exportTxt(console());
         exportHtml(file(testName + "-" + nowString() + ".html"));
