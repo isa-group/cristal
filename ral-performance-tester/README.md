@@ -4,6 +4,9 @@ ral-performance-tester
 **ral-performance-tester** is a small project that provides a simple mechanism to test the performance of resource-aware
 analysis operations.
 
+Usage
+-----
+
 The project provides an abstract class called `AbstractRALPerformanceTest` that provides a set of abstractions that
 are useful to build your own performance testers. These abstractions include:
 
@@ -34,10 +37,10 @@ in the specified format: txt, HTML or JSON, respectively.
 
 `console()`: Returns an output for the console.
 
-Example:
+Example
 --------
 
-The executable class `es.us.isa.cristal.performance.tester.App` is an example of how performance evaluation can be done
+The executable class [`es.us.isa.cristal.performance.tester.App`](src/main/java/es/us/isa/cristal/performance/tester/App.java) is an example of how performance evaluation can be done
 using this abstraction.
 
 It first defines 6 different resource assignments attending to the size of the process model and the type of expressions
@@ -183,8 +186,6 @@ Finally, it puts everything together. The following code shows an example for ru
         exportHtml(file(testName + "-" + nowString() + ".html"));
         exportJson(file(testName + "-" + nowString() + ".json"));
 ```
-
-
 
 More
 ----------------
