@@ -7,16 +7,13 @@ analysis operations.
 The project provides an abstract class called `AbstractRALPerformanceTest` that provides a set of abstractions that
 are useful to build your own performance testers. These abstractions include:
 
-`generateModel(30)`: Returns an organisational model randomly generated with 30 positions, 30*3/2 people, and 30*3/20 roles.
+`generateModel(30)`: Returns an organisational model randomly generated with 30 positions, 30 x 3/2 people, and 30 x 3/20 roles.
 
 `loadAssignment(m, "a1", "HAS ROLE #RandomRole", "a2", "HAS POSITION #RandomPosition"...)`: Returns a resource assignment for
 organisational model `m` in which activity `a1` has expression `HAS ROLE #RandomRole` and activity `a2` has expression
 `HAS POSITION #RandomPosition`. The RAL queries have expressions, for instance `#RandomRole` that are processed while
 loading the assignments. Those expressions mentioned above can be created following a simple rule:
-
-`#(First | Last | Random) + (Person | Role | Unit | Position)#`
-
-A few examples are `#FirstPerson# #LastPosition# #RandomUnit#`.
+`#(First | Last | Random) + (Person | Role | Unit | Position)#`. A few examples are `#FirstPerson# #LastPosition# #RandomUnit#`.
 
 `owlAnalyser(model, assignment, true, metrics)`: Returns an owlAnalyser for organisational model `model` and resource
  assignment `assignment`. The third parameter specifies whether a precompute (`true`) or not (`false`) of the organisational
@@ -185,7 +182,7 @@ Finally, it puts everything together. The following code shows an example for ru
         exportTxt(console());
         exportHtml(file(testName + "-" + nowString() + ".html"));
         exportJson(file(testName + "-" + nowString() + ".json"));
-``
+```
 
 
 
