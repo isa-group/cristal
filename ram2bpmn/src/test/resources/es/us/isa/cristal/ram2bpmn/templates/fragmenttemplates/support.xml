@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion=""
+             expressionLanguage="http://www.w3.org/1999/XPath" id="sid-c703ffd3-a9e1-4b6f-9c14-e1120a3f5e25"
+             targetNamespace="http://www.signavio.com/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="sid-f30ec2c1-1e66-4749-ba76-2b24c1711020" isExecutable="false">
+      <exclusiveGateway gatewayDirection="Converging" id="closeGateway"/>
+      <userTask completionQuantity="1" id="decideSupport" isForCompensation="false" name="Decide if support required for @{activityName}" startQuantity="1">
+         <potentialOwner>
+            <resourceAssignmentExpression>
+               <formalExpression>@{responsibleBoD}</formalExpression>
+            </resourceAssignmentExpression>
+         </potentialOwner>
+         <extensionElements>
+            <camunda:formData>
+               <camunda:formField
+                       id="supportrequired" label="Support required for @{activityName}" type="boolean">
+               </camunda:formField>
+            </camunda:formData>
+         </extensionElements>
+      </userTask>
+      <exclusiveGateway gatewayDirection="Diverging" id="decision" name="support required for @{activityName}?"/>
+      <userTask completionQuantity="1" id="provideSupport" isForCompensation="false" name="Provide support for @{activityName}" startQuantity="1">
+         <potentialOwner>
+            <resourceAssignmentExpression>
+               <formalExpression>@{f.orMap(rasci.support)}</formalExpression>
+            </resourceAssignmentExpression>
+         </potentialOwner>
+      </userTask>
+      <userTask completionQuantity="1" id="assessSupport" isForCompensation="false" name="Assess support for @{activityName}" startQuantity="1">
+         <potentialOwner>
+            <resourceAssignmentExpression>
+               <formalExpression>@{responsibleBoD}</formalExpression>
+            </resourceAssignmentExpression>
+         </potentialOwner>
+      </userTask>
+      <sequenceFlow targetRef="closeGateway"/>
+      <sequenceFlow sourceRef="closeGateway" targetRef="decideSupport"/>
+      <sequenceFlow sourceRef="decideSupport" targetRef="decision"/>
+      <sequenceFlow sourceRef="decision" targetRef="provideSupport" name="Yes">
+         <conditionExpression xsi:type="tFormalExpression">@{'${supportrequired}'}</conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow sourceRef="provideSupport" targetRef="assessSupport"/>
+      <sequenceFlow sourceRef="decision" name="No">
+         <conditionExpression xsi:type="tFormalExpression">@{'${!supportrequired}'}</conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow sourceRef="assessSupport" targetRef="closeGateway"/>
+
+   </process>
+</definitions>

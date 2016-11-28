@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion=""
+             expressionLanguage="http://www.w3.org/1999/XPath" id="sid-c703ffd3-a9e1-4b6f-9c14-e1120a3f5e25"
+             targetNamespace="http://www.signavio.com/bpmn20" typeLanguage="http://www.w3.org/2001/XMLSchema"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="sid-f30ec2c1-1e66-4749-ba76-2b24c1711020" isExecutable="false">
+      <userTask completionQuantity="1" id="sid-8FC733FC-1008-418C-BA7D-8212474BAB86" isForCompensation="false" name="Perform Activity @{activityName}" startQuantity="1">
+         <potentialOwner>
+            <resourceAssignmentExpression>
+               <formalExpression>@{responsibleBoD}</formalExpression>
+            </resourceAssignmentExpression>
+         </potentialOwner>
+      </userTask>
+      <sequenceFlow id="sid-F1C0F9A6-4BEE-47A4-8E24-9A23BA90B332" name="" targetRef="sid-8FC733FC-1008-418C-BA7D-8212474BAB86"/>
+      <sequenceFlow id="sid-BBA8AFEA-62FC-4734-8A99-810C0B1F079A" name="" sourceRef="sid-8FC733FC-1008-418C-BA7D-8212474BAB86"/>
+   </process>
+</definitions>

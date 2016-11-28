@@ -47,7 +47,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>es.us.isa.cristal</groupId>
-				<artifactId>raci2bpmn</artifactId>
+				<artifactId>ram2bpmn</artifactId>
 				<version>${project.version}</version>
 			</dependency>
             <dependency>
@@ -120,36 +120,6 @@
         </dependencies>
 	</dependencyManagement>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>clinker-snapshots</id>
-			<name>ISA group Snapshots</name>
-			<url>http://clinker.isagroup.es/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>		
-		<repository>
-			<id>clinker-releases</id>
-			<name>ISA group Releases</name>
-			<url>http://clinker.isagroup.es/nexus/content/repositories/releases</url>
-		</repository>
-	</distributionManagement>
-
-	<repositories>
-		<repository>
-			<id>es.us.isa</id>
-			<name>ISA group</name>
-			<url>http://clinker.isagroup.es/nexus/content/groups/public</url>
-            <snapshots><enabled>true</enabled></snapshots>
-            <releases><enabled>true</enabled></releases>
-		</repository>
-        <repository>
-            <id>clinker-snapshots</id>
-            <name>ISA group snapshots</name>
-            <url>http://clinker.isagroup.es/nexus/content/repositories/snapshots</url>
-            <snapshots><enabled>true</enabled></snapshots>
-            <releases><enabled>false</enabled></releases>
-        </repository>
-	</repositories>
-
 	<url>http://www.isa.us.es/cristal</url>
 	<licenses>
 		<license>
@@ -175,7 +145,6 @@
 	
 	<modules>
 		<module>organization-gson-model</module>
-		<module>raci2bpmn</module>
         <module>ral-model</module>
         <module>ral-neo4j-analyser</module>
         <module>preferences-rankers</module>
@@ -184,5 +153,6 @@
 		<module>ral-team</module>
 		<module>ral-performance-tester</module>
 		<module>ral-activiti</module>
+        <module>ram2bpmn</module>
     </modules>
 </project>

@@ -1,0 +1,26 @@
+base = fragments.replace("responsible");
+if (f.hasTD(rasci.support)) {
+    base.insertParallel(fragments.replace("support"));
+}
+if (f.hasTD(rasci.consulted)) {
+    base.insertParallel(fragments.replace("consult"));
+}
+if (f.hasTD(rasci.accountable)) {
+    base.insertSequential(fragments.replace("accountable"));
+    base.embedInLoop("${!approve}", "${approve}");
+}
+if (f.hasTD(rasci.informed)) {
+    informRoles = f.filter(rasci.informed);
+    informFragment = null;
+    foreach(role: informRoles) {
+        if (informFragment == null) {
+            informFragment = fragments.replace("inform", ["informed": role.role.name]);
+        } else {
+            informFragment.insertParallel(fragments.replace("inform", ["informed": role.role.name]));
+        }
+
+    }
+    base.insertSequential(informFragment);
+
+}
+return base;
